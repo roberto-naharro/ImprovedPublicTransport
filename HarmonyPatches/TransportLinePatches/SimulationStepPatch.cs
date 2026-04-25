@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -101,18 +100,14 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
                 stop1 = TransportLine.GetNextStop(stop1);
             } while (stops1 != stop1 && stop1 != 0);
 
-            var itemClass = TransportManager.instance.m_lines.m_buffer[__state].Info.m_class;
-            var prefabs =
-                VehiclePrefabs.instance.GetPrefabs(itemClass.m_service, itemClass.m_subService, itemClass.m_level);
             var amount = 0;
             TransportLineUtil.CountLineActiveVehicles(__state, out _, (num3) =>
             {
-                var prefabData = Array.Find(prefabs,
-                    item => item.PrefabDataIndex ==
-                            VehicleManager.instance.m_vehicles.m_buffer[num3].Info.m_prefabDataIndex);
-                if (prefabData == null) return;
-                amount += prefabData.MaintenanceCost;
-                CachedVehicleData.m_cachedVehicleData[num3].StartNewWeek(prefabData.MaintenanceCost);
+                var vehicleInfo = VehicleManager.instance.m_vehicles.m_buffer[num3].Info;
+                if (vehicleInfo == null) return;
+                var maintenanceCost = vehicleInfo.m_maintenanceCost;
+                amount += maintenanceCost;
+                CachedVehicleData.m_cachedVehicleData[num3].StartNewWeek(maintenanceCost);
             });
             if (amount != 0)
                 Singleton<EconomyManager>.instance.FetchResource(EconomyManager.Resource.Maintenance, amount,
@@ -134,11 +129,6 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
                 targetVehicleCount = CachedTransportLineData.GetTargetVehicleCount(lineID);
             }
 
-            var activeVehicles = TransportLineUtil.CountLineActiveVehicles(lineID, out _);
-            for (var i = activeVehicles; i < targetVehicleCount - CachedTransportLineData.EnqueuedVehiclesCount(lineID); i++)
-            {
-                CachedTransportLineData.EnqueueVehicle(lineID, CachedTransportLineData.GetRandomPrefab(lineID));
-            }
             return targetVehicleCount;
         }
 

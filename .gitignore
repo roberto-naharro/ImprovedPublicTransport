@@ -198,3 +198,8 @@ FakesAssemblies/
 #Rider
 *.iml
 .idea
+
+.env
+
+# Reference repositories (local only)
+references/

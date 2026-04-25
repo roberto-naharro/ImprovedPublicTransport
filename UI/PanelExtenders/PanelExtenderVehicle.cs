@@ -176,8 +176,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         this._passengersCurrentWeek.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersThisWeek.ToString();
         this._passengersLastWeek.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersLastWeek.ToString();
         this._passengersAverage.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersAverage.ToString();
-        PrefabData prefabData = Array.Find(VehiclePrefabs.instance.GetPrefabs(service, subService, level), item => item.PrefabDataIndex == vm.m_vehicles.m_buffer[(int) vehicleID].Info.m_prefabDataIndex);
-        int num1 = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].IncomeThisWeek - prefabData.MaintenanceCost;
+        var vehicleInfo = vm.m_vehicles.m_buffer[(int) vehicleID].Info;
+        int maintenanceCost = vehicleInfo != null ? vehicleInfo.m_maintenanceCost : 0;
+        int num1 = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].IncomeThisWeek - maintenanceCost;
         UILabel earningsCurrentWeek = this._earningsCurrentWeek;
         float num2 = (float) num1 * 0.01f;
         string str1 = num2.ToString(ColossalFramework.Globalization.Locale.Get("MONEY_FORMAT"), (IFormatProvider) LocaleManager.cultureInfo);

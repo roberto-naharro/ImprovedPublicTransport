@@ -105,7 +105,6 @@ namespace ImprovedPublicTransport2
                     CachedTransportLineData.Init();
                     Redirector<TransportLineReverseDetour>.Deploy();
                     SimulationStepPatch.Apply();
-                    GetLineVehiclePatch.Apply();
                     CanLeaveStopPatch.Apply();
 
                     VehiclePrefabs.Init();
@@ -189,7 +188,6 @@ namespace ImprovedPublicTransport2
 
             Redirector<TransportLineReverseDetour>.Revert();
             SimulationStepPatch.Undo();
-            GetLineVehiclePatch.Undo();
             CanLeaveStopPatch.Undo();
             CachedTransportLineData.Deinit();
 

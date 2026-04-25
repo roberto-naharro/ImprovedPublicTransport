@@ -43,7 +43,7 @@ namespace ImprovedPublicTransport2.Util
 
         public static bool AllowAllVehicleLevelsOnLine(ItemClass.SubService subService)
         {
-            return subService is ItemClass.SubService.PublicTransportBus or ItemClass.SubService.PublicTransportTrain;
+            return subService == ItemClass.SubService.PublicTransportBus || subService == ItemClass.SubService.PublicTransportTrain;
         }
     }
 }

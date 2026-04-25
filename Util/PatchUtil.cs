@@ -13,7 +13,7 @@ namespace ImprovedPublicTransport2.Util
         private static Harmony _harmonyInstance;
 
         private static Harmony HarmonyInstance =>
-            _harmonyInstance ??= new Harmony(HarmonyId.Value);
+            _harmonyInstance ?? (_harmonyInstance = new Harmony(HarmonyId.Value));
 
 
         public static void Patch(

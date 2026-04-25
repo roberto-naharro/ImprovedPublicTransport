@@ -181,7 +181,7 @@ namespace ImprovedPublicTransport2.UI.AlgernonCommons
                 // Return null if no valid selection.
                 if (_selectedIndex < 0 | _selectedIndex > _data.m_size)
                 {
-                    return default;
+                    return null;
                 }
 
                 return _data[_selectedIndex];

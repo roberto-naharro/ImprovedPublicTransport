@@ -10,11 +10,9 @@ using ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches;
 using ImprovedPublicTransport2.HarmonyPatches.VehicleManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches;
 using ImprovedPublicTransport2.OptionsFramework.Extensions;
-using ImprovedPublicTransport2.RedirectionFramework;
 using ImprovedPublicTransport2.Data;
 using ImprovedPublicTransport2.HarmonyPatches.PublicTransportVehicleButtonPatches;
 using ImprovedPublicTransport2.HarmonyPatches.PublicTransportWorldInfoPanelPatches;
-using ImprovedPublicTransport2.ReverseDetours;
 using ImprovedPublicTransport2.UI;
 using ImprovedPublicTransport2.UI.PanelExtenders;
 using UnityEngine;
@@ -100,7 +98,6 @@ namespace ImprovedPublicTransport2
                     LineWatcher.instance.Init();
 
                     CachedTransportLineData.Init();
-                    Redirector<TransportLineReverseDetour>.Deploy();
                     SimulationStepPatch.Apply();
                     SerializableDataExtension.instance.Loaded = true;
                     LocaleModifier.Init();
@@ -177,7 +174,6 @@ namespace ImprovedPublicTransport2
             HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Undo();
             UpdateStopButtonsPatch.Undo();
 
-            Redirector<TransportLineReverseDetour>.Revert();
             SimulationStepPatch.Undo();
             CachedTransportLineData.Deinit();
 

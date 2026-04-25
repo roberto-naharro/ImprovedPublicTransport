@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ColossalFramework;
 using ImprovedPublicTransport2.Data;
-using ImprovedPublicTransport2.ReverseDetours;
+using ImprovedPublicTransport2.HarmonyPatches;
 
 namespace ImprovedPublicTransport2.Util
 {
@@ -124,7 +124,7 @@ namespace ImprovedPublicTransport2.Util
         //based off code in TransportLine.SimulationStep
         public static void RemoveActiveVehicle(ushort lineID, bool descreaseTargetVehicleCount, int activeVehiclesCount)
         {
-            ushort activeVehicle = TransportLineReverseDetour.GetActiveVehicle(
+            ushort activeVehicle = TransportLineReversePatch.GetActiveVehicle(
                 ref Singleton<TransportManager>.instance.m_lines.m_buffer[(int) lineID],
                 Singleton<SimulationManager>.instance.m_randomizer.Int32((uint) activeVehiclesCount));
             if ((int) activeVehicle != 0)

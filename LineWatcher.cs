@@ -8,7 +8,6 @@ using ColossalFramework;
 using System.Collections.Generic;
 using ImprovedPublicTransport2.OptionsFramework;
 using ImprovedPublicTransport2.Data;
-using ImprovedPublicTransport2.Util;
 using UnityEngine;
 
 namespace ImprovedPublicTransport2
@@ -52,7 +51,10 @@ namespace ImprovedPublicTransport2
           if (LineWatcher.IsValid(ref lines.m_buffer[(int) lineID]) && this._knownLines.Add(lineID))
           {
             CachedTransportLineData.SetLineDefaults(lineID);
-            DepotUtil.AutoAssignLineDepot( lineID, out var position);
+            ushort firstStop = lines.m_buffer[(int) lineID].m_stops;
+            var position = firstStop != 0
+                ? NetManager.instance.m_nodes.m_buffer[firstStop].m_position
+                : Vector3.zero;
             if (OptionsWrapper<Settings.Settings>.Options.ShowLineInfo &&
                 lines.m_buffer[(int) lineID].Info?.m_class?.m_service != ItemClass.Service.Disaster)
               WorldInfoPanel.Show<PublicTransportWorldInfoPanel>(position, new InstanceID()

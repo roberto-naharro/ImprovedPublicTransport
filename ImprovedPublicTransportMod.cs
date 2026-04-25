@@ -94,20 +94,16 @@ namespace ImprovedPublicTransport2
                     ReleaseWaterSourcePatch.Apply();
                     ClassMatchesPatch.Apply();
 
-                    Redirector<CommonBuildingAIReverseDetour>.Deploy();
                     HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Apply();
                     HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Apply();
                     UpdateStopButtonsPatch.Apply();
-                    BuildingExtension.Init();
                     LineWatcher.instance.Init();
 
                     CachedTransportLineData.Init();
                     Redirector<TransportLineReverseDetour>.Deploy();
                     SimulationStepPatch.Apply();
-                    VehiclePrefabs.Init();
                     SerializableDataExtension.instance.Loaded = true;
                     LocaleModifier.Init();
-                    IptGameObject.AddComponent<VehicleEditor>();
                     IptGameObject.AddComponent<PanelExtenderLine>();
                     IptGameObject.AddComponent<PanelExtenderVehicle>();
                     IptGameObject.AddComponent<PanelExtenderCityService>();
@@ -177,7 +173,6 @@ namespace ImprovedPublicTransport2
             ClassMatchesPatch.Undo();
             GetDepotLevelsPatch.Undo();
 
-            Redirector<CommonBuildingAIReverseDetour>.Revert();
             HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Undo();
             HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Undo();
             UpdateStopButtonsPatch.Undo();
@@ -186,7 +181,6 @@ namespace ImprovedPublicTransport2
             SimulationStepPatch.Undo();
             CachedTransportLineData.Deinit();
 
-            BuildingExtension.Deinit();
             CachedNodeData.Deinit();
             CachedVehicleData.Deinit();
             SerializableDataExtension.instance.Loaded = false;

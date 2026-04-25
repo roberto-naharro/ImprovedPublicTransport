@@ -7,7 +7,6 @@ using ImprovedPublicTransport2.HarmonyPatches.BuildingManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.DepotAIPatches;
 using ImprovedPublicTransport2.HarmonyPatches.NetManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches;
-using ImprovedPublicTransport2.HarmonyPatches.TransportManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.VehicleManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches;
 using ImprovedPublicTransport2.OptionsFramework.Extensions;
@@ -91,10 +90,8 @@ namespace ImprovedPublicTransport2
 
                     LoadPassengersPatch.Apply();
                     UnloadPassengersPatch.Apply();
-                    StartTransferPatch.Apply();
                     ReleaseNodePatch.Apply();
                     ReleaseWaterSourcePatch.Apply();
-                    CheckTransportLineVehiclesPatch.Apply();
                     ClassMatchesPatch.Apply();
                     CanLeavePatch.Apply();
 
@@ -179,11 +176,9 @@ namespace ImprovedPublicTransport2
         {
             LoadPassengersPatch.Undo();
             UnloadPassengersPatch.Undo();
-            StartTransferPatch.Undo();
             ReleaseNodePatch.Undo();
             ReleaseWaterSourcePatch.Undo();
             ClassMatchesPatch.Undo();
-            CheckTransportLineVehiclesPatch.Undo();
             GetDepotLevelsPatch.Undo();
             CanLeavePatch.Undo();
 

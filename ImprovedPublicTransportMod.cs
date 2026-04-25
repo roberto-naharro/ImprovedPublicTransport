@@ -103,7 +103,6 @@ namespace ImprovedPublicTransport2
                     Redirector<CommonBuildingAIReverseDetour>.Deploy();
                     HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Apply();
                     HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Apply();
-                    RefreshVehicleButtonsPatch.Apply();
                     UpdateStopButtonsPatch.Apply();
                     BuildingExtension.Init();
                     LineWatcher.instance.Init();
@@ -194,7 +193,6 @@ namespace ImprovedPublicTransport2
             Redirector<CommonBuildingAIReverseDetour>.Revert();
             HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Undo();
             HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Undo();
-            RefreshVehicleButtonsPatch.Undo();
             UpdateStopButtonsPatch.Undo();
 
             Redirector<TransportLineReverseDetour>.Revert();

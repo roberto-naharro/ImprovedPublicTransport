@@ -9,7 +9,6 @@ using System.Reflection;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
-using ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches;
 using ImprovedPublicTransport2.OptionsFramework;
 using ImprovedPublicTransport2.Query;
 using ImprovedPublicTransport2.Data;
@@ -140,28 +139,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         VehicleManager vm = Singleton<VehicleManager>.instance;
         if ((vm.m_vehicles.m_buffer[(int) vehicleID].m_flags & Vehicle.Flags.Stopped) != ~(Vehicle.Flags.Created | Vehicle.Flags.Deleted | Vehicle.Flags.Spawned | Vehicle.Flags.Inverted | Vehicle.Flags.TransferToTarget | Vehicle.Flags.TransferToSource | Vehicle.Flags.Emergency1 | Vehicle.Flags.Emergency2 | Vehicle.Flags.WaitingPath | Vehicle.Flags.Stopped | Vehicle.Flags.Leaving | Vehicle.Flags.Arriving | Vehicle.Flags.Reversed | Vehicle.Flags.TakingOff | Vehicle.Flags.Flying | Vehicle.Flags.Landing | Vehicle.Flags.WaitingSpace | Vehicle.Flags.WaitingCargo | Vehicle.Flags.GoingBack | Vehicle.Flags.WaitingTarget | Vehicle.Flags.Importing | Vehicle.Flags.Exporting | Vehicle.Flags.Parking | Vehicle.Flags.CustomName | Vehicle.Flags.OnGravel | Vehicle.Flags.WaitingLoading | Vehicle.Flags.Congestion | Vehicle.Flags.DummyTraffic | Vehicle.Flags.Underground | Vehicle.Flags.Transition | Vehicle.Flags.InsideBuilding | Vehicle.Flags.LeftHandDrive))
         {
-          if (CachedVehicleData.m_cachedVehicleData[(int) vehicleID].IsUnbunchingInProgress)
-            this._status.text = Localization.Get("VEHICLE_PANEL_STATUS_UNBUNCHING");
-          this._distance.text = this._status.text;
-          var boardingTime = vm.m_vehicles.m_buffer[(int)vehicleID].Info?.m_vehicleType == VehicleInfo.VehicleType.Plane
-            ? CanLeaveStopPatch.AirplaneBoardingTime
-            : CanLeaveStopPatch.BoardingTime;
-          
-          var timeSinceBoardingFinished = vm.m_vehicles.m_buffer[vehicleID].m_waitCounter - boardingTime;
-          float progress;
-          if (timeSinceBoardingFinished <= 0)
-          {
-            progress = (boardingTime + timeSinceBoardingFinished) / (float)boardingTime;
-          }
-          else
-          {
-            var maxUnbunchingTime = (float) Mathf.Min(OptionsWrapper<Settings.Settings>.Options.IntervalAggressionFactor, CanLeaveStopPatch.MaxUnbunchingTime);
-            progress = timeSinceBoardingFinished / maxUnbunchingTime;
-          }
-          this._distanceTraveled.progressColor = Color.green;
-          this._distanceTraveled.value = progress;
-          this._distanceProgress.text = LocaleFormatter.FormatPercentage( Mathf.RoundToInt(progress * 100f));
-          
+          this._distanceTraveled.parent.Hide();
+          this._distanceProgress.parent.Hide();
         }
         else
         {

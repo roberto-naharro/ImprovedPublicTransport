@@ -93,7 +93,6 @@ namespace ImprovedPublicTransport2
                     ReleaseNodePatch.Apply();
                     ReleaseWaterSourcePatch.Apply();
                     ClassMatchesPatch.Apply();
-                    CanLeavePatch.Apply();
 
                     Redirector<CommonBuildingAIReverseDetour>.Deploy();
                     HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Apply();
@@ -105,8 +104,6 @@ namespace ImprovedPublicTransport2
                     CachedTransportLineData.Init();
                     Redirector<TransportLineReverseDetour>.Deploy();
                     SimulationStepPatch.Apply();
-                    CanLeaveStopPatch.Apply();
-
                     VehiclePrefabs.Init();
                     SerializableDataExtension.instance.Loaded = true;
                     LocaleModifier.Init();
@@ -179,7 +176,6 @@ namespace ImprovedPublicTransport2
             ReleaseWaterSourcePatch.Undo();
             ClassMatchesPatch.Undo();
             GetDepotLevelsPatch.Undo();
-            CanLeavePatch.Undo();
 
             Redirector<CommonBuildingAIReverseDetour>.Revert();
             HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Undo();
@@ -188,7 +184,6 @@ namespace ImprovedPublicTransport2
 
             Redirector<TransportLineReverseDetour>.Revert();
             SimulationStepPatch.Undo();
-            CanLeaveStopPatch.Undo();
             CachedTransportLineData.Deinit();
 
             BuildingExtension.Deinit();

@@ -1,10 +1,3 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: ImprovedPublicTransport.PanelExtenderCityService
-// Assembly: ImprovedPublicTransport, Version=1.0.6177.17409, Culture=neutral, PublicKeyToken=null
-// MVID: 76F370C5-F40B-41AE-AA9D-1E3F87E934D3
-// Assembly location: C:\Games\Steam\steamapps\workshop\content\255710\424106600\ImprovedPublicTransport.dll
-
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using ColossalFramework;
@@ -18,17 +11,15 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 {
   public class PanelExtenderCityService : MonoBehaviour
   {
-    private  const float VerticalOffset = 40f; //TODO: needed due to the UI issue, revert if CO fixes the panel
-    
+    private const float VerticalOffset = 40f; //TODO: needed due to the UI issue, revert if CO fixes the panel
+
     private bool _initialized;
     private ushort _cachedBuildingID;
     private int _cachedStopCount;
-    private int _cachedVehicleCount;
     private CityServiceWorldInfoPanel _cityServiceWorldInfoPanel;
     private UIPanel _listBoxPanel;
     private UILabel _titleLabel;
     private StopListBox _stopsListBox;
-    private VehicleListBox _vehicleListBox;
 
     private void Update()
     {
@@ -47,8 +38,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         BuildingManager instance1 = Singleton<BuildingManager>.instance;
         ushort building = Utils.GetPrivate<InstanceID>((object) this._cityServiceWorldInfoPanel, "m_InstanceID").Building;
         ItemClass.SubService subService = instance1.m_buildings.m_buffer[(int) building].Info.GetSubService();
-        ItemClass.Service service = instance1.m_buildings.m_buffer[(int) building].Info.GetService();
-        ItemClass.Level level = instance1.m_buildings.m_buffer[(int) building].Info.GetClassLevel();
 
         switch (subService)
         {
@@ -60,7 +49,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
           case ItemClass.SubService.PublicTransportPlane:
           case ItemClass.SubService.PublicTransportMonorail:
           case ItemClass.SubService.PublicTransportTrolleybus:
-            this._vehicleListBox.Hide(); //TODO(): display depot's vehicles? Also, maybe it makes sense to display list of lines served by depot?
             this._stopsListBox.Show();
             ushort[] numArray = PanelExtenderCityService.GetStationStops(building);
             BuildingInfo.SubInfo[] subBuildings = instance1.m_buildings.m_buffer[(int) building].Info.m_subBuildings;
@@ -92,43 +80,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
               this._listBoxPanel.Hide();
             this._cachedStopCount = length;
             break;
-          case ItemClass.SubService.PublicTransportTaxi:
-          case ItemClass.SubService.PublicTransportCableCar:
-            this._vehicleListBox.Show();
-            this._stopsListBox.Hide();
-            UIPanel uiPanel = this._cityServiceWorldInfoPanel.Find<UIPanel>("SvsVehicleTypes");
-            if ((UnityEngine.Object) uiPanel != (UnityEngine.Object) null)
-              this._listBoxPanel.relativePosition = new Vector3((float) ((double) this._listBoxPanel.parent.width + (double) uiPanel.width + 2.0), VerticalOffset);
-            List<ushort> depotVehicles = PanelExtenderCityService.GetDepotVehicles(building);
-            int count = depotVehicles.Count;
-            if (count > 0)
-            {
-              this._titleLabel.text = Localization.Get("CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES");
-              this._listBoxPanel.Show();
-              if ((int) this._cachedBuildingID != (int) building || this._cachedVehicleCount != count)
-              {
-                this._vehicleListBox.ClearItems();
-                PrefabData[] prefabs = VehiclePrefabs.instance.GetPrefabs(service, subService, level);
-                VehicleManager instance2 = Singleton<VehicleManager>.instance;
-                foreach (ushort vehicleID in depotVehicles)
-                {
-                  VehicleInfo info = instance2.m_vehicles.m_buffer[(int) vehicleID].Info;
-                  for (int index = 0; index < prefabs.Length; ++index)
-                  {
-                    PrefabData data = prefabs[index];
-                    if (info.name == data.Name)
-                    {
-                      this._vehicleListBox.AddItem(data, vehicleID);
-                      break;
-                    }
-                  }
-                }
-              }
-            }
-            else
-              this._listBoxPanel.Hide();
-            this._cachedVehicleCount = count;
-            break;
           default:
             this._listBoxPanel.Hide();
             break;
@@ -146,9 +97,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
     private void CreateStopsPanel()
     {
-      
-      var parentHeight = 285f; //uiPanel.parent.height; broken due to autoformat
-      
+      var parentHeight = 285f;
+
       UIPanel uiPanel = this._cityServiceWorldInfoPanel.component.AddUIComponent<UIPanel>();
       uiPanel.name = "ListBoxPanel";
       uiPanel.AlignTo(uiPanel.parent, UIAlignAnchor.TopRight);
@@ -173,14 +123,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
       stopListBox.height = parentHeight - 61f;
       stopListBox.Font = UIUtils.Font;
       this._stopsListBox = stopListBox;
-      VehicleListBox vehicleListBox = VehicleListBox.Create((UIComponent) uiPanel);
-      vehicleListBox.name = "DepotVehiclesListBox";
-      vehicleListBox.AlignTo((UIComponent) uiPanel, UIAlignAnchor.TopLeft);
-      vehicleListBox.relativePosition = new Vector3(3f, 40f);
-      vehicleListBox.width = uiPanel.width - 6f;
-      vehicleListBox.height = parentHeight - 61f;
-      vehicleListBox.Font = UIUtils.Font;
-      this._vehicleListBox = vehicleListBox;
     }
 
     public static ushort[] GetStationStops(ushort buildingID)
@@ -245,19 +187,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
           break;
         }
       }
-    }
-
-    private static List<ushort> GetDepotVehicles(ushort buildingID)
-    {
-      List<ushort> ushortList = new List<ushort>();
-      VehicleManager instance = Singleton<VehicleManager>.instance;
-      int nextOwnVehicle;
-      for (ushort index = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int) buildingID].m_ownVehicles; (int) index != 0; index = (ushort) nextOwnVehicle)
-      {
-        nextOwnVehicle = (int) instance.m_vehicles.m_buffer[(int) index].m_nextOwnVehicle;
-        ushortList.Add(index);
-      }
-      return ushortList;
     }
   }
 }

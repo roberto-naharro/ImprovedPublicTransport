@@ -1,18 +1,15 @@
-using System;
-using System.Runtime.CompilerServices;
-using HarmonyLib;
+using System.Reflection;
 
 namespace ImprovedPublicTransport2.HarmonyPatches
 {
-    [HarmonyPatch]
     public static class TransportLineReversePatch
     {
-        [HarmonyReversePatch]
-        [HarmonyPatch(typeof(TransportLine), "GetActiveVehicle")]
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static readonly MethodInfo _getActiveVehicle = typeof(TransportLine)
+            .GetMethod("GetActiveVehicle", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
         public static ushort GetActiveVehicle(ref TransportLine instance, int index)
         {
-            throw new NotImplementedException("Harmony reverse patch stub");
+            return (ushort)_getActiveVehicle.Invoke(instance, new object[] { index });
         }
     }
 }

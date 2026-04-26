@@ -15,6 +15,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
     public class PanelExtenderLine : MonoBehaviour
     {
         private bool _initialized;
+        private bool _dimLogged;
         private ushort _cachedLineID;
         private PublicTransportWorldInfoPanel _publicTransportWorldInfoPanel;
         private UIComponent _mainSubPanel;
@@ -58,8 +59,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 _stopCountLabel.AlignTo(_vehicleAmountParent, UIAlignAnchor.TopLeft);
                 _stopCountLabel.relativePosition = new Vector3(_lineLengthLabel.width + 16f, 45f, 0f);
                 _vehicleAmount.AlignTo(_vehicleAmountParent, UIAlignAnchor.TopLeft);
-                _vehicleAmount.relativePosition =
-                    new Vector3(_lineLengthLabel.width + 16f + _stopCountLabel.width + 16f, 45f, 0f);
+                _vehicleAmount.relativePosition = new Vector3(0, 62f, 0f);
             }
         }
 
@@ -72,12 +72,12 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
             UIComponent passengers = _publicTransportWorldInfoPanel.Find("Passengers");
             passengers.parent.relativePosition = new Vector3(passengers.parent.relativePosition.x,
-                76.0f, passengers.parent.relativePosition.z);
+                96.0f, passengers.parent.relativePosition.z);
             UIComponent agePanel = _publicTransportWorldInfoPanel.Find("AgePanel");
-            agePanel.relativePosition = new Vector3(0.0f, 84.0f, agePanel.relativePosition.z);
+            agePanel.relativePosition = new Vector3(0.0f, 104.0f, agePanel.relativePosition.z);
             UIComponent tripSaved = _publicTransportWorldInfoPanel.Find("TripSaved");
             tripSaved.parent.relativePosition = new Vector3(tripSaved.parent.relativePosition.x,
-                205.0f, tripSaved.parent.relativePosition.z);
+                225.0f, tripSaved.parent.relativePosition.z);
 
             _budgetButton = _publicTransportWorldInfoPanel.Find<UIComponent>("Budget");
             _vehicleLabel = _publicTransportWorldInfoPanel.Find<UIComponent>("VehicleLabel");
@@ -103,15 +103,17 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 }
                 else
                 {
+
+
                     UIPanel uiPanel = _mainSubPanel.AddUIComponent<UIPanel>();
                     uiPanel.name = "IptContainer";
                     uiPanel.width = 280f;
-                    uiPanel.height = 110f;
+                    uiPanel.height = 115f;
                     uiPanel.autoLayoutDirection = LayoutDirection.Vertical;
                     uiPanel.autoLayoutStart = LayoutStart.TopLeft;
                     uiPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 5);
                     uiPanel.autoLayout = true;
-                    uiPanel.relativePosition = new Vector3(10f, 224.0f);
+                    uiPanel.relativePosition = new Vector3(10f, 244.0f);
                     _iptContainer = uiPanel;
                     _vehicleAmount = Utils.GetPrivate<UILabel>(_publicTransportWorldInfoPanel, "m_VehicleAmount");
                     if (_vehicleAmount == null)
@@ -136,30 +138,37 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                         }
                         else
                         {
-                            UITextField uiTextField = _colorField.parent.AddUIComponent<UITextField>();
+                            var cfRow = _colorField.parent;
+                            UITextField uiTextField = cfRow.parent.AddUIComponent<UITextField>();
                             uiTextField.name = "ColorTextField";
                             uiTextField.text = "000000";
                             uiTextField.textColor = Color.black;
                             uiTextField.textScale = 0.7f;
                             uiTextField.selectionSprite = "EmptySprite";
-                            uiTextField.normalBgSprite = "TextFieldPanelHovered";
+                            uiTextField.normalBgSprite = "TextFieldPanel";
+                            uiTextField.hoveredBgSprite = "TextFieldPanelHovered";
                             uiTextField.focusedBgSprite = "TextFieldPanel";
                             uiTextField.builtinKeyNavigation = true;
                             uiTextField.submitOnFocusLost = true;
                             uiTextField.eventTextSubmitted += OnColorTextSubmitted;
-                            uiTextField.width = 50f;
+                            uiTextField.width = 120f;
                             uiTextField.height = 23f;
                             uiTextField.maxLength = 6;
                             uiTextField.verticalAlignment = UIVerticalAlignment.Middle;
-                            uiTextField.padding = new RectOffset(0, 0, 8, 0);
-                            uiTextField.relativePosition = new Vector3(135f, 0.0f);
+                            uiTextField.padding = new RectOffset(4, 0, 8, 0);
+                            uiTextField.relativePosition = new Vector3(
+                                cfRow.relativePosition.x,
+                                cfRow.relativePosition.y + cfRow.height + 2f,
+                                0f);
+                            uiTextField.size = new Vector2(120f, 23f);
                             _colorTextField = uiTextField;
                             _colorField.eventSelectedColorReleased += OnColorChanged;
                             CreateSpawnTimerPanel();
                             CreateBudgetControlPanel();
                             CreateButtonPanel1();
                             CreateButtonPanel2();
-                            _publicTransportWorldInfoPanel.component.height = 355f;
+                            _publicTransportWorldInfoPanel.component.width = 650f;
+                            _publicTransportWorldInfoPanel.component.height = 585f;
                             _initialized = true;
                         }
                     }
@@ -169,6 +178,23 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
         private void UpdateBindings()
         {
+            if (!_dimLogged)
+            {
+                var comp = _publicTransportWorldInfoPanel.component;
+                Log.Info($"[PanelDims] panel w={comp.width} h={comp.height}");
+                Log.Info($"[PanelDims] mainSubPanel w={_mainSubPanel.width} h={_mainSubPanel.height} pos={_mainSubPanel.relativePosition}");
+                Log.Info($"[PanelDims] iptContainer w={_iptContainer.width} h={_iptContainer.height} pos={_iptContainer.relativePosition}");
+                var pass = _publicTransportWorldInfoPanel.Find("Passengers");
+                Log.Info($"[PanelDims] passengers name={pass.name} w={pass.width} h={pass.height} pos={pass.relativePosition}");
+                Log.Info($"[PanelDims] passengersParent w={pass.parent.width} h={pass.parent.height} pos={pass.parent.relativePosition}");
+                if (PublicTransportStopWorldInfoPanel.instance != null)
+                    Log.Info($"[PanelDims] stopPanel w={PublicTransportStopWorldInfoPanel.instance.width} h={PublicTransportStopWorldInfoPanel.instance.height}");
+                Log.Info($"[PanelDims] vehicleAmountParent w={_vehicleAmountParent.width} h={_vehicleAmountParent.height} pos={_vehicleAmountParent.relativePosition}");
+                var cfParent = _colorField.parent;
+                Log.Info($"[PanelDims] colorTextField pos={_colorTextField.relativePosition} w={_colorTextField.width}");
+                _dimLogged = true;
+            }
+
             ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
             if (lineId != 0)
             {
@@ -306,7 +332,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         {
             UIPanel uiPanel = _iptContainer.AddUIComponent<UIPanel>();
             uiPanel.width = uiPanel.parent.width;
-            uiPanel.height = 22f;
+            uiPanel.height = 32f;
             uiPanel.autoLayoutDirection = LayoutDirection.Horizontal;
             uiPanel.autoLayoutStart = LayoutStart.TopLeft;
             uiPanel.autoLayoutPadding = new RectOffset(0, 6, 0, 0);
@@ -316,13 +342,15 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             button1.localeID = "VEHICLE_LINESOVERVIEW";
             button1.textScale = 0.8f;
             button1.width = buttonWidth;
-            button1.height = 22f;
+            button1.height = 32f;
+            button1.wordWrap = true;
             button1.eventClick += (c, p) => _publicTransportWorldInfoPanel.OnLinesOverviewClicked();
             UIButton button2 = UIUtils.CreateButton(uiPanel);
             button2.localeID = "LINE_DELETE";
             button2.textScale = 0.8f;
             button2.width = buttonWidth;
-            button2.height = 22f;
+            button2.height = 32f;
+            button2.wordWrap = true;
             button2.eventClick += OnDeleteLineClick;
         }
 

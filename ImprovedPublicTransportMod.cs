@@ -40,7 +40,11 @@ namespace ImprovedPublicTransport2
         {
             helper.AddOptionsGroup<Settings.Settings>(Localization.Get);
             var debugGroup = helper.AddGroup("Debug");
-            debugGroup.AddCheckbox("Enable debug logging", Log.DebugEnabled, val => { Log.DebugEnabled = val; });
+            debugGroup.AddCheckbox("Enable debug logging", Log.DebugEnabled, val =>
+            {
+                Log.DebugEnabled = val;
+                Log.Info($"Debug logging {(val ? "enabled" : "disabled")}");
+            });
         }
 
         public override void OnLevelLoaded(LoadMode mode)

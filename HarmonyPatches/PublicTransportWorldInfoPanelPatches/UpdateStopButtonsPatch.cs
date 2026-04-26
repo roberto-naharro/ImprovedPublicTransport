@@ -26,6 +26,8 @@ namespace ImprovedPublicTransport2.HarmonyPatches.PublicTransportWorldInfoPanelP
         
         public static bool Prefix(UITemplateList<UIButton> ___m_stopButtons, ushort lineID)
         {
+            if (___m_stopButtons == null)
+                return true;
             ushort stop = Singleton<TransportManager>.instance.m_lines.m_buffer[(int)lineID].m_stops;
             foreach (UIComponent uiComponent in ___m_stopButtons.items)
             {

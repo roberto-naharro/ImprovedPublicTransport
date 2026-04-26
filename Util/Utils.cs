@@ -20,7 +20,7 @@ namespace ImprovedPublicTransport2.Util
   public static class Utils
   {
     private static readonly string _fileName = "ImprovedPublicTransport.log";
-    private static readonly string _logPrefix = "ImprovedPublicTransport: ";
+    private static readonly string _logPrefix = "IPTEssentials: ";
 
       public static string AssemblyPath => PluginInfo.modPath;
 

@@ -123,10 +123,12 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
             {
                 targetVehicleCount = instance.m_lines.m_buffer[lineID].CalculateTargetVehicleCount();
                 CachedTransportLineData.SetTargetVehicleCount(lineID, targetVehicleCount);
+                Log.DebugLog($"Line {lineID}: budget-driven target={targetVehicleCount}");
             }
             else
             {
                 targetVehicleCount = CachedTransportLineData.GetTargetVehicleCount(lineID);
+                Log.DebugLog($"Line {lineID}: manual target={targetVehicleCount}");
             }
 
             return targetVehicleCount;

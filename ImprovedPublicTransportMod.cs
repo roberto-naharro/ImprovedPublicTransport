@@ -18,6 +18,7 @@ using ImprovedPublicTransport2.UI.PanelExtenders;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Utils = ImprovedPublicTransport2.Util.Utils;
+using Log = ImprovedPublicTransport2.Util.Log;
 
 namespace ImprovedPublicTransport2
 {
@@ -38,6 +39,8 @@ namespace ImprovedPublicTransport2
         public void OnSettingsUI(UIHelperBase helper)
         {
             helper.AddOptionsGroup<Settings.Settings>(Localization.Get);
+            var debugGroup = helper.AddGroup("Debug");
+            debugGroup.AddCheckbox("Enable debug logging", Log.DebugEnabled, val => { Log.DebugEnabled = val; });
         }
 
         public override void OnLevelLoaded(LoadMode mode)
@@ -181,6 +184,8 @@ namespace ImprovedPublicTransport2
             CachedVehicleData.Deinit();
             SerializableDataExtension.instance.Loaded = false;
             LocaleModifier.Deinit();
+
+            Log.ResetThrottle();
 
             if (IptGameObject != null)
                 Object.Destroy(IptGameObject);

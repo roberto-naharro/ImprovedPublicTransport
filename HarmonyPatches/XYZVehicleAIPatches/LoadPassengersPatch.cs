@@ -69,6 +69,8 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             CachedVehicleData.m_cachedVehicleData[__state.vehicleID]
                 .BoardPassengers(passengersIn, VehicleUtil.GetTicketPrice(__state.vehicleID), __state.currentStop);
             CachedNodeData.m_cachedNodeData[__state.currentStop].PassengersIn += passengersIn;
+            Log.DebugLoad(__state.currentStop,
+                $"Load stop={__state.currentStop} vehicle={__state.vehicleID} boarded={passengersIn} total={currentPassengers}");
         }
 
         public struct State

@@ -43,8 +43,6 @@ namespace ImprovedPublicTransport2.UI
         private UILabel m_passengersTotalCurrent;
         private UILabel m_passengersTotalLast;
         private UILabel m_passengersTotalAverage;
-        private UICheckBox m_unbunching;
-        private UIButton m_closeStopsUnbunching;
         private UILabel m_Line;
         private UIButton m_DeleteStop;
 
@@ -72,8 +70,6 @@ namespace ImprovedPublicTransport2.UI
             base.LateUpdate();
             if (!this.isVisible)
                 return;
-            if ((UnityEngine.Object) this.m_closeStopsUnbunching == (UnityEngine.Object) null)
-                this.CreateButton();
             this.UpdatePosition();
             this.UpdateBindings();
             this.CheckForAltKey();
@@ -94,7 +90,7 @@ namespace ImprovedPublicTransport2.UI
             this.anchor = UIAnchorStyle.None;
             this.pivot = UIPivotPoint.BottomLeft;
             this.width = 380f;
-            this.height = 280f;
+            this.height = 255f;
             this.backgroundSprite = "InfoBubbleVehicle";
             UIPanel uiPanel1 = this.AddUIComponent<UIPanel>();
             string str1 = "Caption";
@@ -269,48 +265,6 @@ namespace ImprovedPublicTransport2.UI
                 num22 != 0);
             uiLabel3.text = Localization.Get("STOP_PANEL_PASSENGERS_TOTAL");
             uiLabel3.tooltip = Localization.Get("STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP");
-            UIPanel uiPanel6 = uiPanel2.AddUIComponent<UIPanel>();
-            string str6 = "Unbunching";
-            uiPanel6.name = str6;
-            int num23 = 13;
-            uiPanel6.anchor = (UIAnchorStyle) num23;
-            int num24 = 1;
-            uiPanel6.autoLayout = num24 != 0;
-            int num25 = 0;
-            uiPanel6.autoLayoutDirection = (LayoutDirection) num25;
-            RectOffset rectOffset5 = new RectOffset(0, 5, 0, 0);
-            uiPanel6.autoLayoutPadding = rectOffset5;
-            int num26 = 0;
-            uiPanel6.autoLayoutStart = (LayoutStart) num26;
-            Vector2 vector2_4 = new Vector2(345f, 25f);
-            uiPanel6.size = vector2_4;
-            int num27 = 1;
-            uiPanel6.useCenter = num27 != 0;
-            UICheckBox uiCheckBox = uiPanel6.AddUIComponent<UICheckBox>();
-            uiCheckBox.anchor = UIAnchorStyle.Left | UIAnchorStyle.CenterVertical;
-            uiCheckBox.clipChildren = true;
-            uiCheckBox.tooltip = Localization.Get("STOP_PANEL_UNBUNCHING_TOOLTIP") + System.Environment.NewLine +
-                                 Localization.Get("EXPLANATION_UNBUNCHING");
-            uiCheckBox.eventClicked += new MouseEventHandler(this.OnUnbunchingClick);
-            UISprite uiSprite2 = uiCheckBox.AddUIComponent<UISprite>();
-            uiSprite2.spriteName = "check-unchecked";
-            uiSprite2.size = new Vector2(16f, 16f);
-            uiSprite2.relativePosition = Vector3.zero;
-            uiCheckBox.checkedBoxObject = (UIComponent) uiSprite2.AddUIComponent<UISprite>();
-            ((UISprite) uiCheckBox.checkedBoxObject).spriteName = "check-checked";
-            uiCheckBox.checkedBoxObject.size = new Vector2(16f, 16f);
-            uiCheckBox.checkedBoxObject.relativePosition = Vector3.zero;
-            uiCheckBox.label = uiCheckBox.AddUIComponent<UILabel>();
-            uiCheckBox.label.font = UIUtils.Font;
-            uiCheckBox.label.textColor = new Color32((byte) 185, (byte) 221, (byte) 254, byte.MaxValue);
-            uiCheckBox.label.disabledTextColor = (Color32) Color.black;
-            uiCheckBox.label.textScale = 13f / 16f;
-            uiCheckBox.label.text = (int) OptionsWrapper<Settings.Settings>.Options.IntervalAggressionFactor == 0
-                ? Localization.Get("UNBUNCHING_DISABLED")
-                : Localization.Get("UNBUNCHING_ENABLED");
-            uiCheckBox.label.relativePosition = new Vector3(22f, 2f);
-            uiCheckBox.size = new Vector2(uiCheckBox.label.width + 22f, 16f);
-            this.m_unbunching = uiCheckBox;
             UIPanel uiPanel7 = uiPanel2.AddUIComponent<UIPanel>();
             string str7 = "Line";
             uiPanel7.name = str7;
@@ -470,20 +424,6 @@ namespace ImprovedPublicTransport2.UI
             this.Hide();
         }
 
-        private void OnUnbunchingClick(UIComponent component, UIMouseEventParameter p)
-        {
-            CachedNodeData.m_cachedNodeData[(int) this.m_InstanceID.NetNode].Unbunching = !CachedNodeData
-                .m_cachedNodeData[(int) this.m_InstanceID.NetNode]
-                .Unbunching;
-        }
-
-        private void OnUpdateCloseStopsClick(UIComponent component, UIMouseEventParameter eventParam)
-        {
-            this.ProcessNodes(
-                (System.Action<ushort>) (nodeID => CachedNodeData.m_cachedNodeData[(int) nodeID].Unbunching =
-                    CachedNodeData.m_cachedNodeData[(int) this.m_InstanceID.NetNode].Unbunching));
-        }
-
         private void OnModifyLineClick(UIComponent component, UIMouseEventParameter eventParam)
         {
             if (this.m_InstanceID.Type != InstanceType.NetNode || (int) this.m_InstanceID.NetNode == 0)
@@ -610,20 +550,6 @@ namespace ImprovedPublicTransport2.UI
             }
         }
 
-        private void CreateButton()
-        {
-            UIButton button = UIUtils.CreateButton(this.m_unbunching.parent);
-            button.name = "UpdateCloseStops";
-            button.autoSize = true;
-            button.textPadding = new RectOffset(10, 10, 4, 2);
-            button.anchor = UIAnchorStyle.Left | UIAnchorStyle.CenterVertical;
-            button.text = Localization.Get("STOP_PANEL_UPDATE_CLOSE_STOPS");
-            button.tooltip = Localization.Get("STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP");
-            button.textScale = 0.75f;
-            button.eventClick += new MouseEventHandler(this.OnUpdateCloseStopsClick);
-            this.m_closeStopsUnbunching = button;
-        }
-
         private void UpdatePosition()
         {
             if ((UnityEngine.Object) this.m_CameraTransform != (UnityEngine.Object) null)
@@ -683,22 +609,6 @@ namespace ImprovedPublicTransport2.UI
                 .LastWeekPassengersTotal.ToString();
             this.m_passengersTotalAverage.text = CachedNodeData.m_cachedNodeData[(int) netNode]
                 .AveragePassengersTotal.ToString();
-            if ((int) OptionsWrapper<Settings.Settings>.Options.IntervalAggressionFactor == 0)
-            {
-                this.m_unbunching.Disable();
-                this.m_unbunching.isChecked = false;
-                this.m_unbunching.label.text = Localization.Get("UNBUNCHING_DISABLED");
-                this.m_unbunching.size = new Vector2(this.m_unbunching.label.width + 22f, 16f);
-                this.m_closeStopsUnbunching.Hide();
-            }
-            else
-            {
-                this.m_unbunching.Enable();
-                this.m_unbunching.isChecked = CachedNodeData.m_cachedNodeData[(int) netNode].Unbunching;
-                this.m_unbunching.label.text = Localization.Get("UNBUNCHING_ENABLED");
-                this.m_unbunching.size = new Vector2(this.m_unbunching.label.width + 22f, 16f);
-                this.m_closeStopsUnbunching.Show();
-            }
         }
 
         private void CheckForAltKey()

@@ -1,8 +1,0 @@
-[submodule "OptionsFramework"]
-	path = OptionsFramework
-	url = https://github.com/bloodypenguin/OptionsFramework
-	branch = customization/ImprovedPublicTransport
-[submodule "RedirectionFramework"]
-	path = RedirectionFramework
-	url = https://github.com/bloodypenguin/RedirectionFramework
-	branch = customization/ImprovedPublicTransport	

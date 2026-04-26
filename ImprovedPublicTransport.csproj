@@ -71,15 +71,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildingExtension.cs" />
-    <Compile Include="Command\SelectVehicleTypesCommand.cs" />
     <Compile Include="HarmonyPatches\HarmonyId.cs" />
     <Compile Include="HarmonyPatches\PublicTransportStopButtonPatches\OnMouseDownPatch.cs" />
     <Compile Include="HarmonyPatches\PublicTransportVehicleButtonPatches\OnMouseDownPatch.cs" />
     <Compile Include="HarmonyPatches\PublicTransportWorldInfoPanelPatches\UpdateStopButtonsPatch.cs" />
-    <Compile Include="HarmonyPatches\PublicTransportWorldInfoPanelPatches\RefreshVehicleButtonsPatch.cs" />
-    <Compile Include="HarmonyPatches\TransportLinePatches\CanLeaveStopPatch.cs" />
-    <Compile Include="HarmonyPatches\XYZVehicleAIPatches\CanLeavePatch.cs" />
     <Compile Include="Data\CachedNodeData.cs" />
     <Compile Include="Data\CachedTransportLineData.cs" />
     <Compile Include="Data\CachedVehicleData.cs" />
@@ -87,22 +82,15 @@
     <Compile Include="Data\LineData.cs" />
     <Compile Include="Data\MovingAverage.cs" />
     <Compile Include="Data\NodeData.cs" />
-    <Compile Include="Data\PrefabData.cs" />
     <Compile Include="Data\SerializableDataExtension.cs" />
     <Compile Include="Data\VehicleData.cs" />
-    <Compile Include="ReverseDetours\CommonBuildingAIReverseDetour.cs" />
     <Compile Include="HarmonyPatches\BuildingManagerPatches\GetDepotLevelsPatch.cs" />
     <Compile Include="HarmonyPatches\DepotAIPatches\ClassMatchesPatch.cs" />
-    <Compile Include="HarmonyPatches\DepotAIPatches\StartTransferPatch.cs" />
     <Compile Include="HarmonyPatches\NetManagerPatches\ReleaseNodePatch.cs" />
-    <Compile Include="HarmonyPatches\PublicTransportLineVehicleSelectorPatches\GetVehicleInfoPatch.cs" />
-    <Compile Include="HarmonyPatches\TransportLinePatches\GetLineVehiclePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\SimulationStepPatch.cs" />
-    <Compile Include="HarmonyPatches\TransportManagerPatches\CheckTransportLineVehiclesPatch.cs" />
     <Compile Include="HarmonyPatches\VehicleManagerPatches\ReleaseWaterSourcePatch.cs" />
     <Compile Include="HarmonyPatches\XYZVehicleAIPatches\LoadPassengersPatch.cs" />
     <Compile Include="HarmonyPatches\XYZVehicleAIPatches\UnloadPassengersPatch.cs" />
-    <Compile Include="ItemClassTriplet.cs" />
     <Compile Include="LanguageFormat\LanguageDictionaryWrapper.cs" />
     <Compile Include="LanguageFormat\PlainTextLanguageDeserializer.cs" />
     <Compile Include="LocaleModifier.cs" />

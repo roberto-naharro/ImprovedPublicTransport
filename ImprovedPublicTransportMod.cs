@@ -23,7 +23,7 @@ namespace ImprovedPublicTransport2
 {
     public class ImprovedPublicTransportMod : LoadingExtensionBase, IUserMod
     {
-        public const string BaseModName = "IPT Essentials";
+        public const string BaseModName = "Improved Public Transport Essentials";
         public const string ShortModName = "IPTEssentials";
 
         public static bool InGame;

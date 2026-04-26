@@ -113,8 +113,7 @@
     <Compile Include="Query\WorldInfoCurrentLineIDQuery.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Settings\SettingsActions.cs" />
-    <Compile Include="Settings\VehicleEditorPositions.cs" />
-    <Compile Include="TranslationFramework\DefaultLanguageDeserializer.cs" />
+<Compile Include="TranslationFramework\DefaultLanguageDeserializer.cs" />
     <Compile Include="TranslationFramework\Language.cs" />
     <Compile Include="TranslationFramework\DefaultLanguage.cs" />
     <Compile Include="TranslationFramework\LanguageDeserializer.cs" />

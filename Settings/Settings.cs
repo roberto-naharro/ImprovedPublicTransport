@@ -12,7 +12,6 @@ namespace ImprovedPublicTransport2.Settings
         private const string SETTINGS_COMMON = "SETTINGS";
         private const string SETTINGS_UI = "SETTINGS_UI";
         private const string SETTINGS_BUDGET = "SETTINGS_ENABLE_BUDGET_CONTROL";
-        private const string SETTINGS_UNBUNCHING = "UNBUNCHING_ENABLED";
         private const string SETTINGS_SPAWN_TIME_INTERVAL = "SETTINGS_SPAWN_TIME_INTERVAL";
         private const string SETTINGS_LINE_DELETION_TOOL = "SETTINGS_LINE_DELETION_TOOL";
 
@@ -34,12 +33,8 @@ namespace ImprovedPublicTransport2.Settings
 
         public bool CompatibilityMode { get; set; } //deprecated
 
-        [AggressionDescription]
-        [Slider("SETTINGS_UNBUNCHING_AGGRESSION", 0.0f, 52.0f, 1.0f, SETTINGS_UNBUNCHING)]
-        public byte IntervalAggressionFactor { get; set; } = 52; //TODO(): convert into max seconds at stop
-
         [Description("SETTINGS_VEHICLE_COUNT_TOOLTIP")]
-        [Slider("SETTINGS_VEHICLE_COUNT", 0.0f, 100.0f, 1.0f, SETTINGS_UNBUNCHING, nameof(SettingsActions), nameof(SettingsActions.OnDefaultVehicleCountSubmitted))]
+        [Slider("SETTINGS_VEHICLE_COUNT", 0.0f, 100.0f, 1.0f, SETTINGS_SPAWN_TIME_INTERVAL, nameof(SettingsActions), nameof(SettingsActions.OnDefaultVehicleCountSubmitted))]
         public int DefaultVehicleCount { get; set; } = 0;
 
         [Description("SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP")]
@@ -51,15 +46,7 @@ namespace ImprovedPublicTransport2.Settings
         [XmlIgnore]
         public object SpawnTimeIntervalResetButton { get; } = null;
 
-        public bool Unbunching { get; } = true; //hidden
-
         public int StatisticWeeks { get; set; } = 10; //hidden
-
-        [DropDown("SETTINGS_VEHICLE_EDITOR_POSITION", nameof(VehicleEditorPositions), SETTINGS_UI)]
-        public int VehicleEditorPosition { get; set; } = (int) VehicleEditorPositions.Bottom;
-
-        [Checkbox("SETTINGS_VEHICLE_EDITOR_HIDE", SETTINGS_UI)]
-        public bool HideVehicleEditor { get; set; }
 
         [Description("SETTINGS_LINE_DELETION_TOOL_BUTTON_TOOLTIP")]
         [Button("SETTINGS_DELETE", SETTINGS_LINE_DELETION_TOOL, nameof(SettingsActions), nameof(SettingsActions.OnDeleteLinesClick))]
@@ -103,16 +90,6 @@ namespace ImprovedPublicTransport2.Settings
                 base(Localization.Get("SETTINGS_BUDGET_CONTROL_TOOLTIP") + Environment.NewLine + Localization.Get("EXPLANATION_BUDGET_CONTROL"))
             {
                 
-            }
-        }
-
-        [AttributeUsage(AttributeTargets.All)]
-        public class AggressionDescriptionAttribute : DontTranslateDescriptionAttribute
-        {
-            public AggressionDescriptionAttribute() :
-                base(Localization.Get("SETTINGS_UNBUNCHING_AGGRESSION_TOOLTIP") + Environment.NewLine + Localization.Get("EXPLANATION_UNBUNCHING"))
-            {
-
             }
         }
 

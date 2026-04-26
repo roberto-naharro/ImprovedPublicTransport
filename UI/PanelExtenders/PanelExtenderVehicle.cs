@@ -71,6 +71,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
       this._cachedCurrentProgress = this._publicTransportVehicleWorldInfoPanel.GetType().GetField("m_cachedCurrentProgress", BindingFlags.Instance | BindingFlags.NonPublic);
       this._cachedTotalProgress = this._publicTransportVehicleWorldInfoPanel.GetType().GetField("m_cachedTotalProgress", BindingFlags.Instance | BindingFlags.NonPublic);
       this._cachedProgressVehicle = this._publicTransportVehicleWorldInfoPanel.GetType().GetField("m_cachedProgressVehicle", BindingFlags.Instance | BindingFlags.NonPublic);
+      if (this._cachedCurrentProgress == null) Debug.LogWarning("[IPTEssentials] field 'm_cachedCurrentProgress' not found on PublicTransportVehicleWorldInfoPanel");
+      if (this._cachedTotalProgress == null) Debug.LogWarning("[IPTEssentials] field 'm_cachedTotalProgress' not found on PublicTransportVehicleWorldInfoPanel");
+      if (this._cachedProgressVehicle == null) Debug.LogWarning("[IPTEssentials] field 'm_cachedProgressVehicle' not found on PublicTransportVehicleWorldInfoPanel");
       this.AddPanelControls();
       this._initialized = true;
     }
@@ -88,7 +91,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
       else
       {
         this._publicTransportVehicleWorldInfoPanel.component.height = 377f;
-        this._editType.isVisible = !OptionsWrapper<Settings.Settings>.Options.HideVehicleEditor;
+        this._editType.isVisible = false;
           ItemClass itemClass = Singleton<TransportManager>.instance.m_lines.m_buffer[(int) lineId].Info.m_class;
           ItemClass.SubService subService = itemClass.m_subService;
           ItemClass.Service service = itemClass.m_service;
@@ -237,7 +240,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
       button1.tooltip = string.Format(Localization.Get("VEHICLE_PANEL_EDIT_TYPE_TOOLTIP"));
       button1.textScale = 0.75f;
       button1.eventClick += new MouseEventHandler(this.OnEditTypeClick);
-      button1.isVisible = !OptionsWrapper<Settings.Settings>.Options.HideVehicleEditor;
+      button1.isVisible = false;
       this._editType = button1;
       UILabel uiLabel2 = Utils.GetPrivate<UILabel>((object) this._publicTransportVehicleWorldInfoPanel, "m_Passengers");
       UIPanel uiPanel1 = this._publicTransportVehicleWorldInfoPanel.component.Find<UIPanel>("Panel");
@@ -364,6 +367,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
     private void UpdateProgress()
     {
+      if (this._cachedCurrentProgress == null || this._cachedTotalProgress == null || this._cachedProgressVehicle == null)
+        return;
       VehicleManager instance = Singleton<VehicleManager>.instance;
       ushort vehicle = WorldInfoPanel.GetCurrentInstanceID().Vehicle;
       ushort firstVehicle = instance.m_vehicles.m_buffer[(int) vehicle].GetFirstVehicle(vehicle);

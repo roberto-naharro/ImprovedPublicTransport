@@ -1,0 +1,57 @@
+[h1]IPT Essentials[/h1]
+
+Take back control of your transit network — without replacing the mods that already do their job well.
+
+[b]IPT Essentials[/b] is a community revival of the original [url=https://steamcommunity.com/sharedfiles/filedetails/?id=424106600]Improved Public Transport 2[/url] by [url=https://github.com/bloodypenguin]BloodyPenguin[/url], updated for Cities: Skylines 1.21.x and rebuilt around a simple principle: do two things well, and let specialist mods handle everything else.
+
+[b]► Source code & issues:[/b]
+[url=https://github.com/roberto-naharro/ImprovedPublicTransport]github.com/roberto-naharro/ImprovedPublicTransport[/url]
+
+[h1]What it does[/h1]
+
+[list]
+[*][b]Manual vehicle count[/b] — set exactly how many vehicles run on a line, bypassing the budget calculation. Toggle between manual and budget-driven mode per line at any time.
+[*][b]Per-stop passenger stats[/b] — each transit stop shows Passengers In / Out for the current week, last week, and a rolling average. Rename stops and browse suggested names from nearby buildings.
+[*][b]Per-vehicle stats[/b] — click any active transit vehicle to see its passengers, earnings, and distance traveled (current week / last week / average), plus the last-stop boarding and alighting count.
+[*][b]Station stop list[/b] — clicking a transit station building shows all associated stops, each clickable to open its stop panel.
+[*][b]Line deletion tool[/b] — bulk-delete all lines of a given transport type from the mod options panel.
+[/list]
+
+[h1]Design philosophy: composability[/h1]
+
+The Cities: Skylines mod ecosystem already has excellent, dedicated tools for vehicle assignment, depot selection, stop selection, and unbunching. IPT Essentials is built to work [i]alongside[/i] those specialists — not to replace them.
+
+We focus on the two things no other mod provides: precise vehicle count control and granular passenger statistics. For everything else, there is already a better, purpose-built solution. Using them together gives you a cleaner, more stable, and more powerful setup than any single mod can offer.
+
+[h1]Companion mods[/h1]
+
+These mods cover features that the original IPT2 included. Each one does its job better as a standalone tool. IPT Essentials is designed to work seamlessly with all of them.
+
+[list]
+[*][b]Vehicle type & depot per line[/b] — [url=https://github.com/algernon-A/VehicleSelector/]VehicleSelector[/url] by algernon-A: a full-featured vehicle assignment system with its own UI and asset filtering.
+[*][b]Vehicle unbunching[/b] — [url=https://github.com/Vectorial1024/PublicTransportUnstucker]Public Transport Unstucker[/url] by Vectorial1024: purpose-built unbunching that integrates with TM:PE.
+[*][b]Advanced stop selection[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=442167376]Advanced Stop Selection[/url]: dedicated stop-selection logic maintained independently.
+[*][b]Elevated stop placement[/b] — [url=https://github.com/MacSergey/ElevatedStopsEnabler]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.
+[/list]
+
+Also compatible with [url=https://github.com/Vectorial1024/ExpressBusServices]Express Bus Services[/url] by Vectorial1024 — passenger stats remain accurate in all EBS modes.
+
+[h1]Requirements[/h1]
+
+[list]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2040656402]Harmony (Mod Dependency)[/url] — subscribe and enable this first.
+[/list]
+
+[h1]Migrating from IPT2[/h1]
+
+Your manual vehicle counts and line settings are loaded automatically — save data is fully backward-compatible with IPT2.
+
+[b]Unsubscribe[/b] from [url=https://github.com/Vectorial1024/ExpressBusServices-IPT2]ExpressBusServices-IPT2[/url] if you have it. That mod bridged EBS with IPT2's unbunching feature, which IPT Essentials has removed. It has nothing to bridge and will fail to load alongside IPT Essentials.
+
+[h1]Credits[/h1]
+
+[b]BloodyPenguin[/b] — original mod concept, architecture, and all game logic. IPT Essentials would not exist without their work.
+[b]algernon-A[/b] — VehicleSelector, the recommended companion for vehicle type and depot assignment.
+[b]Vectorial1024[/b] — Express Bus Services and Public Transport Unstucker, both designed to work alongside IPT Essentials.
+[b]MacSergey[/b] — Elevated Stops Enabler and Improved Stop Selection.
+[b]roberto-naharro[/b] — compatibility update, feature pruning, and maintenance of this fork.

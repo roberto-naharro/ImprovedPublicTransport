@@ -105,8 +105,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 {
                     UIPanel uiPanel = _mainSubPanel.AddUIComponent<UIPanel>();
                     uiPanel.name = "IptContainer";
-                    uiPanel.width = 301f;
-                    uiPanel.height = 80f;
+                    uiPanel.width = 280f;
+                    uiPanel.height = 110f;
                     uiPanel.autoLayoutDirection = LayoutDirection.Vertical;
                     uiPanel.autoLayoutStart = LayoutStart.TopLeft;
                     uiPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 5);
@@ -159,7 +159,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                             CreateBudgetControlPanel();
                             CreateButtonPanel1();
                             CreateButtonPanel2();
-                            _publicTransportWorldInfoPanel.component.height = 340f;
+                            _publicTransportWorldInfoPanel.component.height = 355f;
                             _initialized = true;
                         }
                     }
@@ -287,7 +287,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             addButton.text = Localization.Get("LINE_PANEL_ADD_VEHICLE");
             addButton.textScale = 0.8f;
             addButton.tooltip = Localization.Get("LINE_PANEL_ADD_VEHICLE_TOOLTIP");
-            addButton.width = 148f;
+            addButton.width = 137f;
             addButton.height = 32f;
             addButton.wordWrap = true;
             addButton.eventClick += OnAddVehicleClick;
@@ -296,7 +296,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             removeButton.textPadding = new RectOffset(10, 10, 4, 0);
             removeButton.text = Localization.Get("LINE_PANEL_REMOVE_VEHICLE");
             removeButton.textScale = 0.8f;
-            removeButton.width = 148f;
+            removeButton.width = 137f;
             removeButton.height = 32f;
             removeButton.wordWrap = true;
             removeButton.eventClick += OnRemoveVehicleClick;
@@ -311,7 +311,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             uiPanel.autoLayoutStart = LayoutStart.TopLeft;
             uiPanel.autoLayoutPadding = new RectOffset(0, 6, 0, 0);
             uiPanel.autoLayout = true;
-            float buttonWidth = (float) ((uiPanel.parent.width - 4.0) / 2.0);
+            float buttonWidth = (float) ((uiPanel.parent.width - 6.0) / 2.0);
             UIButton button1 = UIUtils.CreateButton(uiPanel);
             button1.localeID = "VEHICLE_LINESOVERVIEW";
             button1.textScale = 0.8f;

@@ -100,14 +100,14 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
                 stop1 = TransportLine.GetNextStop(stop1);
             } while (stops1 != stop1 && stop1 != 0);
 
+            var lineInfo = TransportManager.instance.m_lines.m_buffer[__state].Info;
+            var maintenanceCostPerVehicle = lineInfo != null ? lineInfo.m_maintenanceCostPerVehicle : 0;
             var amount = 0;
             TransportLineUtil.CountLineActiveVehicles(__state, out _, (num3) =>
             {
-                var vehicleInfo = VehicleManager.instance.m_vehicles.m_buffer[num3].Info;
-                if (vehicleInfo == null) return;
-                var maintenanceCost = vehicleInfo.m_maintenanceCost;
-                amount += maintenanceCost;
-                CachedVehicleData.m_cachedVehicleData[num3].StartNewWeek(maintenanceCost);
+                if (VehicleManager.instance.m_vehicles.m_buffer[num3].Info == null) return;
+                amount += maintenanceCostPerVehicle;
+                CachedVehicleData.m_cachedVehicleData[num3].StartNewWeek(maintenanceCostPerVehicle);
             });
             if (amount != 0)
                 Singleton<EconomyManager>.instance.FetchResource(EconomyManager.Resource.Maintenance, amount,

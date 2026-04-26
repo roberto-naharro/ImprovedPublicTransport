@@ -30,8 +30,8 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
         internal PreviewPanel()
         {
             // Size.
-            width = VehicleSelection.PreviewWidth;
-            height = VehicleSelection.PreviewWidth;
+            width = 109f;
+            height = 109f;
 
             // Appearance.
             opacity = 1.0f;

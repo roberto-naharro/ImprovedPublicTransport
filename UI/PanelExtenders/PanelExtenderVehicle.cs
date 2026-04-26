@@ -176,8 +176,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         this._passengersCurrentWeek.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersThisWeek.ToString();
         this._passengersLastWeek.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersLastWeek.ToString();
         this._passengersAverage.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersAverage.ToString();
-        var vehicleInfo = vm.m_vehicles.m_buffer[(int) vehicleID].Info;
-        int maintenanceCost = vehicleInfo != null ? vehicleInfo.m_maintenanceCost : 0;
+        var lineInfo = Singleton<TransportManager>.instance.m_lines.m_buffer[(int) lineId].Info;
+        int maintenanceCost = lineInfo != null ? lineInfo.m_maintenanceCostPerVehicle : 0;
         int num1 = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].IncomeThisWeek - maintenanceCost;
         UILabel earningsCurrentWeek = this._earningsCurrentWeek;
         float num2 = (float) num1 * 0.01f;
@@ -322,15 +322,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
     private void OnEditTypeClick(UIComponent component, UIMouseEventParameter eventParam)
     {
-      if ((UnityEngine.Object) VehicleEditor.Instance == (UnityEngine.Object) null)
-        return;
-      InstanceID currentInstanceId = WorldInfoPanel.GetCurrentInstanceID();
-      ushort firstVehicle = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[(int) currentInstanceId.Vehicle].GetFirstVehicle(currentInstanceId.Vehicle);
-      if ((int) firstVehicle == 0)
-        return;
-      VehicleInfo info = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[(int) firstVehicle].Info;
-      Singleton<InfoManager>.instance.SetCurrentMode(InfoManager.InfoMode.Transport, InfoManager.SubInfoMode.Default);
-      VehicleEditor.Instance.SetPrefab(info);
     }
 
     private void OnTargetClick(UIComponent component, UIMouseEventParameter eventParam)

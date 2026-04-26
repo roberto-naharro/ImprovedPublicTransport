@@ -37,8 +37,6 @@ namespace ImprovedPublicTransport2.Settings
                 for (int index = 0; index < length; ++index)
                 {
                     CachedTransportLineData.SetBudgetControlState((ushort) index, budgetControl);
-                    if (budgetControl)
-                        CachedTransportLineData.ClearEnqueuedVehicles((ushort) index);
                 }
             });
         }

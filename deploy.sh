@@ -45,7 +45,7 @@ fi
 # ── Build ────────────────────────────────────────────────────────────────────────
 echo "Building ($CONFIGURATION)..."
 cd "$SCRIPT_DIR"
-xbuild ImprovedPublicTransport.sln /p:Configuration="$CONFIGURATION" /p:PostBuildEvent="" /p:ReferencePath="$GAME_MOUNT/Cities_Data/Managed/" /nologo /verbosity:quiet
+xbuild ImprovedPublicTransport.sln /p:Configuration="$CONFIGURATION" /p:ReferencePath="$GAME_MOUNT/Cities_Data/Managed/" /nologo /verbosity:quiet
 echo "Build succeeded."
 
 # ── Stage to dist/ ───────────────────────────────────────────────────────────────

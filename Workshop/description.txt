@@ -28,10 +28,10 @@ We focus on the two things no other mod provides: precise vehicle count control 
 These mods cover features that the original IPT2 included. Each one does its job better as a standalone tool. IPT Essentials is designed to work seamlessly with all of them.
 
 [list]
-[*][b]Vehicle type & depot per line[/b] — [url=https://github.com/algernon-A/VehicleSelector/]VehicleSelector[/url] by algernon-A: a full-featured vehicle assignment system with its own UI and asset filtering.
-[*][b]Vehicle unbunching[/b] — [url=https://github.com/Vectorial1024/PublicTransportUnstucker]Public Transport Unstucker[/url] by Vectorial1024: purpose-built unbunching that integrates with TM:PE.
+[*][b]Vehicle type & depot per line[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2882769913]VehicleSelector[/url] by algernon-A: a full-featured vehicle assignment system with its own UI and asset filtering.
+[*][b]Vehicle unbunching[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2774427140]Public Transport Unstucker[/url] by Vectorial1024: purpose-built unbunching that integrates with TM:PE.
 [*][b]Advanced stop selection[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=442167376]Advanced Stop Selection[/url]: dedicated stop-selection logic maintained independently.
-[*][b]Elevated stop placement[/b] — [url=https://github.com/MacSergey/ElevatedStopsEnabler]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.
+[*][b]Elevated stop placement[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862992091]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.
 [/list]
 
 Also compatible with [url=https://github.com/Vectorial1024/ExpressBusServices]Express Bus Services[/url] by Vectorial1024 — passenger stats remain accurate in all EBS modes.

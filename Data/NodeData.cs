@@ -11,7 +11,6 @@ namespace ImprovedPublicTransport2.Data
 {
   public struct NodeData
   {
-    private bool _noUnbunching;
     private int _averagePassengersIn;
     private int _averagePassengersOut;
     private MovingAverage _passengerInData;
@@ -21,21 +20,7 @@ namespace ImprovedPublicTransport2.Data
     {
       get
       {
-        if (this.PassengersTotal == 0 && this._passengerInData == null)
-          return !this._noUnbunching;
-        return false;
-      }
-    }
-
-    public bool Unbunching
-    {
-      get
-      {
-        return !this._noUnbunching;
-      }
-      set
-      {
-        this._noUnbunching = !value;
+        return this.PassengersTotal == 0 && this._passengerInData == null;
       }
     }
 

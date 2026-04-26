@@ -12,7 +12,7 @@ namespace ImprovedPublicTransport2.Data
   public static class CachedNodeData
   {
     private static readonly string _dataID = "IPT_NodeData";
-    private static readonly string _dataVersion = "v003";
+    private static readonly string _dataVersion = "v004";
     private static bool _isDeployed = false;
 
     public static NodeData[] m_cachedNodeData;
@@ -68,7 +68,7 @@ namespace ImprovedPublicTransport2.Data
           data[index2].LastWeekPassengersOut = SerializableDataExtension.ReadInt32(data1, ref index1);
           data[index2].PassengerInData = SerializableDataExtension.ReadFloatArray(data1, ref index1);
           data[index2].PassengerOutData = SerializableDataExtension.ReadFloatArray(data1, ref index1);
-          data[index2].Unbunching = str == "v001" || str == "v002" || SerializableDataExtension.ReadBool(data1, ref index1);
+          if (str == "v003") SerializableDataExtension.ReadBool(data1, ref index1); // skip legacy unbunching bool
         }
         return true;
       }
@@ -97,7 +97,6 @@ namespace ImprovedPublicTransport2.Data
             SerializableDataExtension.WriteInt32(CachedNodeData.m_cachedNodeData[index].LastWeekPassengersOut, data);
             SerializableDataExtension.WriteFloatArray(CachedNodeData.m_cachedNodeData[index].PassengerInData, data);
             SerializableDataExtension.WriteFloatArray(CachedNodeData.m_cachedNodeData[index].PassengerOutData, data);
-            SerializableDataExtension.WriteBool(CachedNodeData.m_cachedNodeData[index].Unbunching, data);
           }
         }
         SerializableDataExtension.instance.SerializableData.SaveData(CachedNodeData._dataID, data.ToArray());

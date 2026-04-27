@@ -85,7 +85,7 @@ namespace ImprovedPublicTransport2.UI
         {
             this.name = "PublicTransportStopWorldInfoPanel";
             this.isVisible = false;
-            this.canFocus = true;
+            this.canFocus = false;
             this.isInteractive = true;
             this.anchor = UIAnchorStyle.None;
             this.pivot = UIPivotPoint.BottomLeft;

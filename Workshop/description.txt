@@ -30,7 +30,7 @@ These mods cover features that the original IPT2 included. Each one does its job
 [list]
 [*][b]Vehicle type & depot per line[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2882769913]VehicleSelector[/url] by algernon-A: a full-featured vehicle assignment system with its own UI and asset filtering.
 [*][b]Vehicle unbunching[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2774427140]Public Transport Unstucker[/url] by Vectorial1024: purpose-built unbunching that integrates with TM:PE.
-[*][b]Advanced stop selection[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=442167376]Advanced Stop Selection[/url]: dedicated stop-selection logic maintained independently.
+[*][b]Advanced stop selection[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862973068]Advanced Stop Selection[/url]: dedicated stop-selection logic maintained independently.
 [*][b]Elevated stop placement[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862992091]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.
 [/list]
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.0...v1.0.1) (2026-04-27)
+
+
+### Bug Fixes
+
+* remove unused GameDefault and GetDepotLevelsPatch classes ([4b074ee](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/4b074eed54449a8affc3eeb4b12abd5e21861d7f))
+
 ## [1.0.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v0.1.0...v1.0.0) (2026-04-26)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.2...v1.0.3) (2026-04-27)
+
+
+### Bug Fixes
+
+* update link for Advanced Stop Selection mod in description ([bc03185](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/bc031853792e4ddc50137d8a8484bdfb6a14f53d))
+
 ## [1.0.2](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.1...v1.0.2) (2026-04-27)
 
 

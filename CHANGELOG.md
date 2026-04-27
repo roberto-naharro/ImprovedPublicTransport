@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.1...v1.0.2) (2026-04-27)
+
+
+### Bug Fixes
+
+* set canFocus=false on stop info panel to unblock BOB's UUI hotkey ([79d4b97](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/79d4b97c764da8e36903c16122f30e51e7725edb))
+
 ## [1.0.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.0...v1.0.1) (2026-04-27)
 
 

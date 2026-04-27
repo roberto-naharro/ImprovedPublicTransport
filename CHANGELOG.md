@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.3...v1.0.4) (2026-04-27)
+
+
+### Bug Fixes
+
+* guard vehicle data deserialization against out-of-range indices ([143bd9f](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/143bd9f4675066c5f5a159ba01d99b870a5887b2))
+
 ## [1.0.3](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.2...v1.0.3) (2026-04-27)
 
 

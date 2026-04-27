@@ -78,13 +78,11 @@
     <Compile Include="Data\CachedNodeData.cs" />
     <Compile Include="Data\CachedTransportLineData.cs" />
     <Compile Include="Data\CachedVehicleData.cs" />
-    <Compile Include="Data\GameDefault.cs" />
     <Compile Include="Data\LineData.cs" />
     <Compile Include="Data\MovingAverage.cs" />
     <Compile Include="Data\NodeData.cs" />
     <Compile Include="Data\SerializableDataExtension.cs" />
     <Compile Include="Data\VehicleData.cs" />
-    <Compile Include="HarmonyPatches\BuildingManagerPatches\GetDepotLevelsPatch.cs" />
     <Compile Include="HarmonyPatches\DepotAIPatches\ClassMatchesPatch.cs" />
     <Compile Include="HarmonyPatches\NetManagerPatches\ReleaseNodePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\SimulationStepPatch.cs" />

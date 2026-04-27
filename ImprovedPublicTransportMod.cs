@@ -3,7 +3,6 @@ using CitiesHarmony.API;
 using ColossalFramework;
 using ColossalFramework.UI;
 using ICities;
-using ImprovedPublicTransport2.HarmonyPatches.BuildingManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.DepotAIPatches;
 using ImprovedPublicTransport2.HarmonyPatches.NetManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches;
@@ -175,7 +174,6 @@ namespace ImprovedPublicTransport2
             ReleaseNodePatch.Undo();
             ReleaseWaterSourcePatch.Undo();
             ClassMatchesPatch.Undo();
-            GetDepotLevelsPatch.Undo();
 
             HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Undo();
             HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Undo();

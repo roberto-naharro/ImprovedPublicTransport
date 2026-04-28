@@ -108,7 +108,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                     UIPanel uiPanel = _mainSubPanel.AddUIComponent<UIPanel>();
                     uiPanel.name = "IptContainer";
                     uiPanel.width = 280f;
-                    uiPanel.height = 115f;
+                    uiPanel.height = 152f;
                     uiPanel.autoLayoutDirection = LayoutDirection.Vertical;
                     uiPanel.autoLayoutStart = LayoutStart.TopLeft;
                     uiPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 5);
@@ -167,6 +167,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                             CreateBudgetControlPanel();
                             CreateButtonPanel1();
                             CreateButtonPanel2();
+                            CreateButtonPanel3();
                             _publicTransportWorldInfoPanel.component.width = 650f;
                             _publicTransportWorldInfoPanel.component.height = 585f;
                             _initialized = true;
@@ -225,7 +226,10 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 }
 
                 if (lineId != _cachedLineID)
+                {
                     _colorTextField.text = ColorUtility.ToHtmlStringRGB(_colorField.selectedColor);
+                    PrefabPanel.instance?.Hide();
+                }
             }
             else
             {
@@ -352,6 +356,34 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             button2.height = 32f;
             button2.wordWrap = true;
             button2.eventClick += OnDeleteLineClick;
+        }
+
+        private void CreateButtonPanel3()
+        {
+            UIPanel uiPanel = _iptContainer.AddUIComponent<UIPanel>();
+            uiPanel.width = uiPanel.parent.width;
+            uiPanel.height = 36f;
+            uiPanel.autoLayoutDirection = LayoutDirection.Horizontal;
+            uiPanel.autoLayoutStart = LayoutStart.TopLeft;
+            uiPanel.autoLayoutPadding = new RectOffset(0, 6, 0, 0);
+            uiPanel.autoLayout = true;
+            UIButton button = UIUtils.CreateButton(uiPanel);
+            button.name = "SelectVehicleTypes";
+            button.textPadding = new RectOffset(10, 10, 4, 0);
+            button.text = Localization.Get("LINE_PANEL_SELECT_TYPES");
+            button.textScale = 0.8f;
+            button.width = uiPanel.parent.width - 6f;
+            button.height = 30f;
+            button.wordWrap = true;
+            button.eventClick += OnSelectTypesClick;
+        }
+
+        private void OnSelectTypesClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
+            if (lineId == 0) return;
+            if (PrefabPanel.instance == null) return;
+            PrefabPanel.instance.SetTarget(lineId);
         }
 
         private void OnMouseEnter(UIComponent component, UIMouseEventParameter p)

@@ -559,8 +559,8 @@ namespace ImprovedPublicTransport2.UI.AlgernonCommons
         /// </summary>
         private void EnsureRows()
         {
-            // Calculate required number of rows.
-            int requiredRows = Mathf.CeilToInt(height / _rowHeight);
+            // Calculate required number of fully visible rows.
+            int requiredRows = Mathf.Max(1, Mathf.FloorToInt(height / _rowHeight));
 
             // Initialize rows fastlist if required.
             if (_rows == null)

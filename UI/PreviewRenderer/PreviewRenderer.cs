@@ -13,10 +13,18 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
     /// </summary>
     internal class PreviewRenderer : MonoBehaviour
     {
+        internal struct RenderItem
+        {
+            internal Mesh Mesh;
+            internal Material Material;
+            internal Vector3 LocalPosition;
+        }
+
         // Rendering components and parameters.
         private readonly Camera _renderCamera;
         private Mesh _mesh;
         private Material _material;
+        private RenderItem[] _renderItems;
         private float _rotation = 35f;
         private float _zoom = 3f;
         private bool _colorSet;
@@ -65,6 +73,11 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
         /// Sets the render material.
         /// </summary>
         internal Material Material { set => _material = value; }
+
+        /// <summary>
+        /// Sets render items for multi-part previews.
+        /// </summary>
+        internal RenderItem[] RenderItems { set => _renderItems = value; }
 
         public Color32 MaterialColor
         {
@@ -126,8 +139,33 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
         /// </summary>
         public void Render()
         {
+            // Fallback to single-mesh rendering if no explicit render items were supplied.
+            RenderItem[] items = _renderItems;
+            if (items == null || items.Length == 0)
+            {
+                items = new[]
+                {
+                    new RenderItem
+                    {
+                        Mesh = _mesh,
+                        Material = _material,
+                        LocalPosition = Vector3.zero,
+                    },
+                };
+            }
+
             // If no mesh, don't do anything here.
-            if (_mesh == null)
+            bool hasRenderableMesh = false;
+            for (int i = 0; i < items.Length; ++i)
+            {
+                if (items[i].Mesh != null)
+                {
+                    hasRenderableMesh = true;
+                    break;
+                }
+            }
+
+            if (!hasRenderableMesh)
             {
                 return;
             }
@@ -161,30 +199,38 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
             Light renderLight = DayNightProperties.instance.sunLightSource;
             RenderManager.instance.MainLight = renderLight;
 
-            // Reset the bounding box to be the smallest that can encapsulate all verticies of the new mesh.
-            // That way the preview image is the largest size that fits cleanly inside the preview size.
-            Bounds currentBounds = new Bounds(Vector3.zero, Vector3.zero);
-            Vector3[] vertices;
+            // Build aggregate model bounds so the camera includes all rendered segments.
+            Bounds currentBounds = default(Bounds);
+            bool boundsInitialized = false;
 
-            // Is the mesh readable, i.e. not locked?
-            if (_mesh.isReadable)
+            for (int i = 0; i < items.Length; ++i)
             {
-                // Readable mesh - calculate our own bounds, as some preset bounds are unreliable.
-                // Use separate verticies instance instead of accessing Mesh.vertices each time (which is slow).
-                // >10x measured performance improvement by doing things this way instead.
-                vertices = _mesh.vertices;
-                for (int i = 0; i < vertices.Length; i++)
+                Mesh mesh = items[i].Mesh;
+                if (mesh == null)
                 {
-                    currentBounds.Encapsulate(vertices[i]);
+                    continue;
+                }
+
+                Bounds meshBounds = GetMeshBounds(mesh);
+                meshBounds.center += items[i].LocalPosition;
+
+                if (!boundsInitialized)
+                {
+                    currentBounds = meshBounds;
+                    boundsInitialized = true;
+                }
+                else
+                {
+                    currentBounds.Encapsulate(meshBounds.min);
+                    currentBounds.Encapsulate(meshBounds.max);
                 }
             }
-            else
+
+            if (!boundsInitialized)
             {
-                // Locked mesh - use default bounds.
-                currentBounds = _mesh.bounds;
+                return;
             }
 
-            // Expand bounds slightly.
             currentBounds.Expand(1f);
 
             // Set our model rotation parameters, so we look at it obliquely.
@@ -193,32 +239,30 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
             // Apply model rotation with our camnera rotation into a quaternion.
             Quaternion modelRotation = Quaternion.Euler(xRotation, 0f, 0f) * Quaternion.Euler(0f, CameraRotation, 0f);
 
-            // Set material to use when previewing.
-            Material previewMaterial = _material;
-
-            // Override material for mssing or non-standard shaders.
-            if (_material?.shader != null && _material.shader != TreeShader && _material.shader != PropShader)
+            // Render all supplied mesh items.
+            for (int i = 0; i < items.Length; ++i)
             {
-                previewMaterial = new Material(DiffuseShader)
+                Mesh mesh = items[i].Mesh;
+                Material material = items[i].Material;
+                if (mesh == null || material == null)
                 {
-                    mainTexture = _material.mainTexture,
-                };
-            }
+                    continue;
+                }
 
-            // Don't render anything if we don't have a material.
-            if (_material != null)
-            {
-                // Calculate rendering matrix and add mesh to scene.
-                Matrix4x4 matrix = Matrix4x4.TRS(Vector3.zero, modelRotation, Vector3.one);
-                //TODO: set line color, also clean up how it's set up
-                // MaterialPropertyBlock materialBlock = VehicleManager.instance.m_materialBlock;
-                // materialBlock.Clear();
-                // if (_colorSet)
-                // {
-                //     materialBlock.SetColor(VehicleManager.instance.ID_VehicleColor, _color);
-                // }
+                Material previewMaterial = material;
 
-                Graphics.DrawMesh(_mesh, matrix, previewMaterial, 0, _renderCamera, 0, null, true, true);
+                // Override material for missing or non-standard shaders.
+                if (material.shader != null && material.shader != TreeShader && material.shader != PropShader)
+                {
+                    previewMaterial = new Material(DiffuseShader)
+                    {
+                        mainTexture = material.mainTexture,
+                    };
+                }
+
+                Vector3 worldOffset = modelRotation * items[i].LocalPosition;
+                Matrix4x4 matrix = Matrix4x4.TRS(worldOffset, modelRotation, Vector3.one);
+                Graphics.DrawMesh(mesh, matrix, previewMaterial, 0, _renderCamera, 0, null, true, true);
             }
 
             // Set zoom to encapsulate entire model.
@@ -249,7 +293,7 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
             renderLight.color = Color.white;
 
             // Render!
-            _renderCamera.RenderWithShader(previewMaterial.shader, string.Empty);
+            _renderCamera.Render();
 
             // Restore game lighting.
             RenderManager.instance.MainLight = gameMainLight;
@@ -269,6 +313,31 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
             // Restore game InfoManager mode.
             infoManager.SetCurrentMode(currentMode, currentSubMode);
             infoManager.UpdateInfoMode();
+        }
+
+        private static Bounds GetMeshBounds(Mesh mesh)
+        {
+            if (mesh == null)
+            {
+                return new Bounds(Vector3.zero, Vector3.zero);
+            }
+
+            if (mesh.isReadable)
+            {
+                Vector3[] vertices = mesh.vertices;
+                if (vertices != null && vertices.Length > 0)
+                {
+                    Bounds bounds = new Bounds(vertices[0], Vector3.zero);
+                    for (int i = 1; i < vertices.Length; ++i)
+                    {
+                        bounds.Encapsulate(vertices[i]);
+                    }
+
+                    return bounds;
+                }
+            }
+
+            return mesh.bounds;
         }
     }
 }

@@ -18,10 +18,13 @@ The Cities: Skylines mod ecosystem has excellent dedicated mods for vehicle assi
 selection, stop selection, and unbunching. IPT Essentials is built to work *alongside* those
 specialists — each mod doing its job, all fitting together cleanly.
 
-We focus on the two things no other mod provides:
+We focus on the things no other mod provides together:
 
-- **Precise vehicle count control** — the ability to set exactly how many vehicles run on a
-  line, independent of budget, and switch between manual and budget-driven mode per line.
+- **Precise vehicle count control** — set exactly how many vehicles run on a line, independent
+  of budget, and switch between manual and budget-driven mode per line.
+- **Per-line vehicle type selection** — choose which vehicle models can serve a given line.
+  Opens a floating panel (from the line info panel) listing available and selected models with
+  thumbnail previews. Mixed-fleet lines are preserved across load.
 - **Granular passenger statistics** — per-stop and per-vehicle breakdowns (current week, last
   week, rolling average) that let you actually understand how your network is performing.
 
@@ -38,6 +41,30 @@ defers to it — and works better because of it.
 ---
 
 ## Features
+
+### Per-line vehicle type selection
+
+Click **Select Vehicle Types** in the line info panel to open a floating selection panel.
+The panel shows two lists side-by-side: selected vehicle models (left) and available models
+for this line's service class (right), with thumbnail sprites and Steam Workshop badges.
+Add or remove individual models, or add/remove all at once. A preview renderer shows the
+selected/highlighted model in 3D.
+
+The selection panel UI is based on code patterns from
+[VehicleSelector](https://github.com/algernon-A/VehicleSelector/) by **algernon-A**
+(icon-button middle section, hover tooltip interaction, and related UX flow), adapted here
+for line-level vehicle model selection.
+
+When vehicle types are configured for a line, `TransportLine.GetLineVehicle` returns a
+random model from the set rather than the game's default. `TransportManager.CheckTransportLineVehicles`
+is skipped for those lines, preventing the game from despawning non-default models in a
+mixed-fleet line. The vanilla `PublicTransportLineVehicleSelector` is suppressed; IPT's
+panel replaces it entirely.
+
+**Bus lines** accept Level 1 and Level 2 bus assets interchangeably (matching the behaviour
+of `ClassMatchesPatch` for depot compatibility).
+
+Selection data is persisted to the save file (schema `v006`).
 
 ### Manual vehicle count
 
@@ -109,8 +136,10 @@ descriptors. This makes the patch list deterministic and avoids scanning the ent
 | `UnloadPassengersPatch` | `*AI.UnloadPassengers` (9 types) | prefix + postfix | Record alighting counts per stop and per vehicle |
 | `ReleaseNodePatch` | `NetManager.ReleaseNode` | postfix | Clear `CachedNodeData` entry when a stop is deleted |
 | `ReleaseWaterSourcePatch` | `VehicleManager` | postfix | Clear `CachedVehicleData` entry when a vehicle is despawned |
-| `ClassMatchesPatch` | `DepotAI.ClassMatches` | postfix | Depot-to-line service class compatibility |
-| `GetDepotLevelsPatch` | `BuildingManager` | postfix | Depot level lookup for transport lines |
+| `ClassMatchesPatch` | `DepotAI.ClassMatches` | prefix | Depot accepts both Level1 and Level2 bus assets |
+| `GetLineVehiclePatch` | `TransportLine.GetLineVehicle` | prefix | Returns a random model from the line's selected set (falls through to vanilla when no selection) |
+| `CheckTransportLineVehiclesPatch` | `TransportManager.CheckTransportLineVehicles` | prefix | Skips vanilla vehicle-type enforcement for lines with a custom model set |
+| `GetVehicleInfoPatch` | `PublicTransportLineVehicleSelector.GetVehicleInfo` | prefix | Suppresses vanilla per-line vehicle selector; IPT's panel replaces it |
 | `OnMouseDownPatch` (stop) | `PublicTransportStopButton` | prefix | Open IPT stop detail panel on click |
 | `OnMouseDownPatch` (vehicle) | `PublicTransportVehicleButton` | prefix | Open IPT vehicle detail panel on click |
 | `UpdateStopButtonsPatch` | `PublicTransportWorldInfoPanel` | postfix | Refresh stop button visibility and labels |
@@ -132,16 +161,21 @@ two call sites:
 #### `CachedTransportLineData` — persisted
 
 Stored under save-game key `"ImprovedPublicTransport"` (preserving compatibility with original
-IPT2 saves), schema version `v005`. Holds an array of 256 `LineData` structs — one per
+IPT2 saves), schema version `v006`. Holds an array of 256 `LineData` structs — one per
 `TransportManager` line slot:
 
 | Field | Type | Meaning |
 | --- | --- | --- |
 | `TargetVehicleCount` | `int` | Manual vehicle target (ignored when `BudgetControl` is true) |
 | `BudgetControl` | `bool` | `true` = let the game calculate; `false` = use `TargetVehicleCount` |
+| `Prefabs` | `HashSet<string>` | Vehicle prefab names selected for this line (null = use default) |
 
 On first load (no existing save data), `TargetVehicleCount` is initialised from the current
-active vehicle count on each line, and `BudgetControl` from the mod option default.
+active vehicle count on each line, `BudgetControl` from the mod option default, and `Prefabs`
+is null (vanilla vehicle selection).
+
+Saves from schema `v005` and earlier load correctly: the fixed fields are read and `Prefabs`
+stays null.
 
 #### `CachedVehicleData` — runtime only
 
@@ -173,9 +207,9 @@ These mods handle features that IPT2 used to include. Each is a dedicated, activ
 tool that does its job better than a bundled solution can. IPT Essentials is designed to work
 alongside all of them.
 
-| Feature | Mod | Why it belongs there |
+| Feature | Mod | Notes |
 | --- | --- | --- |
-| Custom vehicle type & depot per line | [VehicleSelector](https://github.com/algernon-A/VehicleSelector/) by **algernon-A** | A full-featured vehicle assignment system with its own UI and asset filtering — more flexible and better maintained than anything bundled in a transit mod. |
+| Depot assignment per line | [VehicleSelector](https://github.com/algernon-A/VehicleSelector/) by **algernon-A** | VS controls which depot a line draws from (building-level). IPT Essentials controls which vehicle models a line can spawn (line-level). The two are complementary and fully compatible. |
 | Vehicle unbunching | [Public Transport Unstucker](https://github.com/Vectorial1024/PublicTransportUnstucker) by **Vectorial1024** | Purpose-built unbunching that integrates with TM:PE and handles edge cases a transit mod's side-feature never would. |
 | Advanced stop selection | [Advanced Stop Selection](https://steamcommunity.com/sharedfiles/filedetails/?id=442167376) | Dedicated stop-selection logic maintained independently from any transit feature mod. |
 | Elevated stop placement | [Elevated Stops Enabler](https://github.com/MacSergey/ElevatedStopsEnabler) by **MacSergey** | Unlocks stop placement on elevated road segments — a focused infrastructure tool. |
@@ -188,7 +222,7 @@ in all EBS modes.
 
 ## Migrating from IPT2
 
-If you are coming from the original Improved Public Transport 2, one compatibility note applies:
+If you are coming from the original Improved Public Transport 2, two compatibility notes apply:
 
 **[ExpressBusServices-IPT2](https://github.com/Vectorial1024/ExpressBusServices-IPT2)** is no
 longer needed and should be unsubscribed. That mod was a compatibility bridge between EBS and
@@ -197,7 +231,13 @@ IPT2's unbunching feature. IPT Essentials has removed unbunching entirely (now h
 so EBS-IPT2 has nothing to bridge and will fail to load alongside IPT Essentials.
 
 Manual vehicle counts and line settings from an existing IPT2 save are loaded automatically —
-the save-data key and serialization format are backward-compatible up to schema `v005`.
+the save-data key and serialization format are backward-compatible up to schema `v005`. Vehicle
+type selections made in the original IPT2 will not be loaded (different data structure), but
+no data is lost: the fields are skipped during migration and all other settings transfer cleanly.
+
+**VehicleSelector** users: IPT Essentials adds line-level vehicle type selection (which model
+spawns per line), while VehicleSelector adds depot-level assignment (which depot a line draws
+from). The two features operate at different layers and are compatible.
 
 ---
 

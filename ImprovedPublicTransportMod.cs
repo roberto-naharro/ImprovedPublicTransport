@@ -6,8 +6,10 @@ using ICities;
 using ImprovedPublicTransport2.HarmonyPatches.DepotAIPatches;
 using ImprovedPublicTransport2.HarmonyPatches.NetManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches;
+using ImprovedPublicTransport2.HarmonyPatches.TransportManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.VehicleManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches;
+using ImprovedPublicTransport2.HarmonyPatches.PublicTransportLineVehicleSelectorPatches;
 using ImprovedPublicTransport2.OptionsFramework.Extensions;
 using ImprovedPublicTransport2.Data;
 using ImprovedPublicTransport2.HarmonyPatches.PublicTransportVehicleButtonPatches;
@@ -107,6 +109,14 @@ namespace ImprovedPublicTransport2
                     SimulationStepPatch.Apply();
                     SerializableDataExtension.instance.Loaded = true;
                     LocaleModifier.Init();
+                    GetLineVehiclePatch.Apply();
+                    CheckTransportLineVehiclesPatch.Apply();
+                    GetVehicleInfoPatch.Apply();
+
+                    var prefabPanelObject = new GameObject("PrefabPanel");
+                    prefabPanelObject.transform.parent = objectOfType.transform;
+                    prefabPanelObject.AddComponent<UI.PrefabPanel>();
+
                     IptGameObject.AddComponent<PanelExtenderLine>();
                     IptGameObject.AddComponent<PanelExtenderVehicle>();
                     IptGameObject.AddComponent<PanelExtenderCityService>();
@@ -180,6 +190,9 @@ namespace ImprovedPublicTransport2
             UpdateStopButtonsPatch.Undo();
 
             SimulationStepPatch.Undo();
+            GetLineVehiclePatch.Undo();
+            CheckTransportLineVehiclesPatch.Undo();
+            GetVehicleInfoPatch.Undo();
             CachedTransportLineData.Deinit();
 
             CachedNodeData.Deinit();

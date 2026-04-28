@@ -11,6 +11,7 @@ Take back control of your transit network — without replacing the mods that al
 
 [list]
 [*][b]Manual vehicle count[/b] — set exactly how many vehicles run on a line, bypassing the budget calculation. Toggle between manual and budget-driven mode per line at any time.
+[*][b]Per-line vehicle type selection[/b] — click [i]Select Vehicle Types[/i] in the line info panel to pick which vehicle models serve that line. Shows thumbnail previews, Steam Workshop badges, and a 3D preview renderer. Mixed-fleet lines are saved and survive reload.
 [*][b]Per-stop passenger stats[/b] — each transit stop shows Passengers In / Out for the current week, last week, and a rolling average. Rename stops and browse suggested names from nearby buildings.
 [*][b]Per-vehicle stats[/b] — click any active transit vehicle to see its passengers, earnings, and distance traveled (current week / last week / average), plus the last-stop boarding and alighting count.
 [*][b]Station stop list[/b] — clicking a transit station building shows all associated stops, each clickable to open its stop panel.
@@ -21,14 +22,14 @@ Take back control of your transit network — without replacing the mods that al
 
 The Cities: Skylines mod ecosystem already has excellent, dedicated tools for vehicle assignment, depot selection, stop selection, and unbunching. IPT Essentials is built to work [i]alongside[/i] those specialists — not to replace them.
 
-We focus on the two things no other mod provides: precise vehicle count control and granular passenger statistics. For everything else, there is already a better, purpose-built solution. Using them together gives you a cleaner, more stable, and more powerful setup than any single mod can offer.
+We focus on the things no other mod provides together: precise vehicle count control, per-line vehicle type selection, and granular passenger statistics. For everything else, there is already a better, purpose-built solution. Using them together gives you a cleaner, more stable, and more powerful setup than any single mod can offer.
 
 [h1]Companion mods[/h1]
 
 These mods cover features that the original IPT2 included. Each one does its job better as a standalone tool. IPT Essentials is designed to work seamlessly with all of them.
 
 [list]
-[*][b]Vehicle type & depot per line[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2882769913]VehicleSelector[/url] by algernon-A: a full-featured vehicle assignment system with its own UI and asset filtering.
+[*][b]Depot assignment per line[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2882769913]VehicleSelector[/url] by algernon-A: controls which depot a line draws from (building-level). Complements IPT Essentials' line-level vehicle type selection.
 [*][b]Vehicle unbunching[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2774427140]Public Transport Unstucker[/url] by Vectorial1024: purpose-built unbunching that integrates with TM:PE.
 [*][b]Advanced stop selection[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862973068]Advanced Stop Selection[/url]: dedicated stop-selection logic maintained independently.
 [*][b]Elevated stop placement[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862992091]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.

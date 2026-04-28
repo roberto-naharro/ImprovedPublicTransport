@@ -53,6 +53,9 @@ rm -rf "$DIST"
 mkdir -p "$DIST"
 cp "$BUILD_OUT/ImprovedPublicTransport2.dll" "$DIST/$MOD_NAME.dll"
 cp -r "$SCRIPT_DIR/Locale" "$DIST/Locale"
+if [[ -d "$SCRIPT_DIR/Resources" ]]; then
+    cp -r "$SCRIPT_DIR/Resources" "$DIST/Resources"
+fi
 echo ""
 echo "Staged to: $DIST"
 ls -lh "$DIST"
@@ -63,6 +66,10 @@ echo "Copying to $MODS_DIR ..."
 mkdir -p "$MODS_DIR"
 cp "$DIST/$MOD_NAME.dll" "$MODS_DIR/"
 cp -r "$DIST/Locale" "$MODS_DIR/"
+if [[ -d "$DIST/Resources" ]]; then
+    rm -rf "$MODS_DIR/Resources"
+    cp -r "$DIST/Resources" "$MODS_DIR/"
+fi
 echo "Done. Files in game Mods folder:"
 ls -lh "$MODS_DIR"
 

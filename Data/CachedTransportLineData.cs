@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ColossalFramework;
 using ImprovedPublicTransport2.OptionsFramework;
 using ImprovedPublicTransport2.Util;
@@ -10,7 +11,7 @@ namespace ImprovedPublicTransport2.Data
     public static class CachedTransportLineData
     {
         private static readonly string _dataID = "ImprovedPublicTransport";
-        private static readonly string _dataVersion = "v005";
+        private static readonly string _dataVersion = "v006";
 
         public static bool _init;
         public static LineData[] _lineData;
@@ -74,7 +75,20 @@ namespace ImprovedPublicTransport2.Data
                     data[lineID].BudgetControl = BitConverter.ToBoolean(data1, index1);
                     ++index1;
 
-                    if (str != "v005")
+                    if (str == "v006")
+                    {
+                        // v006: prefab count + N strings
+                        var prefabCount = BitConverter.ToInt32(data1, index1);
+                        index1 += 4;
+                        if (prefabCount > 0)
+                        {
+                            var prefabs = new HashSet<string>();
+                            for (var i = 0; i < prefabCount; ++i)
+                                prefabs.Add(SerializableDataExtension.ReadString(data1, ref index1));
+                            data[lineID].Prefabs = prefabs;
+                        }
+                    }
+                    else if (str != "v005")
                     {
                         // skip depot (2 bytes)
                         index1 += 2;
@@ -131,6 +145,16 @@ namespace ImprovedPublicTransport2.Data
                         data);
                     SerializableDataExtension.AddToData(
                         BitConverter.GetBytes(GetBudgetControlState(lineID)), data);
+
+                    // v006: prefab count + N strings
+                    HashSet<string> prefabs = _lineData[lineID].Prefabs;
+                    int prefabCount = prefabs != null ? prefabs.Count : 0;
+                    SerializableDataExtension.AddToData(BitConverter.GetBytes(prefabCount), data);
+                    if (prefabs != null)
+                    {
+                        foreach (string name in prefabs)
+                            SerializableDataExtension.WriteString(name, data);
+                    }
                 }
                 SerializableDataExtension.instance.SerializableData.SaveData(_dataID, data.ToArray());
             }
@@ -191,6 +215,50 @@ namespace ImprovedPublicTransport2.Data
         public static void SetBudgetControlState(ushort lineID, bool state)
         {
             _lineData[lineID].BudgetControl = state;
+        }
+
+        public static HashSet<string> GetPrefabs(ushort lineID)
+        {
+            return _lineData[lineID].Prefabs;
+        }
+
+        public static void SetPrefabs(ushort lineID, HashSet<string> prefabs)
+        {
+            _lineData[lineID].Prefabs = prefabs;
+        }
+
+        public static void AddPrefab(ushort lineID, string prefabName)
+        {
+            if (_lineData[lineID].Prefabs == null)
+                _lineData[lineID].Prefabs = new HashSet<string>();
+            _lineData[lineID].Prefabs.Add(prefabName);
+        }
+
+        public static void RemovePrefab(ushort lineID, string prefabName)
+        {
+            _lineData[lineID].Prefabs?.Remove(prefabName);
+            if (_lineData[lineID].Prefabs != null && _lineData[lineID].Prefabs.Count == 0)
+                _lineData[lineID].Prefabs = null;
+        }
+
+        public static void ClearPrefabs(ushort lineID)
+        {
+            _lineData[lineID].Prefabs = null;
+        }
+
+        public static string GetRandomPrefab(ushort lineID)
+        {
+            HashSet<string> prefabs = _lineData[lineID].Prefabs;
+            if (prefabs == null || prefabs.Count == 0)
+                return null;
+            int pick = UnityEngine.Random.Range(0, prefabs.Count);
+            int i = 0;
+            foreach (string name in prefabs)
+            {
+                if (i == pick) return name;
+                ++i;
+            }
+            return null;
         }
     }
 }

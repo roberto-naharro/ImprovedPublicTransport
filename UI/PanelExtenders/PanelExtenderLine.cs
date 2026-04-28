@@ -17,7 +17,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private bool _initialized;
         private bool _dimLogged;
         private ushort _cachedLineID;
+        private int _cachedVehicleCount = -1;
         private PublicTransportWorldInfoPanel _publicTransportWorldInfoPanel;
+        private LineVehiclePanel _lineVehiclePanel;
         private UIComponent _mainSubPanel;
         private UIPanel _iptContainer;
         private UIColorField _colorField;
@@ -168,6 +170,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                             CreateButtonPanel1();
                             CreateButtonPanel2();
                             CreateButtonPanel3();
+                            CreateLineVehiclePanel();
                             _publicTransportWorldInfoPanel.component.width = 650f;
                             _publicTransportWorldInfoPanel.component.height = 585f;
                             _initialized = true;
@@ -197,9 +200,10 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             }
 
             ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
+            int lineVehicleCount = 0;
             if (lineId != 0)
             {
-                int lineVehicleCount = TransportLineUtil.CountLineActiveVehicles(lineId, out int _);
+                lineVehicleCount = TransportLineUtil.CountLineActiveVehicles(lineId, out int _);
                 int targetVehicleCount = CachedTransportLineData.GetTargetVehicleCount(lineId);
                 int stopCount = Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].CountStops(lineId);
                 _vehicleAmount.text = LocaleFormatter.FormatGeneric("TRANSPORT_LINE_VEHICLECOUNT",
@@ -225,6 +229,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                     _spawnTimer.text = string.Format(Localization.Get("LINE_PANEL_SPAWNTIMER"), "≥" + timeToNext);
                 }
 
+                if (lineId != _cachedLineID || lineVehicleCount != _cachedVehicleCount)
+                    PopulateLineVehiclePanel(lineId, lineVehicleCount);
+
                 if (lineId != _cachedLineID)
                 {
                     _colorTextField.text = ColorUtility.ToHtmlStringRGB(_colorField.selectedColor);
@@ -237,6 +244,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             }
 
             _cachedLineID = lineId;
+            _cachedVehicleCount = lineVehicleCount;
         }
 
         private void OnDestroy()
@@ -251,6 +259,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 Destroy(_stopCountLabel.gameObject);
             if (_iptContainer != null)
                 Destroy(_iptContainer.gameObject);
+            if (_lineVehiclePanel != null)
+                Destroy(_lineVehiclePanel.gameObject);
         }
 
         private void CreateSpawnTimerPanel()
@@ -472,6 +482,55 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             _publicTransportWorldInfoPanel.GetType()
                 .GetMethod("OnColorChanged", BindingFlags.Instance | BindingFlags.NonPublic)
                 .Invoke(_publicTransportWorldInfoPanel, new object[] { component, color });
+        }
+
+        private void CreateLineVehiclePanel()
+        {
+            UIComponent parent = _publicTransportWorldInfoPanel.component;
+            _lineVehiclePanel = parent.AddUIComponent<LineVehiclePanel>();
+            _lineVehiclePanel.name = "LineVehiclesPanel";
+            _lineVehiclePanel.SetFont(_vehicleAmount.font);
+            _lineVehiclePanel.AlignTo(parent, UIAlignAnchor.TopRight);
+            _lineVehiclePanel.relativePosition = new Vector3(parent.width + 1f, 0f);
+            _lineVehiclePanel.Hide();
+        }
+
+        private void PopulateLineVehiclePanel(ushort lineID, int vehicleCount)
+        {
+            if (_lineVehiclePanel == null) return;
+            _lineVehiclePanel.ClearItems();
+
+            if (vehicleCount == 0)
+            {
+                _lineVehiclePanel.Hide();
+                return;
+            }
+
+            TransportLine line = Singleton<TransportManager>.instance.m_lines.m_buffer[lineID];
+            if (!line.Complete)
+            {
+                _lineVehiclePanel.Hide();
+                return;
+            }
+
+            VehicleManager vm = Singleton<VehicleManager>.instance;
+            ushort vehicleID = line.m_vehicles;
+            int index = 0;
+            int limit = 0;
+            while (vehicleID != 0)
+            {
+                ushort next = vm.m_vehicles.m_buffer[vehicleID].m_nextLineVehicle;
+                if ((vm.m_vehicles.m_buffer[vehicleID].m_flags & Vehicle.Flags.GoingBack) == (Vehicle.Flags)0)
+                {
+                    VehicleInfo info = vm.m_vehicles.m_buffer[vehicleID].Info;
+                    _lineVehiclePanel.AddItem(info, vehicleID, ++index);
+                }
+                vehicleID = next;
+                if (++limit > CachedVehicleData.MaxVehicleCount)
+                    break;
+            }
+
+            _lineVehiclePanel.Show();
         }
     }
 }

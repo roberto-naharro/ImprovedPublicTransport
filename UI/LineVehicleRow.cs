@@ -1,12 +1,15 @@
+using System.Text;
+using ColossalFramework;
 using ColossalFramework.UI;
-using ImprovedPublicTransport2.Util;
 using UnityEngine;
+using IPTUtils = ImprovedPublicTransport2.Util.Utils;
 
 namespace ImprovedPublicTransport2.UI
 {
     public class LineVehicleRow : UIPanel
     {
         private UILabel _label;
+        private string _cachedName;
         private bool _isSelected;
 
         public UIFont Font { get; set; }
@@ -24,10 +27,48 @@ namespace ImprovedPublicTransport2.UI
             }
         }
 
+        public override void Update()
+        {
+            base.Update();
+            if (!isVisible || _label == null) return;
+            if (VehicleID != 0)
+            {
+                var flags = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[VehicleID].m_flags;
+                if ((flags & Vehicle.Flags.CustomName) != (Vehicle.Flags)0)
+                {
+                    string name = Singleton<VehicleManager>.instance.GetVehicleName(VehicleID);
+                    if (_cachedName != name)
+                    {
+                        _cachedName = name;
+                        IPTUtils.Truncate(_label, name, "…");
+                    }
+                    return;
+                }
+            }
+            // Default: asset name + index
+            string defaultName = BuildDefaultName();
+            if (_cachedName != defaultName)
+            {
+                _cachedName = defaultName;
+                IPTUtils.Truncate(_label, defaultName, "…");
+            }
+        }
+
         protected override void OnMouseEnter(UIMouseEventParameter p)
         {
             if (!_isSelected)
                 backgroundSprite = "ListItemHover";
+            if (Info != null)
+            {
+                var sb = new StringBuilder();
+                int capacity = Info.m_vehicleAI.GetPassengerCapacity(true);
+                if (capacity > 0)
+                    sb.AppendLine(string.Format(ColossalFramework.Globalization.Locale.Get("PUBLICTRANSPORTDETAILPANEL_CAPACITY"), capacity));
+                sb.Append(VehicleID != 0
+                    ? Localization.Get("VEHICLE_LIST_BOX_ROW_TOOLTIP1")
+                    : Localization.Get("VEHICLE_LIST_BOX_ROW_TOOLTIP2"));
+                tooltip = sb.ToString();
+            }
             base.OnMouseEnter(p);
         }
 
@@ -40,7 +81,12 @@ namespace ImprovedPublicTransport2.UI
 
         protected override void OnMouseDown(UIMouseEventParameter p)
         {
-            if (VehicleID != 0 && p.buttons == UIMouseButton.Right)
+            if (p.buttons == UIMouseButton.Left)
+            {
+                IsSelected = !IsSelected;
+                (parent?.parent?.parent as LineVehiclePanel)?.NotifySelectionChanged();
+            }
+            else if (VehicleID != 0 && p.buttons == UIMouseButton.Right)
             {
                 bool zoomIn = Input.GetKey(KeyCode.LeftShift) | Input.GetKey(KeyCode.RightShift);
                 InstanceID id = new InstanceID { Vehicle = VehicleID };
@@ -68,16 +114,17 @@ namespace ImprovedPublicTransport2.UI
             _label.height = height;
             _label.width = width - autoLayoutPadding.left;
             _label.verticalAlignment = UIVerticalAlignment.Middle;
-            RefreshLabel();
+            _cachedName = BuildDefaultName();
+            IPTUtils.Truncate(_label, _cachedName, "…");
         }
 
-        public void RefreshLabel()
+        private string BuildDefaultName()
         {
-            if (_label == null) return;
-            string assetName = Info != null ? Info.GetUncheckedLocalizedTitle() : string.Empty;
-            if (string.IsNullOrEmpty(assetName) && Info != null)
+            if (Info == null) return "#" + Index;
+            string assetName = Info.GetUncheckedLocalizedTitle();
+            if (string.IsNullOrEmpty(assetName))
                 assetName = Info.name;
-            Utils.Truncate(_label, assetName + " #" + Index, "…");
+            return assetName + " #" + Index;
         }
 
         public override void OnDestroy()

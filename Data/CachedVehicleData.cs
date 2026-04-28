@@ -5,6 +5,7 @@
 // Assembly location: C:\Games\Steam\steamapps\workshop\content\255710\424106600\ImprovedPublicTransport.dll
 
 using System;
+using ColossalFramework;
 using Utils = ImprovedPublicTransport2.Util.Utils;
 
 namespace ImprovedPublicTransport2.Data
@@ -18,6 +19,42 @@ namespace ImprovedPublicTransport2.Data
     private static bool _isDeployed = false;
 
     public static VehicleData[] m_cachedVehicleData;
+    private static bool[] s_hasJoinedLine;
+
+    public static bool HasJoined(ushort vehicleID) =>
+        s_hasJoinedLine != null && vehicleID < s_hasJoinedLine.Length && s_hasJoinedLine[vehicleID];
+
+    public static void MarkJoined(ushort vehicleID)
+    {
+        if (s_hasJoinedLine != null && vehicleID < s_hasJoinedLine.Length)
+            s_hasJoinedLine[vehicleID] = true;
+    }
+
+    public static void MarkLeft(ushort vehicleID)
+    {
+        if (s_hasJoinedLine != null && vehicleID < s_hasJoinedLine.Length)
+            s_hasJoinedLine[vehicleID] = false;
+    }
+
+    public static void MarkAllExistingJoined()
+    {
+        if (s_hasJoinedLine == null) return;
+        TransportManager tm = TransportManager.instance;
+        VehicleManager vm = VehicleManager.instance;
+        for (ushort lineID = 0; lineID < 256; lineID++)
+        {
+            if ((tm.m_lines.m_buffer[lineID].m_flags & TransportLine.Flags.Created) == TransportLine.Flags.None)
+                continue;
+            ushort vehicleID = tm.m_lines.m_buffer[lineID].m_vehicles;
+            int limit = 0;
+            while (vehicleID != 0)
+            {
+                MarkJoined(vehicleID);
+                vehicleID = vm.m_vehicles.m_buffer[vehicleID].m_nextLineVehicle;
+                if (++limit > MaxVehicleCount) break;
+            }
+        }
+    }
 
     public static void Init(int maxVehicleCount)
     {
@@ -26,7 +63,7 @@ namespace ImprovedPublicTransport2.Data
         return;
       if (!CachedVehicleData.TryLoadData(out CachedVehicleData.m_cachedVehicleData))
         Utils.Log((object) "Loading default vehicle data.");
-
+      s_hasJoinedLine = new bool[maxVehicleCount];
       SerializableDataExtension.instance.EventSaveData += new SerializableDataExtension.SaveDataEventHandler(CachedVehicleData.OnSaveData);
       CachedVehicleData._isDeployed = true;
     }
@@ -36,7 +73,7 @@ namespace ImprovedPublicTransport2.Data
       if (!CachedVehicleData._isDeployed)
         return;
       CachedVehicleData.m_cachedVehicleData = (VehicleData[]) null;
-
+      s_hasJoinedLine = null;
       SerializableDataExtension.instance.EventSaveData -= new SerializableDataExtension.SaveDataEventHandler(CachedVehicleData.OnSaveData);
       CachedVehicleData._isDeployed = false;
     }

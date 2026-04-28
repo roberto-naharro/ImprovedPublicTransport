@@ -26,9 +26,8 @@ namespace ImprovedPublicTransport2.HarmonyPatches.VehicleManagerPatches
         public static void ReleaseWaterSourcePost(ushort vehicle, ref Vehicle data)
         {
             if (!CachedVehicleData.m_cachedVehicleData[vehicle].IsEmpty)
-            {
                 CachedVehicleData.m_cachedVehicleData[vehicle] = new VehicleData();
-            }
+            CachedVehicleData.MarkLeft(vehicle);
         }
     }
 }

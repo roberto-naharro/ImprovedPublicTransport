@@ -66,6 +66,7 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             CachedVehicleData.m_cachedVehicleData[__state.vehicleID]
                 .DisembarkPassengers(passengersOut, __state.currentStop);
             CachedNodeData.m_cachedNodeData[__state.currentStop].PassengersOut += passengersOut;
+            CachedVehicleData.MarkJoined(__state.vehicleID);
             Log.DebugUnload(__state.currentStop,
                 $"Unload stop={__state.currentStop} vehicle={__state.vehicleID} alighted={passengersOut} remaining={currentPassengers}");
         }

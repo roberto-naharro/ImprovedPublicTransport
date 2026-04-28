@@ -93,6 +93,7 @@ namespace ImprovedPublicTransport2
                     }
 
                     CachedVehicleData.Init(maxVehicleCount);
+                    CachedVehicleData.MarkAllExistingJoined();
 
                     LoadPassengersPatch.Apply();
                     UnloadPassengersPatch.Apply();

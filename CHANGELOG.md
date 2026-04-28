@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.1.0...v1.2.0) (2026-04-28)
+
+
+### Features
+
+* add LineVehiclePanel and LineVehicleRow components for improved vehicle display ([ad44a16](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/ad44a16db34acdd5fe5e2b820f1b8e2f460e1152))
+* implement vehicle join/leave tracking and enhance UI components ([0213392](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/02133923caa651d78f877a537c134b468e64ee11))
+
 ## [1.1.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.4...v1.1.0) (2026-04-28)
 
 

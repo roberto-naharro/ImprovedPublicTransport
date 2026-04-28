@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.4...v1.1.0) (2026-04-28)
+
+
+### Features
+
+* add vehicle type selection feature and improve UI components ([97233d6](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/97233d6f721c4d1dbfab85d5b726a711432349bf))
+
 ## [1.0.4](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.0.3...v1.0.4) (2026-04-27)
 
 

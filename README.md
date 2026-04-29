@@ -107,6 +107,15 @@ Maintenance costs are charged per-vehicle in the `SimulationStep` postfix (the t
 replaces the game's bulk `FetchResource` call with a stub, and the postfix re-bills correctly
 per vehicle using `Info.m_maintenanceCostPerVehicle`).
 
+### Vehicles in this line
+
+When the line info panel is open, two side panels appear to its right:
+
+- **Vehicles in this line** — one row per vehicle currently serving the line. Each row displays the asset name plus a global sequential index (e.g. `City Bus #2`), or the player-given name if the vehicle has been renamed via the vehicle info panel. Hovering shows the vehicle's passenger capacity; right-clicking focuses the camera and opens the vehicle info panel. Left-clicking selects or deselects a row; Ctrl+A selects or deselects all.
+- **Vehicles queued** — stacked below, showing vehicles that have spawned at a depot but not yet arrived at their first stop. A vehicle transitions to the active list automatically the moment it serves its first stop.
+
+When one or more rows in the active panel are selected, the **Remove Vehicle** button removes those specific vehicles. If nothing is selected it falls back to removing the last active vehicle (existing behavior).
+
 ### Station stop list
 
 Clicking a transit station building opens a panel listing all associated stops by name.
@@ -133,9 +142,9 @@ descriptors. This makes the patch list deterministic and avoids scanning the ent
 | --- | --- | --- | --- |
 | `SimulationStepPatch` | `TransportLine.SimulationStep` | transpiler + prefix + postfix | Vehicle count override; weekly stat reset; per-vehicle maintenance billing |
 | `LoadPassengersPatch` | `*AI.LoadPassengers` (9 types) | prefix + postfix | Record boarding counts per stop and per vehicle |
-| `UnloadPassengersPatch` | `*AI.UnloadPassengers` (9 types) | prefix + postfix | Record alighting counts per stop and per vehicle |
+| `UnloadPassengersPatch` | `*AI.UnloadPassengers` (9 types) | prefix + postfix | Record alighting counts per stop and per vehicle; marks the vehicle as joined (`CachedVehicleData.MarkJoined`) on first stop arrival |
 | `ReleaseNodePatch` | `NetManager.ReleaseNode` | postfix | Clear `CachedNodeData` entry when a stop is deleted |
-| `ReleaseWaterSourcePatch` | `VehicleManager` | postfix | Clear `CachedVehicleData` entry when a vehicle is despawned |
+| `ReleaseWaterSourcePatch` | `VehicleManager` | postfix | Clear `CachedVehicleData` entry when a vehicle is despawned; clears the join flag (`CachedVehicleData.MarkLeft`) |
 | `ClassMatchesPatch` | `DepotAI.ClassMatches` | prefix | Depot accepts both Level1 and Level2 bus assets |
 | `GetLineVehiclePatch` | `TransportLine.GetLineVehicle` | prefix | Returns a random model from the line's selected set (falls through to vanilla when no selection) |
 | `CheckTransportLineVehiclesPatch` | `TransportManager.CheckTransportLineVehicles` | prefix | Skips vanilla vehicle-type enforcement for lines with a custom model set |
@@ -185,6 +194,13 @@ Sized to `VehicleManager.MAX_VEHICLE_COUNT` (16 384) by default. If the
 
 Tracks per-vehicle: passengers boarded and alighted at the last stop, current-week and
 last-week totals, rolling average, total earnings and distance traveled.
+
+Also holds a `bool[]` join-state array (`HasJoined`) sized to `MaxVehicleCount`. A vehicle's
+entry is `false` while it is traveling from the depot to its first stop, and flips to `true`
+when `UnloadPassengers` fires for the first time (even with zero alighting passengers). It is
+cleared back to `false` when the vehicle is released. This is used to split vehicles between
+the **Vehicles in this line** and **Vehicles queued** side panels. All vehicles already active
+at level-load are pre-marked as joined via `MarkAllExistingJoined()`.
 
 #### `CachedNodeData` — runtime only
 

@@ -25,7 +25,7 @@ We focus on the things no other mod provides together:
 - **Per-line vehicle type selection** — choose which vehicle models can serve a given line.
   Opens a floating panel (from the line info panel) listing available and selected models with
   thumbnail previews. Mixed-fleet lines are preserved across load.
-- **Granular passenger statistics** — per-stop and per-vehicle breakdowns (current week, last
+- **Granular statistics** — per-stop, per-vehicle, and per-line breakdowns (current week, last
   week, rolling average) that let you actually understand how your network is performing.
 
 For everything else, the right tool already exists and is actively maintained. IPT Essentials
@@ -103,9 +103,28 @@ Clicking any active transit vehicle opens a panel showing:
 - Earnings and distance traveled (current week / last week / average)
 
 Data is written by the same `LoadPassengers` / `UnloadPassengers` hooks to `CachedVehicleData`.
-Maintenance costs are charged per-vehicle in the `SimulationStep` postfix (the transpiler
-replaces the game's bulk `FetchResource` call with a stub, and the postfix re-bills correctly
-per vehicle using `Info.m_maintenanceCostPerVehicle`).
+Maintenance costs are charged in the `SimulationStep` postfix (the transpiler replaces the
+game's bulk `FetchResource` call with a stub; the postfix re-bills using the game's own formula:
+`totalVehicles × m_maintenanceCostPerVehicle + totalCapacity × m_maintenanceCostPerPassenger`,
+where `totalCapacity` is the sum of `vehicleAI.GetPassengerCapacity(true)` across all vehicles
+on the line including trailing cars).
+
+### Line earnings and costs
+
+The line info panel includes a stats table showing, for the current week, last week, and rolling
+average:
+
+- **Passengers** — total boarding count across all vehicles on the line.
+- **Earnings** — gross fare revenue collected by vehicles on the line (before maintenance
+  deduction).
+- **Maintenance cost** — per-vehicle maintenance, computed from
+  `TransportInfo.m_maintenanceCostPerVehicle` and `m_maintenanceCostPerPassenger` (the game's
+  full formula: `totalVehicles × costPerVehicle + totalCapacity × costPerPassenger`). Shown in
+  red as a negative value.
+- **Cost per line** — the line's equal share of total transport-type expenses as reported by
+  `EconomyManager.GetIncomeAndExpenses` (covering vehicles, depots, and any other infrastructure
+  for that transport category), divided by the number of active lines of the same type. Shown in
+  red as a negative value. Use this alongside Earnings to judge whether a line is profitable.
 
 ### Vehicles in this line
 

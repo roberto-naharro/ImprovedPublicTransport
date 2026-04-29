@@ -1,5 +1,7 @@
+using System;
 using System.Reflection;
 using ColossalFramework;
+using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using ImprovedPublicTransport2.OptionsFramework;
 using ImprovedPublicTransport2.Query;
@@ -15,7 +17,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
     public class PanelExtenderLine : MonoBehaviour
     {
         private bool _initialized;
-        private bool _dimLogged;
         private ushort _cachedLineID;
         private int _cachedVehicleCount = -1;
         private int _cachedPendingCount = -1;
@@ -29,6 +30,19 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private UIPanel _vehicleAmountParent;
         private UILabel _stopCountLabel;
         private UILabel _spawnTimer;
+        private UILabel _linePassCurrentWeek;
+        private UILabel _linePassLastWeek;
+        private UILabel _linePassAverage;
+        private UILabel _lineEarnCurrentWeek;
+        private UILabel _lineEarnLastWeek;
+        private UILabel _lineEarnAverage;
+        private UILabel _lineCostCurrentWeek;
+        private UILabel _lineCostLastWeek;
+        private UILabel _lineCostAverage;
+        private UILabel _lineShareCurrentWeek;
+        private UILabel _lineShareLastWeek;
+        private UILabel _lineShareAverage;
+        private UIPanel _lineStatsPanel;
         private UICheckBox _budgetControl;
         private UILabel _lineLengthLabel;
         private UIComponent _budgetButton;
@@ -172,9 +186,10 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                             CreateButtonPanel1();
                             CreateButtonPanel2();
                             CreateButtonPanel3();
+                            CreateLineStatsPanel();
                             CreateLineVehiclePanel();
                             _publicTransportWorldInfoPanel.component.width = 650f;
-                            _publicTransportWorldInfoPanel.component.height = 585f;
+                            _publicTransportWorldInfoPanel.component.height = 685f;
                             _initialized = true;
                         }
                     }
@@ -184,23 +199,6 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
         private void UpdateBindings()
         {
-            if (!_dimLogged)
-            {
-                var comp = _publicTransportWorldInfoPanel.component;
-                Log.Info($"[PanelDims] panel w={comp.width} h={comp.height}");
-                Log.Info($"[PanelDims] mainSubPanel w={_mainSubPanel.width} h={_mainSubPanel.height} pos={_mainSubPanel.relativePosition}");
-                Log.Info($"[PanelDims] iptContainer w={_iptContainer.width} h={_iptContainer.height} pos={_iptContainer.relativePosition}");
-                var pass = _publicTransportWorldInfoPanel.Find("Passengers");
-                Log.Info($"[PanelDims] passengers name={pass.name} w={pass.width} h={pass.height} pos={pass.relativePosition}");
-                Log.Info($"[PanelDims] passengersParent w={pass.parent.width} h={pass.parent.height} pos={pass.parent.relativePosition}");
-                if (PublicTransportStopWorldInfoPanel.instance != null)
-                    Log.Info($"[PanelDims] stopPanel w={PublicTransportStopWorldInfoPanel.instance.width} h={PublicTransportStopWorldInfoPanel.instance.height}");
-                Log.Info($"[PanelDims] vehicleAmountParent w={_vehicleAmountParent.width} h={_vehicleAmountParent.height} pos={_vehicleAmountParent.relativePosition}");
-                var cfParent = _colorField.parent;
-                Log.Info($"[PanelDims] colorTextField pos={_colorTextField.relativePosition} w={_colorTextField.width}");
-                _dimLogged = true;
-            }
-
             ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
             int lineVehicleCount = 0;
             if (lineId != 0)
@@ -211,6 +209,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 _vehicleAmount.text = LocaleFormatter.FormatGeneric("TRANSPORT_LINE_VEHICLECOUNT",
                     lineVehicleCount + " / " + targetVehicleCount);
                 _stopCountLabel.text = string.Format(Localization.Get("LINE_PANEL_STOPS"), stopCount);
+                PopulateLineStats(lineId);
+                PositionStatsPanel();
                 _budgetControl.isChecked = CachedTransportLineData.GetBudgetControlState(lineId);
 
                 var currentlyDisabled = SimulationManager.instance.m_isNightTime
@@ -251,6 +251,171 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             _cachedVehicleCount = lineVehicleCount;
         }
 
+        private void CreateLineStatsPanel()
+        {
+            UIPanel statsPanel = _mainSubPanel.AddUIComponent<UIPanel>();
+            statsPanel.name = "LineStats";
+            statsPanel.autoLayout = true;
+            statsPanel.autoLayoutDirection = LayoutDirection.Vertical;
+            statsPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 0);
+            statsPanel.autoLayoutStart = LayoutStart.TopLeft;
+            statsPanel.size = new Vector2(280f, 90f);
+
+            UILabel h1, h2, h3, h4;
+            PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out h1, out h2, out h3, out h4, true);
+            ResizeStatsRow(h1, h2, h3, h4, statsPanel.width);
+            h2.text = Localization.Get("CURRENT_WEEK");
+            h3.text = Localization.Get("LAST_WEEK");
+            h4.text = Localization.Get("AVERAGE");
+            h4.tooltip = string.Format(Localization.Get("AVERAGE_TOOLTIP"),
+                OptionsWrapper<Settings.Settings>.Options.StatisticWeeks);
+
+            UILabel r1;
+            PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
+                out _linePassCurrentWeek, out _linePassLastWeek, out _linePassAverage, false);
+            ResizeStatsRow(r1, _linePassCurrentWeek, _linePassLastWeek, _linePassAverage, statsPanel.width);
+            r1.text = Localization.Get("VEHICLE_PANEL_PASSENGERS");
+
+            PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
+                out _lineEarnCurrentWeek, out _lineEarnLastWeek, out _lineEarnAverage, false);
+            ResizeStatsRow(r1, _lineEarnCurrentWeek, _lineEarnLastWeek, _lineEarnAverage, statsPanel.width);
+            r1.text = Localization.Get("VEHICLE_PANEL_EARNINGS");
+            r1.tooltip = Localization.Get("VEHICLE_PANEL_EARNINGS_TOOLTIP");
+            _lineEarnCurrentWeek.textColor = Color.green;
+            _lineEarnLastWeek.textColor    = Color.green;
+            _lineEarnAverage.textColor     = Color.green;
+
+            PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
+                out _lineCostCurrentWeek, out _lineCostLastWeek, out _lineCostAverage, false);
+            ResizeStatsRow(r1, _lineCostCurrentWeek, _lineCostLastWeek, _lineCostAverage, statsPanel.width);
+            r1.text = Localization.Get("VEHICLE_EDITOR_MAINTENANCE");
+            r1.tooltip = Localization.Get("VEHICLE_EDITOR_MAINTENANCE");
+            _lineCostCurrentWeek.textColor = Color.red;
+            _lineCostLastWeek.textColor    = Color.red;
+            _lineCostAverage.textColor     = Color.red;
+
+            PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
+                out _lineShareCurrentWeek, out _lineShareLastWeek, out _lineShareAverage, false);
+            ResizeStatsRow(r1, _lineShareCurrentWeek, _lineShareLastWeek, _lineShareAverage, statsPanel.width);
+            r1.text = Localization.Get("LINE_PANEL_COST_PER_LINE");
+            r1.tooltip = Localization.Get("LINE_PANEL_COST_PER_LINE");
+            _lineShareCurrentWeek.textColor = Color.red;
+            _lineShareLastWeek.textColor    = Color.red;
+            _lineShareAverage.textColor     = Color.red;
+            _lineStatsPanel = statsPanel;
+        }
+
+        private static void ResizeStatsRow(UILabel label1, UILabel label2, UILabel label3, UILabel label4, float panelWidth)
+        {
+            float avail = panelWidth - 3f;
+            float dataW = avail * (1f - 0.45f) / 3f;
+            label1.width = avail * 0.45f;
+            label2.width = dataW;
+            label3.width = dataW;
+            label4.width = dataW;
+        }
+
+        private void PopulateLineStats(ushort lineId)
+        {
+            if (_linePassCurrentWeek == null || CachedVehicleData.m_cachedVehicleData == null) return;
+
+            TransportInfo lineInfo = Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].Info;
+            int maintenanceCostPerVehicle = lineInfo != null ? lineInfo.m_maintenanceCostPerVehicle : 0;
+            float maintenanceCostPerPassenger = lineInfo != null ? lineInfo.m_maintenanceCostPerPassenger : 0f;
+
+            int passThisWeek = 0, passLastWeek = 0, passAverage = 0;
+            int earnThisWeek = 0, earnLastWeek = 0, earnAverage = 0;
+            int activeVehicleCount = 0;
+            int totalVehicleCount = 0;
+            int totalCapacity = 0;
+
+            VehicleManager vm = Singleton<VehicleManager>.instance;
+            ushort vehicleID = Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].m_vehicles;
+            int limit = 0;
+            while (vehicleID != 0)
+            {
+                ushort next = vm.m_vehicles.m_buffer[vehicleID].m_nextLineVehicle;
+                ref Vehicle veh = ref vm.m_vehicles.m_buffer[vehicleID];
+                ++totalVehicleCount;
+                if (veh.Info != null)
+                    totalCapacity += veh.Info.m_vehicleAI.GetPassengerCapacity(true);
+                if ((veh.m_flags & Vehicle.Flags.GoingBack) == (Vehicle.Flags)0)
+                {
+                    ref VehicleData vd = ref CachedVehicleData.m_cachedVehicleData[vehicleID];
+                    passThisWeek += vd.PassengersThisWeek;
+                    passLastWeek += vd.PassengersLastWeek;
+                    passAverage  += vd.PassengersAverage;
+                    // IncomeThisWeek is gross (maintenance not yet deducted)
+                    // IncomeLastWeek/Average are net; add back maintenance to get gross
+                    earnThisWeek += vd.IncomeThisWeek;
+                    earnLastWeek += vd.IncomeLastWeek + maintenanceCostPerVehicle;
+                    earnAverage  += vd.IncomeAverage  + maintenanceCostPerVehicle;
+                    ++activeVehicleCount;
+                }
+                vehicleID = next;
+                if (++limit > CachedVehicleData.MaxVehicleCount) break;
+            }
+
+            int weekCost = totalVehicleCount * maintenanceCostPerVehicle + (int)(totalCapacity * maintenanceCostPerPassenger);
+
+            long totalTypeIncome, totalTypeExpenses;
+            EconomyManager.instance.GetIncomeAndExpenses(
+                lineInfo.m_class.m_service,
+                lineInfo.m_class.m_subService,
+                ItemClass.Level.None,
+                out totalTypeIncome,
+                out totalTypeExpenses);
+            int lineCount = CountLinesOfType(lineInfo.m_class.m_subService);
+            int shareRaw = lineCount > 0 ? (int)(totalTypeExpenses / lineCount) : 0;
+
+            _linePassCurrentWeek.text = passThisWeek.ToString();
+            _linePassLastWeek.text    = passLastWeek.ToString();
+            _linePassAverage.text     = passAverage.ToString();
+
+            _lineEarnCurrentWeek.text = FormatMoney(earnThisWeek);
+            _lineEarnLastWeek.text    = FormatMoney(earnLastWeek);
+            _lineEarnAverage.text     = FormatMoney(earnAverage);
+
+            _lineCostCurrentWeek.text = FormatMoney(-weekCost);
+            _lineCostLastWeek.text    = FormatMoney(-weekCost);
+            _lineCostAverage.text     = FormatMoney(-weekCost);
+
+            _lineShareCurrentWeek.text = FormatMoney(-shareRaw);
+            _lineShareLastWeek.text    = FormatMoney(-shareRaw);
+            _lineShareAverage.text     = FormatMoney(-shareRaw);
+        }
+
+        private static int CountLinesOfType(ItemClass.SubService subService)
+        {
+            int count = 0;
+            var lines = Singleton<TransportManager>.instance.m_lines.m_buffer;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if ((lines[i].m_flags & TransportLine.Flags.Complete) != TransportLine.Flags.None
+                    && lines[i].Info != null
+                    && lines[i].Info.m_class.m_subService == subService)
+                    ++count;
+            }
+            return count;
+        }
+
+        private static string FormatMoney(int gameUnits)
+        {
+            float v = gameUnits * 0.01f;
+            return v.ToString(Locale.Get("MONEY_FORMAT"), (IFormatProvider)LocaleManager.cultureInfo);
+        }
+
+        private void PositionStatsPanel()
+        {
+            if (_lineStatsPanel == null) return;
+            float iptBottom = _iptContainer.relativePosition.y + _iptContainer.height;
+            float vehicleAmountBottom = _vehicleAmountParent.relativePosition.y
+                + _vehicleAmount.relativePosition.y + _vehicleAmount.height;
+            float statsY = Mathf.Max(iptBottom, vehicleAmountBottom) + 8f;
+            if (!Mathf.Approximately(_lineStatsPanel.relativePosition.y, statsY))
+                _lineStatsPanel.relativePosition = new Vector3(10f, statsY);
+        }
+
         private void OnDestroy()
         {
             _initialized = false;
@@ -261,6 +426,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             }
             if (_stopCountLabel != null)
                 Destroy(_stopCountLabel.gameObject);
+            if (_lineStatsPanel != null)
+                Destroy(_lineStatsPanel.gameObject);
             if (_iptContainer != null)
                 Destroy(_iptContainer.gameObject);
             if (_lineVehiclePanel != null)

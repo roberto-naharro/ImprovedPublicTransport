@@ -116,3 +116,4 @@ VEHICLE_SELECTION_SELECTED_VEHICLES Zugelassene Fahrzeuge
 VEHICLE_SELECTION_ANY_VEHICLE Jedes Fahrzeug
 STOP_BUTTON_TOOLTIP {0}\n\nLinksklick um zu dieser Haltestelle zu springen.\nWenn du beim Klicken eine Shift-Taste gedrückt hältst wird auch reingezoomt.\nWenn du beim Klicken eine Alt-Taste gedrückt hältst wird die Haltestelle-Infotafel nicht geöffnet.
 VEHICLE_BUTTON_TOOLTIP {0}\n\nLinksklick um zu diesem Fahrzeug zu springen.\nWenn du beim Klicken eine Shift-Taste gedrückt hältst wird auch reingezoomt.\nWenn du beim Klicken eine Alt-Taste gedrückt hältst wird die Fahrzeug-Infotafel nicht angezeigt.
+LINE_PANEL_COST_PER_LINE Kosten je Linie

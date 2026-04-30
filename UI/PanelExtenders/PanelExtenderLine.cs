@@ -554,6 +554,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             button.name = "SelectVehicleTypes";
             button.textPadding = new RectOffset(10, 10, 4, 0);
             button.text = Localization.Get("LINE_PANEL_SELECT_TYPES");
+            button.tooltip = Localization.Get("LINE_PANEL_SELECT_TYPES_TOOLTIP");
             button.textScale = 0.8f;
             button.width = uiPanel.parent.width - 6f;
             button.height = 30f;

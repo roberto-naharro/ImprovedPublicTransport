@@ -22,6 +22,7 @@ LINE_PANEL_LINE_VEHICLES Veículos da linha
 LINE_PANEL_ENQUEUED Veículos em fila
 LINE_PANEL_TOTAL_WAITING_PEOPLE_TOOLTIP {0} passageiros esperando por essa linha.
 LINE_PANEL_ADD_VEHICLE Adicionar veículo
+LINE_PANEL_ADD_VEHICLE_TOOLTIP Adiciona um novo veículo à linha.\nSe este botão estiver desativado, a garagem selecionada não tem mais veículos.
 LINE_PANEL_REMOVE_VEHICLE Remover veículo
 SETTINGS Configurações
 SETTINGS_UI Configuração de IU

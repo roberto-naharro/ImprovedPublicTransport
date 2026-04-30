@@ -22,6 +22,7 @@ LINE_PANEL_LINE_VEHICLES Veicoli in questa linea
 LINE_PANEL_ENQUEUED Veicoli in coda
 LINE_PANEL_TOTAL_WAITING_PEOPLE_TOOLTIP {0} persone stanno aspettando su questa linea.
 LINE_PANEL_ADD_VEHICLE Aggiungi Veicolo
+LINE_PANEL_ADD_VEHICLE_TOOLTIP Aggiunge un nuovo veicolo alla linea.\nSe questo pulsante è disattivato, il deposito selezionato non ha più veicoli.
 LINE_PANEL_REMOVE_VEHICLE Rimuovi Veicolo
 SETTINGS Impostazioni
 SETTINGS_UI UI Impostazioni

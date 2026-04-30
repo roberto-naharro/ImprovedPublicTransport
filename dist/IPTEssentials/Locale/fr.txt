@@ -24,6 +24,7 @@ LINE_PANEL_LINE_VEHICLES Véhicules en service
 LINE_PANEL_ENQUEUED Véhicules en file d'attente.
 LINE_PANEL_TOTAL_WAITING_PEOPLE_TOOLTIP {0} passagers aux arrêts.
 LINE_PANEL_ADD_VEHICLE Ajouter véhicule
+LINE_PANEL_ADD_VEHICLE_TOOLTIP Ajoute un nouveau véhicule à la ligne.\nSi ce bouton est désactivé, le dépôt sélectionné n'a plus de véhicules.
 LINE_PANEL_REMOVE_VEHICLE Supprimer véhicule
 SETTINGS Paramètres
 SETTINGS_UI Unités de mesure

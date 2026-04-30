@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.2.0...v1.3.0) (2026-04-30)
+
+
+### Features
+
+* add cost per line statistics to line info panel and update localization files ([941cda6](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/941cda6e91cc1a7bab415a89309da7737b166f7b))
+* add tooltips for adding vehicles in multiple languages ([2ecccdb](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/2ecccdb062c0768f506314d0f69114af95de7c2b))
+
+
+### Bug Fixes
+
+* prevent multi-mesh rendering issues in vehicle selection and remove unused rendering methods ([7024637](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/702463788c53c184494169bdf046ca7684df95ee))
+
 ## [1.2.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.1.0...v1.2.0) (2026-04-28)
 
 

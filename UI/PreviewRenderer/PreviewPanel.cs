@@ -98,10 +98,12 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
                 // Don't render anything without a mesh or material.
                 if (vehicle?.m_mesh != null && vehicle.m_material != null)
                 {
-                    // Set mesh and material for render.
+                    // Set mesh and material for render. Single-mesh only — multi-mesh
+                    // rendering of trailers throws on metros/trains with certain assets,
+                    // which broke vehicle selection (the throw skipped UpdateButtonStates).
                     _renderer.Mesh = vehicle.m_mesh;
                     _renderer.Material = vehicle.m_material;
-                    _renderer.RenderItems = BuildRenderItems(vehicle);
+                    _renderer.RenderItems = null;
                     _renderer.MaterialColor = lineColor;
 
                     // Render.
@@ -171,87 +173,5 @@ namespace ImprovedPublicTransport2.UI.PreviewRenderer
             _thumbnailSprite.Show();
         }
 
-        private static PreviewRenderer.RenderItem[] BuildRenderItems(VehicleInfo vehicle)
-        {
-            if (vehicle == null)
-            {
-                return null;
-            }
-
-            FastList<PreviewRenderer.RenderItem> items = new FastList<PreviewRenderer.RenderItem>();
-            AddVehicleRenderItems(vehicle, Vector3.zero, ref items);
-
-            if (items.m_size == 0)
-            {
-                return null;
-            }
-
-            PreviewRenderer.RenderItem[] result = new PreviewRenderer.RenderItem[items.m_size];
-            for (int i = 0; i < items.m_size; ++i)
-            {
-                result[i] = items.m_buffer[i];
-            }
-
-            return result;
-        }
-
-        private static void AddVehicleRenderItems(VehicleInfo vehicle, Vector3 localOffset, ref FastList<PreviewRenderer.RenderItem> items)
-        {
-            if (vehicle == null)
-            {
-                return;
-            }
-
-            if (vehicle.m_mesh != null && vehicle.m_material != null)
-            {
-                items.Add(new PreviewRenderer.RenderItem
-                {
-                    Mesh = vehicle.m_mesh,
-                    Material = vehicle.m_material,
-                    LocalPosition = localOffset,
-                });
-            }
-
-            if (vehicle.m_trailers == null || vehicle.m_trailers.Length == 0)
-            {
-                return;
-            }
-
-            float cursorZ = localOffset.z;
-            float leadLength = GetVehicleLength(vehicle);
-
-            for (int i = 0; i < vehicle.m_trailers.Length; ++i)
-            {
-                VehicleInfo trailerInfo = vehicle.m_trailers[i].m_info;
-                if (trailerInfo == null)
-                {
-                    continue;
-                }
-
-                float trailerLength = GetVehicleLength(trailerInfo);
-                cursorZ -= (leadLength * 0.5f) + (trailerLength * 0.5f);
-
-                AddVehicleRenderItems(trailerInfo, new Vector3(localOffset.x, localOffset.y, cursorZ), ref items);
-
-                leadLength = trailerLength;
-            }
-        }
-
-        private static float GetVehicleLength(VehicleInfo vehicle)
-        {
-            if (vehicle?.m_mesh == null)
-            {
-                return 4f;
-            }
-
-            Bounds bounds = vehicle.m_mesh.bounds;
-            float length = bounds.size.z;
-            if (length <= 0f)
-            {
-                length = bounds.size.x;
-            }
-
-            return length > 0f ? length : 4f;
-        }
     }
 }

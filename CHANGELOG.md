@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.3.0...v1.3.1) (2026-05-03)
+
+
+### Bug Fixes
+
+* detect extended vehicle limits by actual buffer size instead of mod ID ([7b9481d](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/7b9481dd5cbfae900bf9c9446e41b0f542156880))
+* prevent IndexOutOfRange when non-transit vehicles despawn ([c0526c9](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/c0526c9ef3529da40c82802e823f99a1d1bdc5f0))
+* refactor localization strings for unbunching feature across multiple languages ([4cb1743](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/4cb17430cf502a09f48fe351f3bf80b5011a689a))
+
 ## [1.3.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.2.0...v1.3.0) (2026-04-30)
 
 

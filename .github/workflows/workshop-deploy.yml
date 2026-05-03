@@ -30,10 +30,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Mono and MSBuild
+      - name: Install Mono
         run: |
           sudo apt-get update
-          sudo apt-get install -y mono-complete
+          sudo apt-get install -y mono-complete mono-xbuild
 
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
@@ -52,7 +52,7 @@ jobs:
           sed -i "s/\[assembly: AssemblyVersion(\"[^\"]*\")\]/[assembly: AssemblyVersion(\"$VERSION.0\")]/" Properties/AssemblyInfo.cs
 
       - name: Build
-        run: msbuild ImprovedPublicTransport.sln /p:Configuration=Release /nologo /verbosity:quiet
+        run: xbuild ImprovedPublicTransport.sln /p:Configuration=Release /nologo /verbosity:quiet
 
       - name: Stage dist/
         run: |

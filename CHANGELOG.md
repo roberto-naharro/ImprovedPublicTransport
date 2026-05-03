@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.3.1...v1.4.0) (2026-05-03)
+
+
+### Features
+
+* inject version from release-please manifest into AssemblyInfo ([b59b1aa](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/b59b1aa61516faa431334dca8e7efd17dcd5ff36))
+
 ## [1.3.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.3.0...v1.3.1) (2026-05-03)
 
 

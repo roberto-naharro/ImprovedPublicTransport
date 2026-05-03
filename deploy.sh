@@ -42,33 +42,10 @@ if ! mountpoint -q "$DATA_MOUNT"; then
     exit 1
 fi
 
-# ── Inject version (release builds only) ─────────────────────────────────────────
-# Only runs for --release. Requires commits to be pushed first so the Release
-# Please PR exists with the target version. Falls back to the manifest if no PR
-# is open (e.g., a hotfix build outside the normal release cycle).
-if [[ "$CONFIGURATION" == "Release" ]]; then
-    MANIFEST="$SCRIPT_DIR/.release-please-manifest.json"
-    GH_REPO=$(git remote get-url origin 2>/dev/null | sed 's|.*github.com[:/]\(.*\)\.git|\1|;s|.*github.com[:/]\(.*\)|\1|')
-    RELEASE_PR_VERSION=$(gh pr list --repo "${GH_REPO}" --state open --json title \
-        --jq '.[].title | select(test("^chore\\(m(ain|aster)\\): release ")) | split(" ")[-1]' \
-        2>/dev/null | head -1)
-    if [[ -n "$RELEASE_PR_VERSION" ]]; then
-        MOD_VERSION="$RELEASE_PR_VERSION"
-        echo "Version: $MOD_VERSION (from open Release Please PR)"
-    elif [[ -f "$MANIFEST" ]]; then
-        MOD_VERSION=$(python3 -c "import json; print(json.load(open('$MANIFEST'))['.'])")
-        echo "Version: $MOD_VERSION (from manifest — no open release PR found)"
-    fi
-    if [[ -n "${MOD_VERSION:-}" ]]; then
-        ASSEMBLY_INFO="$SCRIPT_DIR/Properties/AssemblyInfo.cs"
-        sed -i "s/\[assembly: AssemblyVersion(\"[^\"]*\")\]/[assembly: AssemblyVersion(\"$MOD_VERSION.0\")]/" "$ASSEMBLY_INFO"
-    fi
-fi
-
 # ── Build ────────────────────────────────────────────────────────────────────────
 echo "Building ($CONFIGURATION)..."
 cd "$SCRIPT_DIR"
-xbuild ImprovedPublicTransport.sln /p:Configuration="$CONFIGURATION" /p:ReferencePath="$GAME_MOUNT/Cities_Data/Managed/" /nologo /verbosity:quiet
+xbuild ImprovedPublicTransport.sln /p:Configuration="$CONFIGURATION" /nologo /verbosity:quiet
 echo "Build succeeded."
 
 # ── Stage to dist/ ───────────────────────────────────────────────────────────────

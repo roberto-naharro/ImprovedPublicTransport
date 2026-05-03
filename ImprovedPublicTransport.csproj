@@ -63,10 +63,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="ColossalManaged" />
-    <Reference Include="UnityEngine" />
-    <Reference Include="ICities" />
-    <Reference Include="Assembly-CSharp" />
+    <Reference Include="ColossalManaged">
+      <HintPath>.\GameReferences\ColossalManaged.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>.\GameReferences\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="ICities">
+      <HintPath>.\GameReferences\ICities.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>.\GameReferences\Assembly-CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>

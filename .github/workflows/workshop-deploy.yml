@@ -1,8 +1,8 @@
 name: Deploy to Steam Workshop
 
 # Triggers on v* tag (from Release Please) or manually.
-# Does NOT build — publishes the pre-staged dist/IPTEssentials/ folder.
-# Before merging a Release PR, run ./deploy.sh --release locally and commit dist/.
+# Builds the mod from source in CI (game reference DLLs are in GameReferences/).
+# No pre-built dist/ commit needed — CI handles the full build + deploy.
 #
 # Required secrets (environment: PRO):
 #   STEAM_CONFIG_VDF   — base64-encoded ~/.steam/steamcmd/config/config.vdf
@@ -30,13 +30,36 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify dist folder exists
+      - name: Install Mono and MSBuild
         run: |
-          if [[ ! -f "dist/IPTEssentials/IPTEssentials.dll" ]]; then
-            echo "ERROR: dist/IPTEssentials/IPTEssentials.dll not found."
-            echo "Run ./deploy.sh --release locally, commit dist/, then push."
-            exit 1
+          sudo apt-get update
+          sudo apt-get install -y mono-complete
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore packages.config -PackagesDirectory packages
+
+      - name: Inject version into AssemblyInfo.cs
+        run: |
+          TAG="${{ github.ref_name }}"
+          VERSION="${TAG#v}"
+          if [[ -z "$VERSION" || "$VERSION" == "$TAG" ]]; then
+            VERSION=$(python3 -c "import json; print(json.load(open('.release-please-manifest.json'))['.'])")
           fi
+          echo "Building version: $VERSION"
+          sed -i "s/\[assembly: AssemblyVersion(\"[^\"]*\")\]/[assembly: AssemblyVersion(\"$VERSION.0\")]/" Properties/AssemblyInfo.cs
+
+      - name: Build
+        run: msbuild ImprovedPublicTransport.sln /p:Configuration=Release /nologo /verbosity:quiet
+
+      - name: Stage dist/
+        run: |
+          mkdir -p dist/IPTEssentials
+          cp bin/Release/ImprovedPublicTransport2.dll dist/IPTEssentials/IPTEssentials.dll
+          cp -r Locale dist/IPTEssentials/Locale
+          cp -r Resources dist/IPTEssentials/Resources
           echo "dist/ contents:"
           ls -lh dist/IPTEssentials/
 
@@ -51,9 +74,8 @@ jobs:
 
           TAG="${{ github.ref_name }}"
           VERSION="${TAG#v}"
-
           if [[ -z "$VERSION" || "$VERSION" == "$TAG" ]]; then
-            VERSION=$(python3 -c "import json,sys; print(json.load(open('.release-please-manifest.json'))['.'])")
+            VERSION=$(python3 -c "import json; print(json.load(open('.release-please-manifest.json'))['.'])")
           fi
 
           SECTION=$(awk \

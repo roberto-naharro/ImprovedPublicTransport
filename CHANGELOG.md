@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.4.0...v1.5.0) (2026-05-03)
+
+
+### Features
+
+* build mod in CI using committed game reference DLLs ([352d9d1](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/352d9d182fbdb258d1b0285db619ab53de3137a8))
+
 ## [1.4.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.3.1...v1.4.0) (2026-05-03)
 
 

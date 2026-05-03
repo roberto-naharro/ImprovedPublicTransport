@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.5.0...v1.5.1) (2026-05-03)
+
+
+### Bug Fixes
+
+* update workflow to install Mono and MSBuild together ([09f843c](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/09f843ce8b1e7912a1d9dc239f48090199664c04))
+
 ## [1.5.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.4.0...v1.5.0) (2026-05-03)
 
 

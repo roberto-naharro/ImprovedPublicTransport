@@ -25,8 +25,9 @@ namespace ImprovedPublicTransport2.HarmonyPatches.VehicleManagerPatches
         //the method is called from within ReleaseVehicle method. Patching it leads to the least chance of conflict
         public static void ReleaseWaterSourcePost(ushort vehicle, ref Vehicle data)
         {
-            if (!CachedVehicleData.m_cachedVehicleData[vehicle].IsEmpty)
-                CachedVehicleData.m_cachedVehicleData[vehicle] = new VehicleData();
+            var cache = CachedVehicleData.m_cachedVehicleData;
+            if (cache != null && vehicle < cache.Length && !cache[vehicle].IsEmpty)
+                cache[vehicle] = new VehicleData();
             CachedVehicleData.MarkLeft(vehicle);
         }
     }

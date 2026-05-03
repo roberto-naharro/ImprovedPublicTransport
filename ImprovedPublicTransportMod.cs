@@ -6,7 +6,6 @@ using ICities;
 using ImprovedPublicTransport2.HarmonyPatches.DepotAIPatches;
 using ImprovedPublicTransport2.HarmonyPatches.NetManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches;
-using ImprovedPublicTransport2.HarmonyPatches.TransportManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.VehicleManagerPatches;
 using ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches;
 using ImprovedPublicTransport2.HarmonyPatches.PublicTransportLineVehicleSelectorPatches;
@@ -111,7 +110,6 @@ namespace ImprovedPublicTransport2
                     SerializableDataExtension.instance.Loaded = true;
                     LocaleModifier.Init();
                     GetLineVehiclePatch.Apply();
-                    CheckTransportLineVehiclesPatch.Apply();
                     GetVehicleInfoPatch.Apply();
 
                     var prefabPanelObject = new GameObject("PrefabPanel");
@@ -192,7 +190,6 @@ namespace ImprovedPublicTransport2
 
             SimulationStepPatch.Undo();
             GetLineVehiclePatch.Undo();
-            CheckTransportLineVehiclesPatch.Undo();
             GetVehicleInfoPatch.Undo();
             CachedTransportLineData.Deinit();
 

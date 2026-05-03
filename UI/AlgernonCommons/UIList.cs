@@ -179,7 +179,7 @@ namespace ImprovedPublicTransport2.UI.AlgernonCommons
             get
             {
                 // Return null if no valid selection.
-                if (_selectedIndex < 0 | _selectedIndex > _data.m_size)
+                if (_data == null || _selectedIndex < 0 || _selectedIndex >= _data.m_size)
                 {
                     return null;
                 }

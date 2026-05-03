@@ -9,16 +9,13 @@ UNBUNCHING_ENABLED Unbunching pojazdów
 UNBUNCHING_DISABLED Unbunching jest wyłączony.
 UNBUNCHING_TARGET_GAP Docelowy odstęp: {0}
 EXPLANATION_BUDGET_CONTROL Regulacja budżetowa: Ilość pojazdów jest regulowana przez budżet.
-EXPLANATION_UNBUNCHING Unbunching pojazdów: Gra spróbuje stworzyć odstęp między pojazdami.
 LINE_PANEL_STOPS Przystanki: {0}
 LINE_PANEL_SPAWNTIMER Następny pojazd za {0} s.
 LINE_PANEL_DEPOT_WARNING <color #FF0000>Wybrana zajezdnia nie ma już pojazdów.</color>
 LINE_PANEL_BUDGET_CONTROL Regulacja budżetowa
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Włącza lub wyłącza regulację budżetową dla tej linii.
-LINE_PANEL_UNBUNCHING_TOOLTIP Włącza lub wyłącza unbunching pojazdów dla tej linii.\nUnbunching pojazdów jest wyłączony, jeśli agresja unbunchingu jest ustawiona na 0.
 LINE_PANEL_DEPOT Zajezdnia:
 LINE_PANEL_NO_DEPOT_FOUND Nie znaleziono zajezdni.
-LINE_PANEL_DEPOT_MARKER_TOOLTIP Przechodzi do wybranej zajezdni. \nPrzytrzymanie klawisza Shift podczas klikania dodatkowo przybliży widok.
 LINE_PANEL_SELECT_TYPES Wybierz typ
 LINE_PANEL_SELECT_TYPES_TOOLTIP Przełącza panel 'Wybierz typ'.\nJeśli ten przycisk jest wyłączony musisz najpierw wybrać zajezdnię.
 LINE_PANEL_LINE_STOPS Przystanki linii

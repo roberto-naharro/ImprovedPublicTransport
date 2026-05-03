@@ -9,14 +9,11 @@ UNBUNCHING_ENABLED Распределение
 UNBUNCHING_DISABLED Распределение выключено.
 UNBUNCHING_TARGET_GAP Интервал: {0}
 EXPLANATION_BUDGET_CONTROL Управляется бюджетом: количество транспорта настраивается через панель бюджета.
-EXPLANATION_UNBUNCHING Распределение транспорта: Игра пытается создать равный интервал между транспортными средствами.
 LINE_PANEL_STOPS Ост.: {0}
 LINE_PANEL_SPAWNTIMER Следующее транспортное средство через {0} секунд.
 LINE_PANEL_BUDGET_CONTROL Управляется бюджетом
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Включить или выключить управление через бюджет для этой линии.
-LINE_PANEL_UNBUNCHING_TOOLTIP Включить или выключить распределение для этой линии.\nРаспределение выключено, если Степень распределения установлена на 0.
 LINE_PANEL_DEPOT Депо:
-LINE_PANEL_DEPOT_MARKER_TOOLTIP Перейти к выбранному депо.\nЗажмите Shift, чтобы приблизить камеру.
 LINE_PANEL_SELECT_TYPES Выбор модели ТС
 LINE_PANEL_SELECT_TYPES_TOOLTIP Переключает панель выбора моделей транспорта.\nЕсли эта кнопка недоступна, сначала выберите депо.
 LINE_PANEL_LINE_STOPS Остановки на линии

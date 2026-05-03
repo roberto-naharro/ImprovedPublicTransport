@@ -9,14 +9,11 @@ UNBUNCHING_ENABLED Desagrupar vehículos
 UNBUNCHING_DISABLED La desagrupación está desactivada
 UNBUNCHING_TARGET_GAP Espacio medio: {0}
 EXPLANATION_BUDGET_CONTROL Control por presupuesto: el número de vehículos se controla mediante el presupuesto
-EXPLANATION_UNBUNCHING Desagrupación de vehículos: el juego trata de dejar un espacio entre los vehículos de una misma línea
 LINE_PANEL_STOPS Paradas: {0}
 LINE_PANEL_SPAWNTIMER El siguiente vehículo podrá ser generado en {0}s
 LINE_PANEL_BUDGET_CONTROL Control por presupuesto
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Activa/desactiva el control por presupuesto en esta línea
-LINE_PANEL_UNBUNCHING_TOOLTIP Activa/desactiva la desagrupación de vehículos en esta línea.\nLa desagrupación se desactiva si la fuerza de la desagrupación es 0.
 LINE_PANEL_DEPOT Depósito:
-LINE_PANEL_DEPOT_MARKER_TOOLTIP Saltar al depósito seleccionado.\nShift + clic para ver detalles.
 LINE_PANEL_SELECT_TYPES Elegir modelos
 LINE_PANEL_SELECT_TYPES_TOOLTIP Abre un panel para elegir entre los diferentes modelos de vehículo que haya disponibles.\nSi no está activado deberás seleccionar primero un depósito.
 LINE_PANEL_LINE_STOPS Paradas de la línea

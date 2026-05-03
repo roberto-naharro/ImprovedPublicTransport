@@ -8,12 +8,10 @@ UNBUNCHING_ENABLED Distribuição de veículos
 UNBUNCHING_DISABLED Distribuição desativado.
 UNBUNCHING_TARGET_GAP Intervalo: {0}
 EXPLANATION_BUDGET_CONTROL Quantidade de veículos será controlada pelo orçamento de transporte.
-EXPLANATION_UNBUNCHING Distribuição de veículos: O jogo tenta manter uma distribuição regular entre os veículos.
 LINE_PANEL_STOPS Paradas: {0}
 LINE_PANEL_SPAWNTIMER Próximo veículo em {0} segundos.
 LINE_PANEL_BUDGET_CONTROL Controle via orçamento
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Liga ou desliga controle via orçamento para essa linha.
-LINE_PANEL_UNBUNCHING_TOOLTIP Liga ou desliga distribuição de veículos para essa linha.\nA distribuição é desativado se o valor da agressividade for 0.
 LINE_PANEL_DEPOT Garagem:
 LINE_PANEL_SELECT_TYPES Selecionar tipos
 LINE_PANEL_SELECT_TYPES_TOOLTIP Ativa o painel 'Selecionar tipos'\nSe esse botão está desabilitado, você precisa selecionar uma garagem primeiro.

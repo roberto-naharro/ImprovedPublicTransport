@@ -9,16 +9,13 @@ UNBUNCHING_ENABLED 運行間隔を調整中
 UNBUNCHING_DISABLED 運行間隔の調整は無効
 UNBUNCHING_TARGET_GAP 閾値: {0}
 EXPLANATION_BUDGET_CONTROL 予算管理モード: 車両数は予算ベースで制御中
-EXPLANATION_UNBUNCHING 運行間隔を調整中: 運行間隔の時間を調整中
 LINE_PANEL_STOPS 停車場: {0}
 LINE_PANEL_SPAWNTIMER {0} 秒後に車両がスポーン
 LINE_PANEL_DEPOT_WARNING <color #FF0000>選択中の車庫に車両がありません！</color>
 LINE_PANEL_BUDGET_CONTROL 予算管理を有効化
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP 現在の路線で予算管理を有効化 or 無効化します。
-LINE_PANEL_UNBUNCHING_TOOLTIP この路線で運行間隔の調整を有効化 or 無効化します。\n設定で運行間隔の強度が0の場合は、調整が無効化されます。
 LINE_PANEL_DEPOT 車庫:
 LINE_PANEL_NO_DEPOT_FOUND 車庫が見つかりません！
-LINE_PANEL_DEPOT_MARKER_TOOLTIP 選択した車庫にジャンプ\nもしくは、Shiftキーを押しながらクリックでズームインします。
 LINE_PANEL_SELECT_TYPES 車両を選択
 LINE_PANEL_SELECT_TYPES_TOOLTIP 車両を選択のパネルを切り替えます。\nボタンが無効の場合は、最初に車庫を選択＆指定して下さい。
 LINE_PANEL_LINE_STOPS 路線の停車場

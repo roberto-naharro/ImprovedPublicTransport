@@ -9,16 +9,13 @@ UNBUNCHING_ENABLED Abstandskontrolle
 UNBUNCHING_DISABLED Abstandskontrolle ist deaktiviert.
 UNBUNCHING_TARGET_GAP Zielabstand: {0}
 EXPLANATION_BUDGET_CONTROL Budget-Kontrolle: Die Fahrzeuganzahl wird über das Budget gesteuert.
-EXPLANATION_UNBUNCHING Abstandskontrolle: Das Spiel versucht Abstände zwischen den Fahrzeugen zu erzeugen.
 LINE_PANEL_STOPS Haltestellen: {0}
 LINE_PANEL_SPAWNTIMER Nächstes Fahrzeug in {0} Sekunden.
 LINE_PANEL_DEPOT_WARNING <color #FF0000>Das ausgewählte Depot hat keine Fahrzeuge übrig.</color>
 LINE_PANEL_BUDGET_CONTROL Budget-Kontrolle
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Aktiviert oder deaktiviert die Budget-Kontrolle für diese Linie.
-LINE_PANEL_UNBUNCHING_TOOLTIP Aktiviert oder deaktiviert die Abstandskontrolle für diese Linie.\nDie Abstandskontrolle ist deaktiviert wenn Abstandskontroll-Aggressivität auf 0 gesetzt ist.
 LINE_PANEL_DEPOT Depot:
 LINE_PANEL_NO_DEPOT_FOUND Kein Depot gefunden.
-LINE_PANEL_DEPOT_MARKER_TOOLTIP Gehe zum ausgewählten Depot.\nWenn du beim Klicken eine Shift-Taste gedrückt hältst wird auch reingezoomt.
 LINE_PANEL_SELECT_TYPES Wähle Typen
 LINE_PANEL_SELECT_TYPES_TOOLTIP Blendet das 'Wähle Typen' Fenster ein oder aus.\nWenn diese Schaltfläche deaktiviert ist must du zuerst ein Depot festlegen.
 LINE_PANEL_LINE_STOPS Haltestellen

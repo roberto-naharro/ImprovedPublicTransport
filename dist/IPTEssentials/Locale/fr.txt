@@ -9,14 +9,11 @@ UNBUNCHING_ENABLED Distance des véhicules
 UNBUNCHING_DISABLED Distance inactif.
 UNBUNCHING_TARGET_GAP Distance désirée: {0}
 EXPLANATION_BUDGET_CONTROL Contrôle du budget: La quantité de véhicules dépend du budget.
-EXPLANATION_UNBUNCHING Distance : Gestion de la distance entre deux véhicules d'une même ligne.
 LINE_PANEL_STOPS Arrêts: {0}
 LINE_PANEL_SPAWNTIMER Prochain véhicule dans {0} secondes.
 LINE_PANEL_BUDGET_CONTROL Contrôle budgétaire
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Le budget défini le nombre de véhicules en service.
-LINE_PANEL_UNBUNCHING_TOOLTIP Activer ou désactiver la distance des véhicules pour cette ligne.\nLa distance des véhicules est inactif quand la valeur est 0.
 LINE_PANEL_DEPOT Dépôt:
-LINE_PANEL_DEPOT_MARKER_TOOLTIP Se rendre au dépôt sélectionné.\nCliquer en maintenant Shift pour zoomer.
 LINE_PANEL_SELECT_TYPES Modèles disponibles
 LINE_PANEL_SELECT_TYPES_TOOLTIP Afficher le panneau "Modèles disponibles".\nSi cette option est désactivée il faut d'abord sélectionner un dépôt.
 LINE_PANEL_LINE_STOPS Arrêts

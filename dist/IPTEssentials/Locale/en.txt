@@ -9,16 +9,13 @@ UNBUNCHING_ENABLED Vehicle unbunching
 UNBUNCHING_DISABLED Unbunching is disabled.
 UNBUNCHING_TARGET_GAP Target gap: {0}
 EXPLANATION_BUDGET_CONTROL Budget control: The vehicle count is controlled by the budget.
-EXPLANATION_UNBUNCHING Vehicle unbunching: The game tries to create a gap between vehicles.
 LINE_PANEL_STOPS Stops: {0}
 LINE_PANEL_SPAWNTIMER Next vehicle in {0} seconds.
 LINE_PANEL_DEPOT_WARNING <color #FF0000>The selected depot has no vehicles left.</color>
 LINE_PANEL_BUDGET_CONTROL Budget control
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Enables or disables budget control for this line.
-LINE_PANEL_UNBUNCHING_TOOLTIP Enables or disables vehicle unbunching for this line.\nUnbunching is disabled if unbunching aggression is set to 0.
 LINE_PANEL_DEPOT Depot:
 LINE_PANEL_NO_DEPOT_FOUND No depot found.
-LINE_PANEL_DEPOT_MARKER_TOOLTIP Jump towards the selected depot.\nHolding down a shift key when clicking will also zoom in.
 LINE_PANEL_SELECT_TYPES Select Types
 LINE_PANEL_SELECT_TYPES_TOOLTIP Toggles the 'Select Types' panel.\nIf this button is disabled you have to select a depot first.
 LINE_PANEL_LINE_STOPS Line stops

@@ -9,14 +9,11 @@ UNBUNCHING_ENABLED 차량간격 유지
 UNBUNCHING_DISABLED 차량간격 유지 해제
 UNBUNCHING_TARGET_GAP 차량 간격 : {0}
 EXPLANATION_BUDGET_CONTROL 차량 예산 : 차량이 지정된 예산에 맞게 조절됩니다.
-EXPLANATION_UNBUNCHING 차량 간격유지 : 게임에서 차량이 일정한 간격을 유지하려고 노력합니다.
 LINE_PANEL_STOPS 정거장 수 : {0}
 LINE_PANEL_SPAWNTIMER 새 차량이 {0} 초 후 출발합니다.
 LINE_PANEL_BUDGET_CONTROL 차량 예산
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP 이 노선의 차량 예산 기능을 키거나 끌 수 있습니다
-LINE_PANEL_UNBUNCHING_TOOLTIP 이 노선의 차량 간격 유지기능을 키거나 끌 수 있습니다.\n이 기능을 끌 경우 차량 간격이 0으로 조정됩니다.
 LINE_PANEL_DEPOT 차고지 :
-LINE_PANEL_DEPOT_MARKER_TOOLTIP 선택된 차고지로 이동합니다.\n쉬프트키를 누른 채 클릭하면 확대 됩니다.
 LINE_PANEL_SELECT_TYPES 종류 선택
 LINE_PANEL_SELECT_TYPES_TOOLTIP 종류 선택창을 열거나 닫습니다.\n이 기능으로 비활성화한 차량은 이 노선에 등장하지 않습니다.
 LINE_PANEL_LINE_STOPS 정류장 목록

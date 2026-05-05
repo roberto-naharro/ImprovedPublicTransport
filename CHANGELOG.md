@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.5.1...v1.6.0) (2026-05-05)
+
+
+### Features
+
+* restore unbunching feature ([5b4885e](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/5b4885e501e3ff2e5904573c5ee8e1e6dfd490ee))
+
 ## [1.5.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.5.0...v1.5.1) (2026-05-03)
 
 

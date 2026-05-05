@@ -4,8 +4,8 @@ AVERAGE 平均
 AVERAGE_TOOLTIP 上{0}週平均客流量.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS 車站
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES 車庫
-UNBUNCHING_ENABLED 車輛不重疊
-UNBUNCHING_DISABLED 禁用不重疊
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP 車輛間隔: {0}
 EXPLANATION_BUDGET_CONTROL 預算控制: 由預算控制車輛數量
 LINE_PANEL_STOPS 月台數量: {0}
@@ -63,9 +63,9 @@ STOP_PANEL_PASSENGERS_OUT 運送的乘客:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP 運送離開此月台乘客數量.
 STOP_PANEL_PASSENGERS_TOTAL 乘客的總數:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP 月台輸送或等待輸送的乘客總數.
-STOP_PANEL_UNBUNCHING_TOOLTIP 啟或禁用車輛在進站不重疊.\n如果不重疊設置為"0", 不重疊將禁用.
-STOP_PANEL_UPDATE_CLOSE_STOPS 正使用不重疊
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP 應用不重疊到所有車站
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS 前一月台
 STOP_PANEL_PREVIOUS_TOOLTIP 跳轉到前一車站月台.\n按住shift鍵滑鼠點擊車站將靠近放大.
 STOP_PANEL_DELETE_STOP 刪除月台

@@ -5,8 +5,8 @@ AVERAGE Среднее
 AVERAGE_TOOLTIP Среднее за последние {0} недель.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS Станций остановок
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES Депо транспорта
-UNBUNCHING_ENABLED Распределение
-UNBUNCHING_DISABLED Распределение выключено.
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP Интервал: {0}
 EXPLANATION_BUDGET_CONTROL Управляется бюджетом: количество транспорта настраивается через панель бюджета.
 LINE_PANEL_STOPS Ост.: {0}
@@ -64,9 +64,9 @@ STOP_PANEL_PASSENGERS_OUT Вышло:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP Пассажиры, которые покинули транспортное средство.
 STOP_PANEL_PASSENGERS_TOTAL Всего:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP Общее число обслуженных пассажиров.
-STOP_PANEL_UNBUNCHING_TOOLTIP Включает или отключает распределение транспорта на этой остановке.\nРаспределение отключено, если Степень распределения установлена на 0.
-STOP_PANEL_UPDATE_CLOSE_STOPS Обновить остановки
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Установить статус распределения для всех остановок на этой станции / позиции.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS Предыдущая остановка
 STOP_PANEL_PREVIOUS_TOOLTIP Показать предыдущую остановку.\nЗажмите Shift, чтобы приблизить камеру.
 STOP_PANEL_DELETE_STOP Удалить остановку

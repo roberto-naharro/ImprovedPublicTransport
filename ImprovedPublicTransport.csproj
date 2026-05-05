@@ -94,6 +94,7 @@
     <Compile Include="HarmonyPatches\DepotAIPatches\ClassMatchesPatch.cs" />
     <Compile Include="HarmonyPatches\NetManagerPatches\ReleaseNodePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\GetLineVehiclePatch.cs" />
+    <Compile Include="HarmonyPatches\TransportLinePatches\CanLeaveStopPatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\SimulationStepPatch.cs" />
     <Compile Include="HarmonyPatches\TransportManagerPatches\CheckTransportLineVehiclesPatch.cs" />
     <Compile Include="HarmonyPatches\PublicTransportLineVehicleSelectorPatches\GetVehicleInfoPatch.cs" />

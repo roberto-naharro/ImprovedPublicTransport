@@ -5,8 +5,8 @@ AVERAGE Średnia
 AVERAGE_TOOLTIP Średnia z ostatnich {0} tyg.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS Przystanki na stacji
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES Pojazdy w użyciu
-UNBUNCHING_ENABLED Unbunching pojazdów
-UNBUNCHING_DISABLED Unbunching jest wyłączony.
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP Docelowy odstęp: {0}
 EXPLANATION_BUDGET_CONTROL Regulacja budżetowa: Ilość pojazdów jest regulowana przez budżet.
 LINE_PANEL_STOPS Przystanki: {0}
@@ -66,9 +66,9 @@ STOP_PANEL_PASSENGERS_OUT Wysiadający:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP Pasażerowie wysiadający z pojazdów na tym przystanku.
 STOP_PANEL_PASSENGERS_TOTAL Łącznie:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP Wszyscy pasażerowie korzystający z tego przystanku.
-STOP_PANEL_UNBUNCHING_TOOLTIP Włącza lub wyłącza unbunching pojazdów na tym przystanku.\nUnbunching pojazdów jest wyłączony, jeśli agresja unbunchingu jest ustawiona na 0.
-STOP_PANEL_UPDATE_CLOSE_STOPS Aktualizuj pobliskie przystanki
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Ustawia wybrany stan unbunchingu pojazdów dla wszystkich innych przystanków na tej stacji / pozycji.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS Poprzedni przystanek
 STOP_PANEL_PREVIOUS_TOOLTIP Przeskakuje do poprzedniego przystanku.\nPrzytrzymanie klawisza Shift podczas klikania dodatkowo przybliży widok.
 STOP_PANEL_DELETE_STOP Usuń przystanek

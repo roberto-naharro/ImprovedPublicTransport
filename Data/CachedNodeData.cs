@@ -5,22 +5,30 @@
 // Assembly location: C:\Games\Steam\steamapps\workshop\content\255710\424106600\ImprovedPublicTransport.dll
 
 using System;
+using ColossalFramework;
 using ImprovedPublicTransport2.Util;
+using Utils = ImprovedPublicTransport2.Util.Utils;
 
 namespace ImprovedPublicTransport2.Data
 {
   public static class CachedNodeData
   {
     private static readonly string _dataID = "IPT_NodeData";
-    private static readonly string _dataVersion = "v004";
+    private static readonly string _dataVersion = "v005";
     private static bool _isDeployed = false;
 
     public static NodeData[] m_cachedNodeData;
+
+    // True only when a v005 save block was found and loaded.
+    // False on fresh saves or upgrades from older versions.
+    // Used to decide whether to apply EBS first-load defaults.
+    public static bool V005DataLoaded { get; private set; }
 
     public static void Init()
     {
       if (CachedNodeData._isDeployed)
         return;
+      V005DataLoaded = false;
       if (!CachedNodeData.TryLoadData(out CachedNodeData.m_cachedNodeData))
         Utils.Log((object) "Loading default net node data.");
 
@@ -28,13 +36,66 @@ namespace ImprovedPublicTransport2.Data
       CachedNodeData._isDeployed = true;
     }
 
+    public static void SetUnbunchingForLine(ushort lineID, bool value)
+    {
+      ushort stop = Singleton<TransportManager>.instance.m_lines.m_buffer[lineID].m_stops;
+      int limit = 0;
+      while (stop != 0)
+      {
+        m_cachedNodeData[stop].Unbunching = value;
+        stop = TransportLine.GetNextStop(stop);
+        if (++limit >= 32768) break;
+      }
+    }
+
     public static void Deinit()
     {
       if (!CachedNodeData._isDeployed)
         return;
       CachedNodeData.m_cachedNodeData = (NodeData[]) null;
+      V005DataLoaded = false;
       SerializableDataExtension.instance.EventSaveData -= new SerializableDataExtension.SaveDataEventHandler(CachedNodeData.OnSaveData);
       CachedNodeData._isDeployed = false;
+    }
+
+    // Sets all non-terminus stops on complete Bus/Trolleybus/Tram lines to Unbunching=false.
+    // The first stop (terminus, identified the same way EBS does via GetLastStop()) keeps
+    // Unbunching=true so EBS rubberbands there and vehicles can space out.
+    // All other stops default to non-terminus: EBS instant-departs and may skip if empty.
+    // Trains, ferries, planes etc. are not touched — vanilla dwell applies for them.
+    // Called on first load with EBS when no v005 data exists.
+    public static void SetAllLinesUnbunchingOff()
+    {
+      TransportLine[] lines = Singleton<TransportManager>.instance.m_lines.m_buffer;
+      int lineCount = 0;
+      for (ushort lineID = 1; lineID < lines.Length; lineID++)
+      {
+        if ((lines[lineID].m_flags & TransportLine.Flags.Complete) == TransportLine.Flags.None)
+          continue;
+        TransportInfo info = lines[lineID].Info;
+        if (info == null) continue;
+        ItemClass.SubService sub = info.m_class.m_subService;
+        if (sub != ItemClass.SubService.PublicTransportBus
+            && sub != ItemClass.SubService.PublicTransportTrolleybus
+            && sub != ItemClass.SubService.PublicTransportTram)
+          continue;
+
+        // Keep the terminus stop (same one EBS identifies via GetLastStop()) as Unbunching=true
+        // so rubberbanding fires there. Set every other stop to false.
+        ushort terminusStop = lines[lineID].GetLastStop();
+        ushort stop = lines[lineID].m_stops;
+        int limit = 0;
+        while (stop != 0)
+        {
+          if (stop != terminusStop)
+            m_cachedNodeData[stop].Unbunching = false;
+          stop = TransportLine.GetNextStop(stop);
+          if (stop == lines[lineID].m_stops) break; // full circle
+          if (++limit >= 32768) break;
+        }
+        lineCount++;
+      }
+      Utils.Log("CachedNodeData: EBS first-load defaults applied — non-terminus stops set to Unbunching=false on " + lineCount + " bus/trolleybus/tram lines.");
     }
 
     public static bool TryLoadData(out NodeData[] data)
@@ -69,6 +130,12 @@ namespace ImprovedPublicTransport2.Data
           data[index2].PassengerInData = SerializableDataExtension.ReadFloatArray(data1, ref index1);
           data[index2].PassengerOutData = SerializableDataExtension.ReadFloatArray(data1, ref index1);
           if (str == "v003") SerializableDataExtension.ReadBool(data1, ref index1); // skip legacy unbunching bool
+          if (str == "v005")
+          {
+            data[index2].Unbunching = SerializableDataExtension.ReadBool(data1, ref index1);
+            V005DataLoaded = true;
+          }
+          // else: Unbunching defaults to true (inverted flag _unbunchingDisabled defaults to false)
         }
         return true;
       }
@@ -97,6 +164,7 @@ namespace ImprovedPublicTransport2.Data
             SerializableDataExtension.WriteInt32(CachedNodeData.m_cachedNodeData[index].LastWeekPassengersOut, data);
             SerializableDataExtension.WriteFloatArray(CachedNodeData.m_cachedNodeData[index].PassengerInData, data);
             SerializableDataExtension.WriteFloatArray(CachedNodeData.m_cachedNodeData[index].PassengerOutData, data);
+            SerializableDataExtension.WriteBool(CachedNodeData.m_cachedNodeData[index].Unbunching, data);
           }
         }
         SerializableDataExtension.instance.SerializableData.SaveData(CachedNodeData._dataID, data.ToArray());

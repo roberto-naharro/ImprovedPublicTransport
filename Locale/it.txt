@@ -4,8 +4,8 @@ AVERAGE Media
 AVERAGE_TOOLTIP Media delle ultime {0} settimane.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS Fermate
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES Veicoli del deposito
-UNBUNCHING_ENABLED Veicoli convogliati
-UNBUNCHING_DISABLED Convogliamento disabilitato.
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP Distanza dalla destiazione: {0}
 EXPLANATION_BUDGET_CONTROL Controllo del budget: Il conteggio del veicolo è controllato dal bilancio.
 LINE_PANEL_STOPS Fermate: {0}
@@ -63,9 +63,9 @@ STOP_PANEL_PASSENGERS_OUT Passeggeri fuori:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP Passeggeri che lasciato il veicolo.
 STOP_PANEL_PASSENGERS_TOTAL Totale: 
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP Totale Passeggeri serviti:
-STOP_PANEL_UNBUNCHING_TOOLTIP Attiva o disattiva il convogliamento di questa fermata.\nÈ disabilitato se il convogliamento è settato a zero.
-STOP_PANEL_UPDATE_CLOSE_STOPS Aggiorna le fermate vicine
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Imposta il convogliamento a tutte le altre fermate di questa stazione.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS Precedente fermata
 STOP_PANEL_PREVIOUS_TOOLTIP Salta sulla fermata precedente.\nQuando clicchi tieni premuto il tasto Shift per ingrandire.
 STOP_PANEL_DELETE_STOP Cancella fermata

@@ -5,8 +5,8 @@ AVERAGE Average
 AVERAGE_TOOLTIP Average of the last {0} weeks.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS Station stops
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES Depot vehicles
-UNBUNCHING_ENABLED Vehicle unbunching
-UNBUNCHING_DISABLED Unbunching is disabled.
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP Target gap: {0}
 EXPLANATION_BUDGET_CONTROL Budget control: The vehicle count is controlled by the budget.
 LINE_PANEL_STOPS Stops: {0}
@@ -66,9 +66,9 @@ STOP_PANEL_PASSENGERS_OUT Passengers out:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP Passengers that leave the transport vehicle here.
 STOP_PANEL_PASSENGERS_TOTAL Total:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP Total passengers serviced here.
-STOP_PANEL_UNBUNCHING_TOOLTIP Enables or disables vehicle unbunching at this stop.\nUnbunching is disabled if unbunching aggression is set to 0.
-STOP_PANEL_UPDATE_CLOSE_STOPS Update close stops
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Set the unbunching state to all other stops at this station / position.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS Previous Stop
 STOP_PANEL_PREVIOUS_TOOLTIP Jump to the previous stop.\nHolding down a shift key when clicking will also zoom in.
 STOP_PANEL_DELETE_STOP Delete Stop

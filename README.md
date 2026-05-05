@@ -25,6 +25,10 @@ We focus on the things no other mod provides together:
 - **Per-line vehicle type selection** — choose which vehicle models can serve a given line.
   Opens a floating panel (from the line info panel) listing available and selected models with
   thumbnail previews. Mixed-fleet lines are preserved across load.
+- **Per-stop unbunching control** — enable or disable the vanilla dwell wait at individual
+  stops. Stop circles in the line panel are tinted red (unbunching on) or green (unbunching off)
+  so the state of every stop is visible at a glance. [Express Bus Services](https://github.com/Vectorial1024/ExpressBusServices) reads
+  these flags and applies its own rubberbanding where unbunching is enabled.
 - **Granular statistics** — per-stop, per-vehicle, and per-line breakdowns (current week, last
   week, rolling average) that let you actually understand how your network is performing.
 
@@ -93,6 +97,42 @@ computes the delta and writes it to `CachedNodeData`.
 Weekly boundaries are detected in the `SimulationStep` postfix: when
 `(m_currentFrameIndex & 4095) >= 3840`, each stop on the line calls `StartNewWeek()`,
 rolling the current week's totals into the historical average.
+
+### Per-stop unbunching toggle
+
+Each transit stop has a toggle in its stop info panel to enable or disable unbunching at that
+stop. When **enabled** (the default), the vanilla game dwell logic applies — vehicles wait at the
+stop long enough to space out from the vehicle ahead (`TransportLine.CanLeaveStop`). When
+**disabled**, the vehicle leaves as soon as boarding is complete, without any forced wait, which
+avoids blocking road traffic at intermediate stops.
+
+An **Apply to all stops** button propagates the current stop's setting to every stop on the same
+line via `CachedNodeData.SetUnbunchingForLine`.
+
+Stop circles in the line info panel are color-coded to reflect each stop's state: **red** tint
+when unbunching is enabled (vehicles wait/space out here), **green** tint when disabled (vehicles
+depart immediately). Hovering a circle also shows "Unbunching enabled" or "Unbunching disabled"
+in the tooltip.
+
+**Without EBS**, the `CanLeaveStopPatch` prefix on `TransportLine.CanLeaveStop` is the sole
+control: Unbunching=false forces the stop to return `true` immediately (skip vanilla dwell),
+Unbunching=true lets vanilla dwell run normally. This is the original IPT2 per-stop behavior.
+
+**When [Express Bus Services](https://github.com/Vectorial1024/ExpressBusServices) is active**,
+IPTE additionally patches `DepartureChecker.StopIsConsideredAsTerminus` — the single method EBS
+consults for both its departure-timing and stop-skipping decisions:
+
+- `Unbunching=true` → terminus → EBS applies rubberbanding until vehicles are spaced, and the
+  stop is never skipped even if nobody is waiting.
+- `Unbunching=false` → non-terminus → EBS instant-departs once boarding is done, and will skip
+  the stop entirely if no passengers are waiting or alighting.
+
+EBS registers its own patches at `Priority.LowerThanNormal` (300) to give way to IPT2; IPTE
+uses `Priority.Normal` (400). **Do not install ExpressBusServices-IPT2** — it conflicts with
+this direct integration.
+
+Per-stop unbunching state is persisted to the save file (see [Persistence](#persistence)). All
+stops default to enabled (unbunching active) on first load or missing data.
 
 ### Per-vehicle statistics
 
@@ -168,6 +208,7 @@ descriptors. This makes the patch list deterministic and avoids scanning the ent
 | `GetLineVehiclePatch` | `TransportLine.GetLineVehicle` | prefix | Returns a random model from the line's selected set (falls through to vanilla when no selection) |
 | `CheckTransportLineVehiclesPatch` | `TransportManager.CheckTransportLineVehicles` | prefix | Skips vanilla vehicle-type enforcement for lines with a custom model set |
 | `GetVehicleInfoPatch` | `PublicTransportLineVehicleSelector.GetVehicleInfo` | prefix | Suppresses vanilla per-line vehicle selector; IPT's panel replaces it |
+| `CanLeaveStopPatch` | `TransportLine.CanLeaveStop` | prefix | Returns `true` immediately (skips vanilla dwell) when unbunching is disabled at that stop. No-op when EBS is detected. |
 | `OnMouseDownPatch` (stop) | `PublicTransportStopButton` | prefix | Open IPT stop detail panel on click |
 | `OnMouseDownPatch` (vehicle) | `PublicTransportVehicleButton` | prefix | Open IPT vehicle detail panel on click |
 | `UpdateStopButtonsPatch` | `PublicTransportWorldInfoPanel` | postfix | Refresh stop button visibility and labels |
@@ -221,18 +262,39 @@ cleared back to `false` when the vehicle is released. This is used to split vehi
 the **Vehicles in this line** and **Vehicles queued** side panels. All vehicles already active
 at level-load are pre-marked as joined via `MarkAllExistingJoined()`.
 
-#### `CachedNodeData` — runtime only
+#### `CachedNodeData` — persisted
 
-One entry per net node index. Tracks per-stop: current-week and last-week passenger in/out
-counts, rolling average, custom stop name.
+Stored under save-game key `"IPT_NodeData"`, schema version `v005`. One entry per net node
+index. Tracks per-stop:
+
+| Field | Type | Meaning |
+| --- | --- | --- |
+| `PassengersIn` / `PassengersOut` | `int` | Boarding and alighting counts for the current week |
+| `LastWeekPassengersIn` / `LastWeekPassengersOut` | `int` | Previous week totals |
+| `PassengerInData` / `PassengerOutData` | `float[]` | Rolling history used to compute the weekly average |
+| `Unbunching` | `bool` | `true` = vanilla dwell applies; `false` = vehicle leaves immediately without forced wait |
+
+Nodes where all fields are at their default (`PassengersTotal == 0`, no history data, and
+`Unbunching == true`) are omitted from the save file (`NodeData.IsEmpty`), keeping saves compact.
+
+Saves from schema versions before `v005` load correctly: passenger data is read and `Unbunching`
+defaults to `true` for all stops. The old `v003` legacy unbunching bool is read and discarded.
 
 ### Persistence
 
 `SerializableDataExtension` implements `ISerializableDataExtension`. On save it fires
-`EventSaveData`, which `CachedTransportLineData` subscribes to, serialising its array to a
-flat byte stream using `BitConverter`. On load, the stream is read back and version-checked.
-If the version string does not match `v005` (e.g. upgrading from an old save), the data is
-discarded and re-initialised from the live game state.
+`EventSaveData`, which both `CachedTransportLineData` and `CachedNodeData` subscribe to,
+each serialising its array to a flat byte stream using `BitConverter`.
+
+**`CachedTransportLineData`** — save key `"ImprovedPublicTransport"`, schema `v006`. On load,
+the version string is checked; unknown versions are discarded and re-initialised from the live
+game state.
+
+**`CachedNodeData`** — save key `"IPT_NodeData"`, schema `v005`. Nodes where all fields are at
+their default are omitted (`NodeData.IsEmpty`). On load, older schema versions are handled:
+`v003` reads and discards a legacy unbunching bool; `v004` reads only passenger data; `v005`
+reads passenger data plus the per-stop `Unbunching` bool. Missing data defaults all stops to
+unbunching enabled.
 
 ---
 
@@ -245,13 +307,10 @@ alongside all of them.
 | Feature | Mod | Notes |
 | --- | --- | --- |
 | Depot assignment per line | [VehicleSelector](https://github.com/algernon-A/VehicleSelector/) by **algernon-A** | VS controls which depot a line draws from (building-level). IPT Essentials controls which vehicle models a line can spawn (line-level). The two are complementary and fully compatible. |
-| Vehicle unbunching | [Public Transport Unstucker](https://github.com/Vectorial1024/PublicTransportUnstucker) by **Vectorial1024** | Purpose-built unbunching that integrates with TM:PE and handles edge cases a transit mod's side-feature never would. |
+| Enhanced unbunching timing | [Express Bus Services](https://github.com/Vectorial1024/ExpressBusServices) by **Vectorial1024** | IPTE patches EBS's `DepartureChecker.StopIsConsideredAsTerminus` directly: Unbunching=true → EBS rubberbands and won't skip the stop; Unbunching=false → EBS instant-departs and may skip the stop if nobody is waiting. Works natively — **do not install ExpressBusServices-IPT2** alongside this mod. |
+| Stuck citizen fix | [Public Transport Unstucker](https://github.com/Vectorial1024/PublicTransportUnstucker) by **Vectorial1024** | Fixes the "Citizen Runaway Problem" — rogue passengers flagged as boarding who never actually board, preventing vehicles from departing. Completely unrelated to vehicle spacing; compatible and complementary. |
 | Advanced stop selection | [Advanced Stop Selection](https://steamcommunity.com/sharedfiles/filedetails/?id=442167376) | Dedicated stop-selection logic maintained independently from any transit feature mod. |
 | Elevated stop placement | [Elevated Stops Enabler](https://github.com/MacSergey/ElevatedStopsEnabler) by **MacSergey** | Unlocks stop placement on elevated road segments — a focused infrastructure tool. |
-
-IPT Essentials is compatible with [Express Bus Services](https://github.com/Vectorial1024/ExpressBusServices)
-by **Vectorial1024** — EBS was designed with IPT2 awareness and passenger stats remain accurate
-in all EBS modes.
 
 ---
 
@@ -259,11 +318,11 @@ in all EBS modes.
 
 If you are coming from the original Improved Public Transport 2, two compatibility notes apply:
 
-**[ExpressBusServices-IPT2](https://github.com/Vectorial1024/ExpressBusServices-IPT2)** is no
-longer needed and should be unsubscribed. That mod was a compatibility bridge between EBS and
-IPT2's unbunching feature. IPT Essentials has removed unbunching entirely (now handled by
-[Public Transport Unstucker](https://github.com/Vectorial1024/PublicTransportUnstucker)),
-so EBS-IPT2 has nothing to bridge and will fail to load alongside IPT Essentials.
+**[ExpressBusServices-IPT2](https://github.com/Vectorial1024/ExpressBusServices-IPT2) must be
+unsubscribed.** IPT Essentials integrates with EBS directly by patching
+`DepartureChecker.StopIsConsideredAsTerminus`. EBS_IPT2 patches the same code paths and will
+conflict, producing double departure-timing calls and unpredictable vehicle behavior. Unsubscribe
+EBS_IPT2 before using IPT Essentials with Express Bus Services.
 
 Manual vehicle counts and line settings from an existing IPT2 save are loaded automatically —
 the save-data key and serialization format are backward-compatible up to schema `v005`. Vehicle

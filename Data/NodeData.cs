@@ -15,12 +15,19 @@ namespace ImprovedPublicTransport2.Data
     private int _averagePassengersOut;
     private MovingAverage _passengerInData;
     private MovingAverage _passengerOutData;
+    private bool _unbunchingDisabled; // inverted so default (false) means Unbunching = true
+
+    public bool Unbunching
+    {
+      get { return !_unbunchingDisabled; }
+      set { _unbunchingDisabled = !value; }
+    }
 
     public bool IsEmpty
     {
       get
       {
-        return this.PassengersTotal == 0 && this._passengerInData == null;
+        return this.PassengersTotal == 0 && this._passengerInData == null && this.Unbunching;
       }
     }
 

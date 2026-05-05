@@ -5,8 +5,8 @@ AVERAGE 平均
 AVERAGE_TOOLTIP 過去 {0} 週間の平均
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS 駅や停留所
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES 車庫の車両数
-UNBUNCHING_ENABLED 運行間隔を調整中
-UNBUNCHING_DISABLED 運行間隔の調整は無効
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP 閾値: {0}
 EXPLANATION_BUDGET_CONTROL 予算管理モード: 車両数は予算ベースで制御中
 LINE_PANEL_STOPS 停車場: {0}
@@ -66,9 +66,9 @@ STOP_PANEL_PASSENGERS_OUT 降車人数:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP この停車場で車両から降車する乗客
 STOP_PANEL_PASSENGERS_TOTAL 乗客の合計:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP 路線を利用した乗客の総数
-STOP_PANEL_UNBUNCHING_TOOLTIP この停車場で行う、運行間隔の調整を有効化 or 無効化します。\n設定で運行間隔の強度が0の場合は、調整が無効になります。
-STOP_PANEL_UPDATE_CLOSE_STOPS 停車場の更新を停止
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP 駅や道路にある停車場で、運行間隔の調整をリセットします。
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS 前の停車場
 STOP_PANEL_PREVIOUS_TOOLTIP 前の停車場にジャンプ\nもしくは、Shiftキーを押しながらクリックでズームインします。
 STOP_PANEL_DELETE_STOP 停車場を削除

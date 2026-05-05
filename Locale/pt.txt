@@ -4,8 +4,8 @@ AVERAGE Média
 AVERAGE_TOOLTIP Média das últimas {0} semanas.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS Paradas da estação
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES Veículos da garagem
-UNBUNCHING_ENABLED Distribuição de veículos
-UNBUNCHING_DISABLED Distribuição desativado.
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP Intervalo: {0}
 EXPLANATION_BUDGET_CONTROL Quantidade de veículos será controlada pelo orçamento de transporte.
 LINE_PANEL_STOPS Paradas: {0}
@@ -63,9 +63,9 @@ STOP_PANEL_PASSENGERS_OUT Desembarques:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP Passageiros que desembarcam aqui.
 STOP_PANEL_PASSENGERS_TOTAL Total:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP Total de passageiros servidos aqui.
-STOP_PANEL_UNBUNCHING_TOOLTIP Liga ou desliga distribuição de veículos para essa parada.\nA distribuição é desativado se o valor da agressividade for 0.
-STOP_PANEL_UPDATE_CLOSE_STOPS Atualizar paradas proximas
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Usar a configuração de distribuição para todas as paradas dessa estação / local.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS Parada Anterior
 STOP_PANEL_PREVIOUS_TOOLTIP Ir para a parada anterior.\nSegurar Shift ao clicar também dará zoom.
 STOP_PANEL_DELETE_STOP Excluir parada

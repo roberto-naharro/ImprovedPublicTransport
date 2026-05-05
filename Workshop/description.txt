@@ -13,6 +13,7 @@ Take back control of your transit network — without replacing the mods that al
 [*][b]Manual vehicle count[/b] — set exactly how many vehicles run on a line, bypassing the budget calculation. Toggle between manual and budget-driven mode per line at any time.
 [*][b]Per-line vehicle type selection[/b] — click [i]Select Vehicle Types[/i] in the line info panel to pick which vehicle models serve that line. Shows thumbnail previews, Steam Workshop badges, and a 3D preview renderer. Mixed-fleet lines are saved and survive reload.
 [*][b]Per-stop passenger stats[/b] — each transit stop shows Passengers In / Out for the current week, last week, and a rolling average. Rename stops and browse suggested names from nearby buildings.
+[*][b]Per-stop unbunching toggle[/b] — enable or disable vehicle spacing dwell at individual stops. Let vehicles space out at main stations while skipping the wait at intermediate stops to avoid blocking road traffic. Stop circles in the line panel are tinted [b]red[/b] when unbunching is on and [b]green[/b] when off, so you can see the layout of your line at a glance. An [i]Apply to all stops[/i] button propagates the setting across the whole line. Works standalone and integrates natively with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862836071]Express Bus Services[/url] — no bridge mod needed. [b]Do not install ExpressBusServices-IPT2[/b] alongside this mod; it conflicts with IPTE's direct EBS integration.
 [*][b]Per-vehicle stats[/b] — click any active transit vehicle to see its passengers, earnings, and distance traveled (current week / last week / average), plus the last-stop boarding and alighting count.
 [*][b]Line earnings and costs[/b] — the line info panel shows a stats table: total passengers, gross earnings, vehicle maintenance cost, and a [i]cost per line[/i] row that divides the total transport-type infrastructure expenses equally across all active lines of the same type. All columns split across current week, last week, and rolling average. Use it to judge whether a line is paying its way.
 [*][b]Vehicles in this line[/b] — the line info panel shows a live list of all vehicles serving the line, labeled by asset name and index (or player-given name if renamed). Right-click any entry to jump to that vehicle. Select individual vehicles and click Remove to send exactly those vehicles back to the depot.
@@ -33,12 +34,13 @@ These mods cover features that the original IPT2 included. Each one does its job
 
 [list]
 [*][b]Depot assignment per line[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2882769913]VehicleSelector[/url] by algernon-A: controls which depot a line draws from (building-level). Complements IPT Essentials' line-level vehicle type selection.
-[*][b]Vehicle unbunching[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2774427140]Public Transport Unstucker[/url] by Vectorial1024: purpose-built unbunching that integrates with TM:PE.
+[*][b]Enhanced unbunching timing[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862836071]Express Bus Services[/url] by Vectorial1024: EBS applies rubberbanding at stops where IPTE has unbunching enabled, and respects instant-depart/skip behavior at stops where it's disabled. Works natively with no configuration. Note: [b]do not install ExpressBusServices-IPT2[/b] — that bridge mod is incompatible with IPTE's direct integration.
+[*][b]Stuck citizen fix[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2774427140]Public Transport Unstucker[/url] by Vectorial1024: fixes rogue passengers that prevent vehicles from departing stops. Unrelated to vehicle spacing — compatible and complementary.
 [*][b]Advanced stop selection[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862973068]Advanced Stop Selection[/url]: dedicated stop-selection logic maintained independently.
 [*][b]Elevated stop placement[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862992091]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.
 [/list]
 
-Also compatible with [url=https://github.com/Vectorial1024/ExpressBusServices]Express Bus Services[/url] by Vectorial1024 — passenger stats remain accurate in all EBS modes.
+Compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862836071]Express Bus Services[/url] by Vectorial1024 — no bridge mod or extra configuration needed. [b]Do not install ExpressBusServices-IPT2[/b] — IPTE integrates with EBS directly and EBS_IPT2 will conflict.
 
 [h1]Requirements[/h1]
 
@@ -50,7 +52,7 @@ Also compatible with [url=https://github.com/Vectorial1024/ExpressBusServices]Ex
 
 Your manual vehicle counts and line settings are loaded automatically — save data is fully backward-compatible with IPT2.
 
-[b]Unsubscribe[/b] from [url=https://github.com/Vectorial1024/ExpressBusServices-IPT2]ExpressBusServices-IPT2[/url] if you have it. That mod bridged EBS with IPT2's unbunching feature, which IPT Essentials has removed. It has nothing to bridge and will fail to load alongside IPT Essentials.
+[b]ExpressBusServices-IPT2 must be unsubscribed.[/b] IPT Essentials integrates with Express Bus Services directly. EBS_IPT2 patches the same code paths and will conflict, causing unpredictable vehicle behavior. Unsubscribe EBS_IPT2 before using IPT Essentials with EBS.
 
 [h1]Credits[/h1]
 

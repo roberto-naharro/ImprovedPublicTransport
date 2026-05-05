@@ -5,8 +5,8 @@ AVERAGE 평균
 AVERAGE_TOOLTIP {0} 주간의 평균 수치입니다
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS 정거장 역
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES 차고지 차량
-UNBUNCHING_ENABLED 차량간격 유지
-UNBUNCHING_DISABLED 차량간격 유지 해제
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP 차량 간격 : {0}
 EXPLANATION_BUDGET_CONTROL 차량 예산 : 차량이 지정된 예산에 맞게 조절됩니다.
 LINE_PANEL_STOPS 정거장 수 : {0}
@@ -64,9 +64,9 @@ STOP_PANEL_PASSENGERS_OUT 하차자 수 :
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP 대중교통 차량에서 하차한 승객 수 입니다.
 STOP_PANEL_PASSENGERS_TOTAL 총 이용객 :
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP 서비스를 제공받은 승객 수입니다.
-STOP_PANEL_UNBUNCHING_TOOLTIP 이 정거장의 차량 간격유지 기능을 활성 및 비활성화 합니다.\n비 활성화 할 경우 차량 간격이 0으로 설정됩니다.
-STOP_PANEL_UPDATE_CLOSE_STOPS 인근 정거장 업데이트
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP 차량 간격유지 상태를 모든 정거장에 적용합니다.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS 이전 정거장
 STOP_PANEL_PREVIOUS_TOOLTIP 이전 전거장으로 이동합니다.\n쉬프트 키를 누른 채 클릭하면 확대 됩니다.
 STOP_PANEL_DELETE_STOP 역 삭제

@@ -28,6 +28,7 @@ namespace ImprovedPublicTransport2
         public const string ShortModName = "IPTEssentials";
 
         public static bool InGame;
+        public static bool EBSLoaded { get; private set; }
         public static GameObject IptGameObject;
         private GameObject _worldInfoPanel;
         private const string Version = "7.0.2";
@@ -61,6 +62,9 @@ namespace ImprovedPublicTransport2
             }
 
             InGame = true;
+            EBSLoaded = Type.GetType("ExpressBusServices.ExpressBusServices, ExpressBusServices") != null;
+            if (EBSLoaded)
+                Utils.Log($"{ShortModName}: Express Bus Services detected — will patch EBS DepartureChecker for per-stop unbunching integration.");
             try
             {
                 Utils.Log($"{ShortModName}: Begin init version: {Version}");
@@ -77,6 +81,8 @@ namespace ImprovedPublicTransport2
                     _worldInfoPanel.AddComponent<PublicTransportStopWorldInfoPanel>();
 
                     CachedNodeData.Init();
+                    if (EBSLoaded && !CachedNodeData.V005DataLoaded)
+                        CachedNodeData.SetAllLinesUnbunchingOff();
 
                     int maxVehicleCount = VehicleManager.instance.m_vehicles.m_buffer.Length;
                     if (maxVehicleCount > VehicleManager.MAX_VEHICLE_COUNT)
@@ -100,6 +106,9 @@ namespace ImprovedPublicTransport2
 
                     CachedTransportLineData.Init();
                     SimulationStepPatch.Apply();
+                    CanLeaveStopPatch.Apply();
+                    if (EBSLoaded)
+                        CanLeaveStopPatch.ApplyEBS();
                     SerializableDataExtension.instance.Loaded = true;
                     LocaleModifier.Init();
                     GetLineVehiclePatch.Apply();
@@ -182,6 +191,8 @@ namespace ImprovedPublicTransport2
             UpdateStopButtonsPatch.Undo();
 
             SimulationStepPatch.Undo();
+            CanLeaveStopPatch.Undo();
+            CanLeaveStopPatch.UndoEBS();
             GetLineVehiclePatch.Undo();
             GetVehicleInfoPatch.Undo();
             CachedTransportLineData.Deinit();

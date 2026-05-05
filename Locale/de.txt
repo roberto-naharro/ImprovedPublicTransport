@@ -5,8 +5,8 @@ AVERAGE Durchschnitt
 AVERAGE_TOOLTIP Durchschnitt der letzten {0} Wochen.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS Haltestellen
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES Fahrzeuge
-UNBUNCHING_ENABLED Abstandskontrolle
-UNBUNCHING_DISABLED Abstandskontrolle ist deaktiviert.
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP Zielabstand: {0}
 EXPLANATION_BUDGET_CONTROL Budget-Kontrolle: Die Fahrzeuganzahl wird über das Budget gesteuert.
 LINE_PANEL_STOPS Haltestellen: {0}
@@ -66,9 +66,9 @@ STOP_PANEL_PASSENGERS_OUT Passagiere aus:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP Passagiere die hier das Fahrzeug verlassen.
 STOP_PANEL_PASSENGERS_TOTAL Gesamt:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP Gesamt Passagiere die hier bedient wurden.
-STOP_PANEL_UNBUNCHING_TOOLTIP Aktiviert oder deaktiviert die Abstandskontrolle für diese Haltestelle.\nAbstandskontrolle ist deaktiviert wenn Abstandskontroll-Aggressivität auf 0 gesetzt ist.
-STOP_PANEL_UPDATE_CLOSE_STOPS Übernehme für nahe Haltestellen
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Übernehme die Abstandskontroll-Einstellung für nahe Haltestellen.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS Vorherige Haltestelle
 STOP_PANEL_PREVIOUS_TOOLTIP Springe zur vorherigen Haltestelle.\nWenn du beim Klicken eine Shift-Taste gedrückt hältst wird auch reingezoomt.
 STOP_PANEL_DELETE_STOP Lösche Haltestelle

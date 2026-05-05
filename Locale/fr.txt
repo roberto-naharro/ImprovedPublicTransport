@@ -5,8 +5,8 @@ AVERAGE Moyenne
 AVERAGE_TOOLTIP Moyenne des {0} dernières semaines.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS Arrêts
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES Dépôt
-UNBUNCHING_ENABLED Distance des véhicules
-UNBUNCHING_DISABLED Distance inactif.
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP Distance désirée: {0}
 EXPLANATION_BUDGET_CONTROL Contrôle du budget: La quantité de véhicules dépend du budget.
 LINE_PANEL_STOPS Arrêts: {0}
@@ -64,9 +64,9 @@ STOP_PANEL_PASSENGERS_OUT Passagers Sortant:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP Nombre de passagers débarquants le véhicule.
 STOP_PANEL_PASSENGERS_TOTAL Total:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP Passagers déservis.
-STOP_PANEL_UNBUNCHING_TOOLTIP Activer ou désactiver le désembouteillage à cet arrêt.\nDésactivé si la valeur est 0.
-STOP_PANEL_UPDATE_CLOSE_STOPS Appliquer aux arrêts proches
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Appliquer le temps de désembouteillage à toutes les lignes aux alentours.
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS Arrêt précédent
 STOP_PANEL_PREVIOUS_TOOLTIP Se rendre à l'arrêt précédent.\nCliquer maintenant sur Shift pour zoomer.
 STOP_PANEL_DELETE_STOP Supprimer l'arrêt

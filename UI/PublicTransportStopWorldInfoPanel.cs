@@ -44,6 +44,7 @@ namespace ImprovedPublicTransport2.UI
         private UILabel m_passengersTotalLast;
         private UILabel m_passengersTotalAverage;
         private UILabel m_Line;
+        private UIButton m_UnbunchingButton;
         private UIButton m_DeleteStop;
 
         public override void Start()
@@ -90,7 +91,6 @@ namespace ImprovedPublicTransport2.UI
             this.anchor = UIAnchorStyle.None;
             this.pivot = UIPivotPoint.BottomLeft;
             this.width = 380f;
-            this.height = 255f;
             this.backgroundSprite = "InfoBubbleVehicle";
             UIPanel uiPanel1 = this.AddUIComponent<UIPanel>();
             string str1 = "Caption";
@@ -159,8 +159,7 @@ namespace ImprovedPublicTransport2.UI
             uiPanel2.name = str2;
             double num2 = 365.0;
             uiPanel2.width = (float) num2;
-            double num3 = 197.0;
-            uiPanel2.height = (float) num3;
+            uiPanel2.height = 272f;
             int num4 = 1;
             uiPanel2.autoLayout = num4 != 0;
             int num5 = 1;
@@ -301,6 +300,32 @@ namespace ImprovedPublicTransport2.UI
             button1.localeID = "VEHICLE_MODIFYLINE";
             button1.textScale = 0.75f;
             button1.eventClick += new MouseEventHandler(this.OnModifyLineClick);
+            UIPanel unbunchingPanel = uiPanel2.AddUIComponent<UIPanel>();
+            unbunchingPanel.name = "Unbunching";
+            unbunchingPanel.anchor = (UIAnchorStyle) 13;
+            unbunchingPanel.autoLayout = true;
+            unbunchingPanel.autoLayoutDirection = LayoutDirection.Horizontal;
+            unbunchingPanel.autoLayoutPadding = new RectOffset(0, 5, 0, 0);
+            unbunchingPanel.autoLayoutStart = LayoutStart.TopLeft;
+            unbunchingPanel.size = new Vector2(345f, 30f);
+            UIButton unbunchingToggle = UIUtils.CreateButton((UIComponent) unbunchingPanel);
+            unbunchingToggle.name = "UnbunchingToggle";
+            unbunchingToggle.textPadding = new RectOffset(10, 10, 4, 0);
+            unbunchingToggle.tooltip = Localization.Get("STOP_PANEL_UNBUNCHING_TOOLTIP");
+            unbunchingToggle.textScale = 0.75f;
+            unbunchingToggle.size = new Vector2(175f, 30f);
+            unbunchingToggle.wordWrap = true;
+            unbunchingToggle.eventClick += new MouseEventHandler(this.OnUnbunchingToggleClick);
+            this.m_UnbunchingButton = unbunchingToggle;
+            UIButton applyAllButton = UIUtils.CreateButton((UIComponent) unbunchingPanel);
+            applyAllButton.name = "ApplyToAllStops";
+            applyAllButton.textPadding = new RectOffset(10, 10, 4, 0);
+            applyAllButton.text = Localization.Get("STOP_PANEL_UPDATE_CLOSE_STOPS");
+            applyAllButton.tooltip = Localization.Get("STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP");
+            applyAllButton.textScale = 0.75f;
+            applyAllButton.size = new Vector2(160f, 30f);
+            applyAllButton.wordWrap = true;
+            applyAllButton.eventClick += new MouseEventHandler(this.OnApplyToAllStopsClick);
             UIPanel uiPanel8 = uiPanel2.AddUIComponent<UIPanel>();
             string str8 = "Buttons";
             uiPanel8.name = str8;
@@ -348,6 +373,8 @@ namespace ImprovedPublicTransport2.UI
             button4.size = new Vector2(110f, 32f);
             button4.wordWrap = true;
             button4.eventClick += new MouseEventHandler(this.OnNextStopClick);
+            Log.Info("StopPanel: SetupPanel complete — container=272f outer=330f unbunching panel added");
+            this.height = 330f;
         }
 
         public static UIPanel CreateStatisticRow(UIComponent parent, out UILabel label1, out UILabel label2,
@@ -609,6 +636,9 @@ namespace ImprovedPublicTransport2.UI
                 .LastWeekPassengersTotal.ToString();
             this.m_passengersTotalAverage.text = CachedNodeData.m_cachedNodeData[(int) netNode]
                 .AveragePassengersTotal.ToString();
+            bool unbunching = CachedNodeData.m_cachedNodeData[(int) netNode].Unbunching;
+            this.m_UnbunchingButton.text = Localization.Get(unbunching ? "UNBUNCHING_ENABLED" : "UNBUNCHING_DISABLED");
+            Log.DebugLog("StopPanel: UpdateBindings stop=" + netNode + " unbunching=" + unbunching);
         }
 
         private void CheckForAltKey()
@@ -644,6 +674,22 @@ namespace ImprovedPublicTransport2.UI
                 }
             }
             return source.ToArray<ushort>();
+        }
+
+        private void OnUnbunchingToggleClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            ushort netNode = this.m_InstanceID.NetNode;
+            CachedNodeData.m_cachedNodeData[netNode].Unbunching = !CachedNodeData.m_cachedNodeData[netNode].Unbunching;
+            Log.Info("StopPanel: unbunching toggled for stop " + netNode + " → " + CachedNodeData.m_cachedNodeData[netNode].Unbunching);
+        }
+
+        private void OnApplyToAllStopsClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            ushort netNode = this.m_InstanceID.NetNode;
+            ushort transportLine = Singleton<NetManager>.instance.m_nodes.m_buffer[netNode].m_transportLine;
+            bool value = CachedNodeData.m_cachedNodeData[netNode].Unbunching;
+            CachedNodeData.SetUnbunchingForLine(transportLine, value);
+            Log.Info("StopPanel: apply unbunching=" + value + " to all stops on line " + transportLine);
         }
 
         private string IDToName(ushort ID)

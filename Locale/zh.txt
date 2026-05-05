@@ -5,8 +5,8 @@ AVERAGE 平均
 AVERAGE_TOOLTIP 最近{0}周的平均客流量.
 CITY_SERVICE_PANEL_TITLE_STATION_STOPS 车站
 CITY_SERVICE_PANEL_TITLE_DEPOT_VEHICLES 车库
-UNBUNCHING_ENABLED 载具不扎堆
-UNBUNCHING_DISABLED 禁用不扎堆
+UNBUNCHING_ENABLED Unbunching: on
+UNBUNCHING_DISABLED Unbunching: off
 UNBUNCHING_TARGET_GAP 目标的间隔: {0}
 EXPLANATION_BUDGET_CONTROL 预算控制: 载具数量由预算控制.
 LINE_PANEL_STOPS 站台数量: {0}
@@ -64,9 +64,9 @@ STOP_PANEL_PASSENGERS_OUT 运送的乘客:
 STOP_PANEL_PASSENGERS_OUT_TOOLTIP 运送离开此站台的乘客数量.
 STOP_PANEL_PASSENGERS_TOTAL 乘客的总数:
 STOP_PANEL_PASSENGERS_TOTAL_TOOLTIP 站台输送或等待输送的乘客总数.
-STOP_PANEL_UNBUNCHING_TOOLTIP 启用或禁用载具在进站不扎堆.\n如果不扎堆设置为"0", 不扎堆将被禁用.
-STOP_PANEL_UPDATE_CLOSE_STOPS 实行不扎堆
-STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP 应用不扎堆到所有站点
+STOP_PANEL_UNBUNCHING_TOOLTIP Enable or disable vehicle unbunching at this stop.\nWhen enabled, vehicles wait here to maintain spacing on the line.
+STOP_PANEL_UPDATE_CLOSE_STOPS Apply to all stops
+STOP_PANEL_UPDATE_CLOSE_STOPS_TOOLTIP Apply this stop's unbunching setting to all stops on the line.
 STOP_PANEL_PREVIOUS 前一站台
 STOP_PANEL_PREVIOUS_TOOLTIP 跳转到前一站台.\n按住shift键鼠标点击站点将靠近放大.
 STOP_PANEL_DELETE_STOP 删除站台

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.6.0...v1.7.0) (2026-05-29)
+
+
+### Features
+
+* add workshop integration to deployment and mounting scripts ([9cda5a8](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/9cda5a8ff5fbac36ca2deb19f57bd1e21e28dc4b))
+
 ## [1.6.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.5.1...v1.6.0) (2026-05-05)
 
 

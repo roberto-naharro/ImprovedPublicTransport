@@ -62,10 +62,14 @@ mount_share() {
     echo "Mounted: //${CITIES_HOST}/${remote} -> $local_path"
 }
 
+WORKSHOP_MOUNT="${CITIES_WORKSHOP_MOUNT:-/mnt/cities_workshop}"
+
 mount_share "$CITIES_GAME_SHARE" "$GAME_MOUNT"
 mount_share "$CITIES_DATA_SHARE" "$DATA_MOUNT"
+mount_share "workshop" "$WORKSHOP_MOUNT"
 
 echo ""
 echo "Done. Game DLLs:  ${GAME_MOUNT}/Cities_Data/Managed/"
 echo "      Mod output: ${DATA_MOUNT}/Addons/Mods/"
 echo "      Game log:   ${GAME_MOUNT}/Cities_Data/output_log.txt"
+echo "      Workshop:   ${WORKSHOP_MOUNT}/"

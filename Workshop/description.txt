@@ -40,7 +40,7 @@ These mods cover features that the original IPT2 included. Each one does its job
 [*][b]Elevated stop placement[/b] — [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862992091]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.
 [/list]
 
-Compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862836071]Express Bus Services[/url] by Vectorial1024 — no bridge mod or extra configuration needed. [b]Do not install ExpressBusServices-IPT2[/b] — IPTE integrates with EBS directly and EBS_IPT2 will conflict.
+Compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262054175]Express Bus Services[/url] by Vectorial1024 — no bridge mod or extra configuration needed. [b]Do not install ExpressBusServices-IPT2[/b] — IPTE integrates with EBS directly and EBS_IPT2 will conflict.
 
 [h1]Requirements[/h1]
 

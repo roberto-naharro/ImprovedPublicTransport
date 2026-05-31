@@ -15,6 +15,7 @@ namespace ImprovedPublicTransport2
   public class LineWatcher : MonoBehaviour
   {
     private HashSet<ushort> _knownLines = new HashSet<ushort>();
+    private readonly object _knownLinesLock = new object();
     public static LineWatcher instance;
     private bool _initialized;
 
@@ -22,7 +23,24 @@ namespace ImprovedPublicTransport2
     {
       get
       {
-        return this._knownLines.Count;
+        lock (this._knownLinesLock)
+        {
+          return this._knownLines.Count;
+        }
+      }
+    }
+
+    /// <summary>
+    /// Marks a line as already discovered so the next <see cref="Update"/> does NOT apply
+    /// IPTE's one-time per-line defaults to it. Used by the public vehicle-count API to keep
+    /// an explicitly configured, freshly created line from being reset to defaults by the
+    /// watcher, regardless of which runs first. Thread-safe.
+    /// </summary>
+    public void MarkKnown(ushort lineId)
+    {
+      lock (this._knownLinesLock)
+      {
+        this._knownLines.Add(lineId);
       }
     }
 
@@ -48,20 +66,28 @@ namespace ImprovedPublicTransport2
         Array16<TransportLine> lines = Singleton<TransportManager>.instance.m_lines;
         for (ushort lineID = 0; (uint) lineID < lines.m_size; ++lineID)
         {
-          if (LineWatcher.IsValid(ref lines.m_buffer[(int) lineID]) && this._knownLines.Add(lineID))
+          if (!LineWatcher.IsValid(ref lines.m_buffer[(int) lineID]))
+            continue;
+          bool isNew;
+          lock (this._knownLinesLock)
           {
-            CachedTransportLineData.SetLineDefaults(lineID);
-            ushort firstStop = lines.m_buffer[(int) lineID].m_stops;
-            var position = firstStop != 0
-                ? NetManager.instance.m_nodes.m_buffer[firstStop].m_position
-                : Vector3.zero;
-            if (OptionsWrapper<Settings.Settings>.Options.ShowLineInfo &&
-                lines.m_buffer[(int) lineID].Info?.m_class?.m_service != ItemClass.Service.Disaster)
-              WorldInfoPanel.Show<PublicTransportWorldInfoPanel>(position, new InstanceID()
-              {
-                TransportLine = lineID
-              });
+            isNew = this._knownLines.Add(lineID);
           }
+          // A line already registered (e.g. pinned via the public API before the watcher
+          // saw it) must NOT have its defaults applied over the explicit value.
+          if (!isNew)
+            continue;
+          CachedTransportLineData.SetLineDefaults(lineID);
+          ushort firstStop = lines.m_buffer[(int) lineID].m_stops;
+          var position = firstStop != 0
+              ? NetManager.instance.m_nodes.m_buffer[firstStop].m_position
+              : Vector3.zero;
+          if (OptionsWrapper<Settings.Settings>.Options.ShowLineInfo &&
+              lines.m_buffer[(int) lineID].Info?.m_class?.m_service != ItemClass.Service.Disaster)
+            WorldInfoPanel.Show<PublicTransportWorldInfoPanel>(position, new InstanceID()
+            {
+              TransportLine = lineID
+            });
         }
       }
       else
@@ -72,7 +98,12 @@ namespace ImprovedPublicTransport2
         for (ushort lineID = 0; (uint) lineID < lines.m_size; ++lineID)
         {
           if (!LineWatcher.IsValid(ref lines.m_buffer[(int) lineID]))
-            this._knownLines.Remove(lineID);
+          {
+            lock (this._knownLinesLock)
+            {
+              this._knownLines.Remove(lineID);
+            }
+          }
         }
       }
     }
@@ -88,7 +119,12 @@ namespace ImprovedPublicTransport2
       for (ushort index = 0; (uint) index < lines.m_size; ++index)
       {
         if (LineWatcher.IsValid(ref lines.m_buffer[(int) index]))
-          this._knownLines.Add(index);
+        {
+          lock (this._knownLinesLock)
+          {
+            this._knownLines.Add(index);
+          }
+        }
       }
       this._initialized = true;
     }

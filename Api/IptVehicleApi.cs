@@ -53,6 +53,7 @@ namespace ImprovedPublicTransport.Api
                 if (!IsValidLine(lineId))
                     return;
                 int clamped = ClampCount(count);
+                ProtectFromWatcherDefault(lineId);
                 EnqueueLineMutation(() =>
                 {
                     CachedTransportLineData.SetBudgetControlState(lineId, false);
@@ -76,6 +77,7 @@ namespace ImprovedPublicTransport.Api
             {
                 if (!IsValidLine(lineId))
                     return;
+                ProtectFromWatcherDefault(lineId);
                 EnqueueLineMutation(() =>
                     CachedTransportLineData.SetBudgetControlState(lineId, true));
             }
@@ -140,6 +142,15 @@ namespace ImprovedPublicTransport.Api
                 return false;
             return (Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].m_flags
                     & TransportLine.Flags.Created) != TransportLine.Flags.None;
+        }
+
+        private static void ProtectFromWatcherDefault(ushort lineId)
+        {
+            // A freshly created line is discovered by LineWatcher, which applies IPTE's per-line
+            // defaults exactly once (target = DefaultVehicleCount, budget control ON). Mark the
+            // line known up front so that one-time default never lands on top of this explicit
+            // API write, whichever runs first. Synchronous + thread-safe (LineWatcher locks).
+            ImprovedPublicTransport2.LineWatcher.instance?.MarkKnown(lineId);
         }
 
         private static int ClampCount(int count)

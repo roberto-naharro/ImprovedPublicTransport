@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.8.0...v1.9.0) (2026-05-31)
+
+
+### Features
+
+* add IptVehicleApi for vehicle control in transport lines ([6b0661c](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/6b0661c4a66d8e623cc898e9c275e8d5dbd98d1b))
+
 ## [1.8.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.7.0...v1.8.0) (2026-05-31)
 
 

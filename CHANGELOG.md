@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.9.0...v1.9.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* protect API vehicle-count from LineWatcher default race ([5a4d305](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/5a4d3057cf8797b48e22157c8eb27c07c6219185))
+
 ## [1.9.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.8.0...v1.9.0) (2026-05-31)
 
 

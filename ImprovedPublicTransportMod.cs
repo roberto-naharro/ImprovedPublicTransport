@@ -95,6 +95,7 @@ namespace ImprovedPublicTransport2
 
                     LoadPassengersPatch.Apply();
                     UnloadPassengersPatch.Apply();
+                    HarmonyPatches.HumanAIPatches.EnterVehiclePatch.Apply();
                     ReleaseNodePatch.Apply();
                     ReleaseWaterSourcePatch.Apply();
                     ClassMatchesPatch.Apply();
@@ -182,6 +183,7 @@ namespace ImprovedPublicTransport2
         {
             LoadPassengersPatch.Undo();
             UnloadPassengersPatch.Undo();
+            HarmonyPatches.HumanAIPatches.EnterVehiclePatch.Undo();
             ReleaseNodePatch.Undo();
             ReleaseWaterSourcePatch.Undo();
             ClassMatchesPatch.Undo();

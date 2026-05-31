@@ -59,6 +59,11 @@ namespace ImprovedPublicTransport2.Data
 
     public ushort CurrentStop { get; set; }
 
+    // Building ID of the depot this vehicle spawned from, captured on its first stop
+    // (Vehicle.m_sourceBuilding still points at the depot until the first stop is passed).
+    // 0 means unknown / no depot (e.g. metro, monorail, train which spawn without a depot).
+    public ushort SourceDepot { get; set; }
+
     public bool IsUnbunchingInProgress { get; set; }
 
     public int LastStopGonePassengers { get; set; }
@@ -71,7 +76,9 @@ namespace ImprovedPublicTransport2.Data
       }
       set
       {
-        this.PassengersThisWeek = this.PassengersThisWeek + value;
+        // Display-only ("new passengers at last stop"). Weekly ridership is now counted
+        // per boarding citizen in AddBoarding (from the HumanAI.EnterVehicle hook), so this
+        // no longer feeds PassengersThisWeek.
         this._lastStopNewPassengers = value;
       }
     }
@@ -100,11 +107,22 @@ namespace ImprovedPublicTransport2.Data
       }
     }
 
-    public void BoardPassengers(int newPassengers, int ticketPrice, ushort stop)
+    // Per-stop display update done in LoadPassengers (counts net boardings at this stop).
+    // Weekly ridership and fare income are tracked separately in AddBoarding.
+    public void BoardPassengers(int newPassengers, ushort stop)
     {
       this.LastStopNewPassengers = newPassengers;
-      this.IncomeThisWeek += newPassengers * ticketPrice;
       this.CurrentStop = stop;
+    }
+
+    // Called once per boarding citizen from the HumanAI.EnterVehicle hook, mirroring how the
+    // game charges fares: +1 passenger and +ticketPrice income per citizen that enters.
+    // Under the Free Public Transport policy GetTicketPrice is 0, so ridership is still
+    // counted while no income is added.
+    public void AddBoarding(int ticketPrice)
+    {
+      this.PassengersThisWeek += 1;
+      this.IncomeThisWeek += ticketPrice;
     }
     
     public void DisembarkPassengers(int passengersOut, ushort stop)

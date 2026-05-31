@@ -15,12 +15,13 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             PatchLoadPassengers(typeof(BusAI));
             PatchLoadPassengers(typeof(TrolleybusAI));
             PatchLoadPassengers(typeof(TramAI));
-            PatchLoadPassengers(typeof(PassengerTrainAI));
+            PatchLoadPassengers(typeof(PassengerTrainAI)); // also covers MetroTrainAI (subclass, no override)
             PatchLoadPassengers(typeof(PassengerPlaneAI));
             PatchLoadPassengers(typeof(PassengerHelicopterAI));
             PatchLoadPassengers(typeof(PassengerBlimpAI));
             PatchLoadPassengers(typeof(PassengerFerryAI));
             PatchLoadPassengers(typeof(PassengerShipAI));
+            PatchLoadPassengers(typeof(CableCarAI));
         }
 
         public static void Undo()
@@ -34,6 +35,7 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             UnpatchLoadPassengers(typeof(PassengerBlimpAI));
             UnpatchLoadPassengers(typeof(PassengerFerryAI));
             UnpatchLoadPassengers(typeof(PassengerShipAI));
+            UnpatchLoadPassengers(typeof(CableCarAI));
         }
 
 
@@ -67,7 +69,7 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
                 VehicleUtil.GetTotalPassengerCount(__state.vehicleID, CachedVehicleData.MaxVehicleCount);
             var passengersIn = Mathf.Max(0, currentPassengers - __state.currentPassengers);
             CachedVehicleData.m_cachedVehicleData[__state.vehicleID]
-                .BoardPassengers(passengersIn, VehicleUtil.GetTicketPrice(__state.vehicleID), __state.currentStop);
+                .BoardPassengers(passengersIn, __state.currentStop);
             CachedNodeData.m_cachedNodeData[__state.currentStop].PassengersIn += passengersIn;
             Log.DebugLoad(__state.currentStop,
                 $"Load stop={__state.currentStop} vehicle={__state.vehicleID} boarded={passengersIn} total={currentPassengers}");

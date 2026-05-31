@@ -180,8 +180,16 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         this._passengersLastWeek.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersLastWeek.ToString();
         this._passengersAverage.text = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].PassengersAverage.ToString();
         var lineInfo = Singleton<TransportManager>.instance.m_lines.m_buffer[(int) lineId].Info;
-        int maintenanceCost = lineInfo != null ? lineInfo.m_maintenanceCostPerVehicle : 0;
-        int num1 = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].IncomeThisWeek - maintenanceCost;
+        // This vehicle's balance uses only its own maintenance (per-vehicle plus per-passenger
+        // capacity) — no depot share, which is a shared line-level cost. Last week / average
+        // income already had this maintenance deducted at week rollover; this week's income is
+        // still gross, so subtract the projected weekly maintenance here.
+        int maintenanceCostPerVehicle = lineInfo != null ? lineInfo.m_maintenanceCostPerVehicle : 0;
+        float maintenanceCostPerPassenger = lineInfo != null ? lineInfo.m_maintenanceCostPerPassenger : 0f;
+        VehicleInfo vehInfo = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[(int) vehicleID].Info;
+        int capacity = vehInfo != null ? vehInfo.m_vehicleAI.GetPassengerCapacity(true) : 0;
+        int vehicleMaintenance = maintenanceCostPerVehicle + (int) (capacity * maintenanceCostPerPassenger);
+        int num1 = CachedVehicleData.m_cachedVehicleData[(int) vehicleID].IncomeThisWeek - vehicleMaintenance;
         UILabel earningsCurrentWeek = this._earningsCurrentWeek;
         float num2 = (float) num1 * 0.01f;
         string str1 = num2.ToString(ColossalFramework.Globalization.Locale.Get("MONEY_FORMAT"), (IFormatProvider) LocaleManager.cultureInfo);

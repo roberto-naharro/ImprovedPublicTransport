@@ -107,3 +107,7 @@ VEHICLE_SELECTION_ANY_VEHICLE N'importe quel véhicule
 STOP_BUTTON_TOOLTIP {0}\n\nClick to jump to this stop.\nHolding down a shift key when clicking will also zoom in.\nHoling down an alt key when clicking will prevent opening the stop info panel.
 VEHICLE_BUTTON_TOOLTIP {0}\n\nClick to jump to this vehicle.\nHolding down a shift key when clicking will also zoom in.\nHoling down an alt key when clicking will prevent opening the vehicle info panel.
 LINE_PANEL_COST_PER_LINE Costo per linea
+LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.\nTypes that spawn without a depot (metro, monorail, train) have no depot cost.
+LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
+LINE_PANEL_BALANCE Bilancio:
+LINE_PANEL_BALANCE_TOOLTIP Fare income minus vehicle maintenance and the depot share.\nGreen = profit, red = loss.

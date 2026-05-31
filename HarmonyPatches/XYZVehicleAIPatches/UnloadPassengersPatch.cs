@@ -15,12 +15,13 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             PatchUnloadPassengers(typeof(BusAI));
             PatchUnloadPassengers(typeof(TrolleybusAI));
             PatchUnloadPassengers(typeof(TramAI));
-            PatchUnloadPassengers(typeof(PassengerTrainAI));
+            PatchUnloadPassengers(typeof(PassengerTrainAI)); // also covers MetroTrainAI (subclass, no override)
             PatchUnloadPassengers(typeof(PassengerPlaneAI));
             PatchUnloadPassengers(typeof(PassengerHelicopterAI));
             PatchUnloadPassengers(typeof(PassengerBlimpAI));
             PatchUnloadPassengers(typeof(PassengerFerryAI));
             PatchUnloadPassengers(typeof(PassengerShipAI));
+            PatchUnloadPassengers(typeof(CableCarAI));
         }
 
         public static void Undo()
@@ -34,6 +35,7 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             UnpatchUnloadPassengers(typeof(PassengerBlimpAI));
             UnpatchUnloadPassengers(typeof(PassengerFerryAI));
             UnpatchUnloadPassengers(typeof(PassengerShipAI));
+            UnpatchUnloadPassengers(typeof(CableCarAI));
         }
 
         public static bool UnloadPassengersPre(ushort vehicleID, ushort currentStop, out State __state)
@@ -42,6 +44,18 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             {
                 __state = new State();
                 return true;
+            }
+
+            // First unload of a pending vehicle: it just reached its first stop, so
+            // Vehicle.m_sourceBuilding still holds the depot it spawned from (it gets
+            // repurposed to the previous stop node once the first stop is passed).
+            // Capture it now for per-depot cost attribution. Types without a depot
+            // (metro, monorail, train) yield a non-depot building, stored as 0.
+            if (!CachedVehicleData.HasJoined(vehicleID))
+            {
+                ushort source = VehicleManager.instance.m_vehicles.m_buffer[vehicleID].m_sourceBuilding;
+                CachedVehicleData.SetSourceDepot(vehicleID,
+                    DepotCostUtil.IsDepotBuilding(source) ? source : (ushort) 0);
             }
 
             __state = new State()

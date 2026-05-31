@@ -92,6 +92,7 @@
     <Compile Include="Data\SerializableDataExtension.cs" />
     <Compile Include="Data\VehicleData.cs" />
     <Compile Include="HarmonyPatches\DepotAIPatches\ClassMatchesPatch.cs" />
+    <Compile Include="HarmonyPatches\HumanAIPatches\EnterVehiclePatch.cs" />
     <Compile Include="HarmonyPatches\NetManagerPatches\ReleaseNodePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\GetLineVehiclePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\CanLeaveStopPatch.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="UI\PublicTransportStopWorldInfoPanel.cs" />
     <Compile Include="UI\StopListBox.cs" />
     <Compile Include="UI\StopListBoxRow.cs" />
+    <Compile Include="Util\DepotCostUtil.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\PatchUtil.cs" />
     <Compile Include="Util\TransportLineUtil.cs" />

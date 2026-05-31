@@ -102,12 +102,19 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
 
             var lineInfo = TransportManager.instance.m_lines.m_buffer[__state].Info;
             var maintenanceCostPerVehicle = lineInfo != null ? lineInfo.m_maintenanceCostPerVehicle : 0;
+            var maintenanceCostPerPassenger = lineInfo != null ? lineInfo.m_maintenanceCostPerPassenger : 0f;
             var amount = 0;
             TransportLineUtil.CountLineActiveVehicles(__state, out _, (num3) =>
             {
-                if (VehicleManager.instance.m_vehicles.m_buffer[num3].Info == null) return;
-                amount += maintenanceCostPerVehicle;
-                CachedVehicleData.m_cachedVehicleData[num3].StartNewWeek(maintenanceCostPerVehicle);
+                var info = VehicleManager.instance.m_vehicles.m_buffer[num3].Info;
+                if (info == null) return;
+                // Charge the full vanilla maintenance: per-vehicle plus per-passenger-capacity.
+                // IPT previously billed only the per-vehicle term, dropping the per-capacity
+                // cost that dominates for buses/trams and significantly undercharging lines.
+                var capacity = info.m_vehicleAI.GetPassengerCapacity(true);
+                var vehicleCost = maintenanceCostPerVehicle + (int) (capacity * maintenanceCostPerPassenger);
+                amount += vehicleCost;
+                CachedVehicleData.m_cachedVehicleData[num3].StartNewWeek(vehicleCost);
             });
             if (amount != 0)
                 Singleton<EconomyManager>.instance.FetchResource(EconomyManager.Resource.Maintenance, amount,

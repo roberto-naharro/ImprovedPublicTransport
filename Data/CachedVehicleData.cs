@@ -15,7 +15,7 @@ namespace ImprovedPublicTransport2.Data
   {
     public static int MaxVehicleCount { get; private set;  }
     private static readonly string _dataID = "IPT_VehicleData";
-    private static readonly string _dataVersion = "v003";
+    private static readonly string _dataVersion = "v004";
     private static bool _isDeployed = false;
 
     public static VehicleData[] m_cachedVehicleData;
@@ -34,6 +34,23 @@ namespace ImprovedPublicTransport2.Data
     {
         if (s_hasJoinedLine != null && vehicleID < s_hasJoinedLine.Length)
             s_hasJoinedLine[vehicleID] = false;
+        // The slot will be reused by a future vehicle; drop the stale depot so it is
+        // re-captured on the next vehicle's first stop.
+        if (m_cachedVehicleData != null && vehicleID < m_cachedVehicleData.Length)
+            m_cachedVehicleData[vehicleID].SourceDepot = 0;
+    }
+
+    public static void SetSourceDepot(ushort vehicleID, ushort depotID)
+    {
+        if (m_cachedVehicleData != null && vehicleID < m_cachedVehicleData.Length)
+            m_cachedVehicleData[vehicleID].SourceDepot = depotID;
+    }
+
+    public static ushort GetSourceDepot(ushort vehicleID)
+    {
+        if (m_cachedVehicleData != null && vehicleID < m_cachedVehicleData.Length)
+            return m_cachedVehicleData[vehicleID].SourceDepot;
+        return 0;
     }
 
     public static void MarkAllExistingJoined()
@@ -114,6 +131,9 @@ namespace ImprovedPublicTransport2.Data
           ushort currentStop = 0;
           if (str != "v001" && str != "v002")
             currentStop = SerializableDataExtension.ReadUInt16(data1, ref index1);
+          ushort sourceDepot = 0;
+          if (str == "v004")
+            sourceDepot = SerializableDataExtension.ReadUInt16(data1, ref index1);
           if (index2 >= 0 && index2 < MaxVehicleCount)
           {
             data[index2].LastStopNewPassengers = lastStopNew;
@@ -125,6 +145,7 @@ namespace ImprovedPublicTransport2.Data
             data[index2].PassengerData = passengerData;
             data[index2].IncomeData = incomeData;
             data[index2].CurrentStop = currentStop;
+            data[index2].SourceDepot = sourceDepot;
           }
         }
         return true;
@@ -157,6 +178,7 @@ namespace ImprovedPublicTransport2.Data
             SerializableDataExtension.WriteFloatArray(CachedVehicleData.m_cachedVehicleData[index].PassengerData, data);
             SerializableDataExtension.WriteFloatArray(CachedVehicleData.m_cachedVehicleData[index].IncomeData, data);
             SerializableDataExtension.WriteUInt16(CachedVehicleData.m_cachedVehicleData[index].CurrentStop, data);
+            SerializableDataExtension.WriteUInt16(CachedVehicleData.m_cachedVehicleData[index].SourceDepot, data);
           }
         }
         SerializableDataExtension.instance.SerializableData.SaveData(CachedVehicleData._dataID, data.ToArray());

@@ -42,6 +42,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private UILabel _lineShareCurrentWeek;
         private UILabel _lineShareLastWeek;
         private UILabel _lineShareAverage;
+        private UILabel _lineShareRowLabel;
         private UIPanel _lineStatsPanel;
         private UICheckBox _budgetControl;
         private UILabel _lineLengthLabel;
@@ -259,7 +260,10 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             statsPanel.autoLayoutDirection = LayoutDirection.Vertical;
             statsPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 0);
             statsPanel.autoLayoutStart = LayoutStart.TopLeft;
-            statsPanel.size = new Vector2(280f, 90f);
+            // Wider than the 280px button column so the money columns have room for large,
+            // signed, thousands-separated values; extends into the empty right half of the
+            // 650px-wide info window.
+            statsPanel.size = new Vector2(360f, 90f);
 
             UILabel h1, h2, h3, h4;
             PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out h1, out h2, out h3, out h4, true);
@@ -276,14 +280,13 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             ResizeStatsRow(r1, _linePassCurrentWeek, _linePassLastWeek, _linePassAverage, statsPanel.width);
             r1.text = Localization.Get("VEHICLE_PANEL_PASSENGERS");
 
+            // Balance row: fare income minus vehicle maintenance and the depot share.
+            // Coloured per value in PopulateLineStats (green when in profit, red when losing).
             PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
                 out _lineEarnCurrentWeek, out _lineEarnLastWeek, out _lineEarnAverage, false);
             ResizeStatsRow(r1, _lineEarnCurrentWeek, _lineEarnLastWeek, _lineEarnAverage, statsPanel.width);
-            r1.text = Localization.Get("VEHICLE_PANEL_EARNINGS");
-            r1.tooltip = Localization.Get("VEHICLE_PANEL_EARNINGS_TOOLTIP");
-            _lineEarnCurrentWeek.textColor = Color.green;
-            _lineEarnLastWeek.textColor    = Color.green;
-            _lineEarnAverage.textColor     = Color.green;
+            r1.text = Localization.Get("LINE_PANEL_BALANCE");
+            r1.tooltip = Localization.Get("LINE_PANEL_BALANCE_TOOLTIP");
 
             PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
                 out _lineCostCurrentWeek, out _lineCostLastWeek, out _lineCostAverage, false);
@@ -298,7 +301,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 out _lineShareCurrentWeek, out _lineShareLastWeek, out _lineShareAverage, false);
             ResizeStatsRow(r1, _lineShareCurrentWeek, _lineShareLastWeek, _lineShareAverage, statsPanel.width);
             r1.text = Localization.Get("LINE_PANEL_COST_PER_LINE");
-            r1.tooltip = Localization.Get("LINE_PANEL_COST_PER_LINE");
+            r1.tooltip = Localization.Get("LINE_PANEL_COST_PER_LINE_TOOLTIP");
+            _lineShareRowLabel = r1;
             _lineShareCurrentWeek.textColor = Color.red;
             _lineShareLastWeek.textColor    = Color.red;
             _lineShareAverage.textColor     = Color.red;
@@ -307,9 +311,11 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
         private static void ResizeStatsRow(UILabel label1, UILabel label2, UILabel label3, UILabel label4, float panelWidth)
         {
+            // Caption column takes a smaller share so the three money columns are wider.
+            const float captionFraction = 0.34f;
             float avail = panelWidth - 3f;
-            float dataW = avail * (1f - 0.45f) / 3f;
-            label1.width = avail * 0.45f;
+            float dataW = avail * (1f - captionFraction) / 3f;
+            label1.width = avail * captionFraction;
             label2.width = dataW;
             label3.width = dataW;
             label4.width = dataW;
@@ -345,11 +351,11 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                     passThisWeek += vd.PassengersThisWeek;
                     passLastWeek += vd.PassengersLastWeek;
                     passAverage  += vd.PassengersAverage;
-                    // IncomeThisWeek is gross (maintenance not yet deducted)
-                    // IncomeLastWeek/Average are net; add back maintenance to get gross
+                    // IncomeThisWeek is gross (vehicle maintenance not charged until week rollover).
+                    // IncomeLastWeek/Average already had vehicle maintenance deducted at rollover.
                     earnThisWeek += vd.IncomeThisWeek;
-                    earnLastWeek += vd.IncomeLastWeek + maintenanceCostPerVehicle;
-                    earnAverage  += vd.IncomeAverage  + maintenanceCostPerVehicle;
+                    earnLastWeek += vd.IncomeLastWeek;
+                    earnAverage  += vd.IncomeAverage;
                     ++activeVehicleCount;
                 }
                 vehicleID = next;
@@ -358,23 +364,32 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
 
             int weekCost = totalVehicleCount * maintenanceCostPerVehicle + (int)(totalCapacity * maintenanceCostPerPassenger);
 
-            long totalTypeIncome, totalTypeExpenses;
-            EconomyManager.instance.GetIncomeAndExpenses(
-                lineInfo.m_class.m_service,
-                lineInfo.m_class.m_subService,
-                ItemClass.Level.None,
-                out totalTypeIncome,
-                out totalTypeExpenses);
-            int lineCount = CountLinesOfType(lineInfo.m_class.m_subService);
-            int shareRaw = lineCount > 0 ? (int)(totalTypeExpenses / lineCount) : 0;
+            // Shared depot upkeep attributed to this line: only the depots this line actually
+            // draws vehicles from, each split among the lines sharing it.
+            int depotCount, sharingLines;
+            int shareRaw = DepotCostUtil.GetLineDepotCost(lineId, out depotCount, out sharingLines);
+            if (_lineShareRowLabel != null)
+            {
+                _lineShareRowLabel.tooltip = depotCount > 0
+                    ? string.Format(Localization.Get("LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL"),
+                        depotCount, sharingLines)
+                    : Localization.Get("LINE_PANEL_COST_PER_LINE_TOOLTIP");
+            }
+
+            // Balance = income - vehicle maintenance - depot share. This week's income is still
+            // gross, so subtract the projected weekly vehicle maintenance; last week/average
+            // already had vehicle maintenance removed at rollover, leaving only the depot share.
+            int balanceThisWeek = earnThisWeek - weekCost - shareRaw;
+            int balanceLastWeek = earnLastWeek - shareRaw;
+            int balanceAverage  = earnAverage  - shareRaw;
 
             _linePassCurrentWeek.text = passThisWeek.ToString();
             _linePassLastWeek.text    = passLastWeek.ToString();
             _linePassAverage.text     = passAverage.ToString();
 
-            _lineEarnCurrentWeek.text = FormatMoney(earnThisWeek);
-            _lineEarnLastWeek.text    = FormatMoney(earnLastWeek);
-            _lineEarnAverage.text     = FormatMoney(earnAverage);
+            SetBalanceCell(_lineEarnCurrentWeek, balanceThisWeek);
+            SetBalanceCell(_lineEarnLastWeek,    balanceLastWeek);
+            SetBalanceCell(_lineEarnAverage,     balanceAverage);
 
             _lineCostCurrentWeek.text = FormatMoney(-weekCost);
             _lineCostLastWeek.text    = FormatMoney(-weekCost);
@@ -385,24 +400,17 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             _lineShareAverage.text     = FormatMoney(-shareRaw);
         }
 
-        private static int CountLinesOfType(ItemClass.SubService subService)
-        {
-            int count = 0;
-            var lines = Singleton<TransportManager>.instance.m_lines.m_buffer;
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if ((lines[i].m_flags & TransportLine.Flags.Complete) != TransportLine.Flags.None
-                    && lines[i].Info != null
-                    && lines[i].Info.m_class.m_subService == subService)
-                    ++count;
-            }
-            return count;
-        }
-
         private static string FormatMoney(int gameUnits)
         {
             float v = gameUnits * 0.01f;
             return v.ToString(Locale.Get("MONEY_FORMAT"), (IFormatProvider)LocaleManager.cultureInfo);
+        }
+
+        // Balance cell: green when the line is in profit (>= 0), red when it is losing money.
+        private static void SetBalanceCell(UILabel label, int gameUnits)
+        {
+            label.text = FormatMoney(gameUnits);
+            label.textColor = gameUnits >= 0 ? Color.green : Color.red;
         }
 
         private void PositionStatsPanel()

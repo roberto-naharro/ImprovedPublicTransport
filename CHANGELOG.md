@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.7.0...v1.8.0) (2026-05-31)
+
+
+### Features
+
+* accurate per-line economics (depot attribution, real costs, balance) ([736a5bf](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/736a5bfd13fabce7074754c1d70c1fb5545614fe))
+
+
+### Bug Fixes
+
+* improve readability and formatting in README and description files ([52cf7c8](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/52cf7c881c26f578862fa597c53bd6f5d3db8090))
+
 ## [1.7.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.6.0...v1.7.0) (2026-05-29)
 
 

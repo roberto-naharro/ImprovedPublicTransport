@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\IptVehicleApi.cs" />
     <Compile Include="HarmonyPatches\HarmonyId.cs" />
     <Compile Include="HarmonyPatches\PublicTransportStopButtonPatches\OnMouseDownPatch.cs" />
     <Compile Include="HarmonyPatches\PublicTransportVehicleButtonPatches\OnMouseDownPatch.cs" />

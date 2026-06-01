@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.9.1...v1.10.0) (2026-06-01)
+
+
+### Features
+
+* add packaging and release steps for mod zip in workshop deployment ([3c062c2](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/3c062c2c3f6355761ebb26371a96fe0a92e73f37))
+
 ## [1.9.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.9.0...v1.9.1) (2026-05-31)
 
 

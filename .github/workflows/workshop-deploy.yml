@@ -25,6 +25,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: PRO
+    permissions:
+      contents: write   # upload the packaged mod as a GitHub Release asset
 
     steps:
       - name: Checkout repository
@@ -62,6 +64,25 @@ jobs:
           cp -r Resources dist/IPTEssentials/Resources
           echo "dist/ contents:"
           ls -lh dist/IPTEssentials/
+
+      # Package the staged mod (DLL + Locale + Resources) so non-Steam users can install
+      # manually: extract the IPTEssentials/ folder into Addons/Mods/.
+      - name: Package mod zip
+        id: package
+        run: |
+          ZIP="IPTEssentials-${{ github.ref_name }}.zip"
+          (cd dist && zip -r "../${ZIP}" IPTEssentials)
+          echo "zip=${ZIP}" >> "$GITHUB_OUTPUT"
+          ls -lh "${ZIP}"
+
+      # Attach the zip to the GitHub Release that Release Please already created for this tag.
+      # Uses gh release upload (assets only) so the existing release notes are untouched.
+      - name: Attach mod zip to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.ref_name }}" "${{ steps.package.outputs.zip }}" --clobber
 
       - name: Build change note from CHANGELOG.md
         id: note

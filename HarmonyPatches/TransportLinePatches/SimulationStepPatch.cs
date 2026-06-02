@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using ColossalFramework;
 using HarmonyLib;
 using ImprovedPublicTransport2.Data;
+using ImprovedPublicTransport2.OptionsFramework;
 using ImprovedPublicTransport2.Util;
 using UnityEngine;
 using static ImprovedPublicTransport2.ImprovedPublicTransportMod;
@@ -138,7 +139,32 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
                 Log.DebugLog($"Line {lineID}: manual target={targetVehicleCount}");
             }
 
-            return targetVehicleCount;
+            return ApplySpawnInterval(lineID, targetVehicleCount);
+        }
+
+        // Paces spawning so the game adds at most one vehicle per SpawnTimeInterval seconds,
+        // instead of releasing the whole fleet from the depot back-to-back (which bunches them).
+        // It does this by capping the count the game sees at activeCount + 1 until the interval
+        // elapses; despawning down to the desired count is never throttled. Setting the interval
+        // to 0 disables pacing. Also keeps NextSpawnTime current so the panel countdown is right.
+        private static int ApplySpawnInterval(ushort lineID, int desiredCount)
+        {
+            int interval = OptionsWrapper<Settings.Settings>.Options.SpawnTimeInterval;
+            if (interval <= 0)
+                return desiredCount;
+
+            int active = TransportLineUtil.CountLineActiveVehicles(lineID, out int _);
+            if (active >= desiredCount)
+                return desiredCount; // at/above target: nothing to spawn, let the game despawn excess
+
+            float now = SimHelper.SimulationTime;
+            if (now >= CachedTransportLineData.GetNextSpawnTime(lineID))
+            {
+                CachedTransportLineData.SetNextSpawnTime(lineID, now + interval);
+                return active + 1;   // release exactly one vehicle now
+            }
+
+            return active;           // hold until the interval elapses
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]

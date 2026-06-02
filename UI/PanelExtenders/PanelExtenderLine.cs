@@ -43,6 +43,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private UILabel _lineShareLastWeek;
         private UILabel _lineShareAverage;
         private UILabel _lineShareRowLabel;
+        private UIPanel _lineShareRow;
         private UIPanel _lineStatsPanel;
         private UICheckBox _budgetControl;
         private UILabel _lineLengthLabel;
@@ -297,7 +298,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             _lineCostLastWeek.textColor    = Color.red;
             _lineCostAverage.textColor     = Color.red;
 
-            PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
+            _lineShareRow = PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
                 out _lineShareCurrentWeek, out _lineShareLastWeek, out _lineShareAverage, false);
             ResizeStatsRow(r1, _lineShareCurrentWeek, _lineShareLastWeek, _lineShareAverage, statsPanel.width);
             r1.text = Localization.Get("LINE_PANEL_COST_PER_LINE");
@@ -368,12 +369,15 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             // draws vehicles from, each split among the lines sharing it.
             int depotCount, sharingLines;
             int shareRaw = DepotCostUtil.GetLineDepotCost(lineId, out depotCount, out sharingLines);
-            if (_lineShareRowLabel != null)
+            // Depotless modes (metro, monorail, train) have no depot cost. Hide the row entirely
+            // rather than showing a confusing $0.
+            bool hasDepot = depotCount > 0;
+            if (_lineShareRow != null)
+                _lineShareRow.isVisible = hasDepot;
+            if (hasDepot && _lineShareRowLabel != null)
             {
-                _lineShareRowLabel.tooltip = depotCount > 0
-                    ? string.Format(Localization.Get("LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL"),
-                        depotCount, sharingLines)
-                    : Localization.Get("LINE_PANEL_COST_PER_LINE_TOOLTIP");
+                _lineShareRowLabel.tooltip = string.Format(
+                    Localization.Get("LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL"), depotCount, sharingLines);
             }
 
             // Balance = income - vehicle maintenance - depot share. This week's income is still

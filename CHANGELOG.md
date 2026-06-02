@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.10.0...v1.11.0) (2026-06-02)
+
+
+### Features
+
+* implement vehicle spawn pacing and enhance line share panel visibility ([5f173b5](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/5f173b59f57eb5ba7e45fc6722d23e54c83e0dd5))
+
 ## [1.10.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.9.1...v1.10.0) (2026-06-01)
 
 

@@ -16,6 +16,10 @@ LINE_PANEL_DEPOT Garagem:
 LINE_PANEL_DEPOT_AUTO Auto (depósito mais próximo)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Mover a câmara para o depósito selecionado.
 LINE_PANEL_TICKET_RESET_TOOLTIP Repõe a tarifa desta linha no valor predefinido do seu tipo de transporte.
+LINE_PANEL_COPY Copiar
+LINE_PANEL_PASTE Colar
+LINE_PANEL_COPY_TOOLTIP Copia as definições desta linha: número e modo de veículos, cor, tipos de veículo, tarifa e depósito.
+LINE_PANEL_PASTE_TOOLTIP Aplica as definições copiadas a esta linha.
 LINE_PANEL_SELECT_TYPES Selecionar tipos
 LINE_PANEL_SELECT_TYPES_TOOLTIP Ativa o painel 'Selecionar tipos'\nSe esse botão está desabilitado, você precisa selecionar uma garagem primeiro.
 LINE_PANEL_LINE_STOPS Paradas da linha

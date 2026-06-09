@@ -305,5 +305,51 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             if (PrefabPanel.instance == null) return;
             PrefabPanel.instance.SetTarget(lineId);
         }
+
+        // ===================================================================================
+        //  Row 7 — Copy / Paste line settings
+        // ===================================================================================
+        private void CreateCopyPasteRow()
+        {
+            UIPanel row = AddContainerRow(32f);
+            float buttonWidth = (row.width - 6f) / 2f;
+
+            UIButton copy = AddRowButton(row, buttonWidth, 32f);
+            copy.name = "CopyLine";
+            copy.text = Localization.Get("LINE_PANEL_COPY");
+            copy.tooltip = Localization.Get("LINE_PANEL_COPY_TOOLTIP");
+            copy.eventClick += OnCopyLineClick;
+
+            _pasteButton = AddRowButton(row, buttonWidth, 32f);
+            _pasteButton.name = "PasteLine";
+            _pasteButton.text = Localization.Get("LINE_PANEL_PASTE");
+            _pasteButton.tooltip = Localization.Get("LINE_PANEL_PASTE_TOOLTIP");
+            _pasteButton.eventClick += OnPasteLineClick;
+        }
+
+        private void OnCopyLineClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
+            if (lineId == 0) return;
+            CopyPaste.Instance.Copy(lineId);
+        }
+
+        private void OnPasteLineClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
+            if (lineId == 0 || !CopyPaste.Instance.HasData) return;
+            CopyPaste.Instance.Paste(lineId);
+            // Colour needs the vanilla main-thread coroutine (it updates segment materials); run it here
+            // on the panel MonoBehaviour rather than in the simulation-thread paste action.
+            StartCoroutine(Singleton<TransportManager>.instance.SetLineColor(lineId, CopyPaste.Instance.CopiedColor));
+            // The target is the currently-open line, whose ticket slider only re-syncs on line change.
+            // Drive it now so the display matches and vanilla's handler writes m_ticketPrice (otherwise
+            // the stale slider value would overwrite the pasted price on the next frame).
+            if (_ticketPriceSlider != null)
+            {
+                _ticketPriceSlider.value = CopyPaste.Instance.CopiedTicketPrice;
+                RefreshTicketPriceLabel();
+            }
+        }
     }
 }

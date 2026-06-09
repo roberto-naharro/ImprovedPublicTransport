@@ -18,6 +18,10 @@ LINE_PANEL_DEPOT Depot:
 LINE_PANEL_DEPOT_AUTO Auto (nächstes Depot)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Kamera zum gewählten Depot bewegen.
 LINE_PANEL_TICKET_RESET_TOOLTIP Setzt den Fahrpreis dieser Linie auf den Standardwert ihres Verkehrstyps zurück.
+LINE_PANEL_COPY Kopieren
+LINE_PANEL_PASTE Einfügen
+LINE_PANEL_COPY_TOOLTIP Einstellungen dieser Linie kopieren: Fahrzeuganzahl und -modus, Farbe, Fahrzeugtypen, Fahrpreis und Depot.
+LINE_PANEL_PASTE_TOOLTIP Die kopierten Linieneinstellungen auf diese Linie anwenden.
 LINE_PANEL_NO_DEPOT_FOUND Kein Depot gefunden.
 LINE_PANEL_SELECT_TYPES Wähle Typen
 LINE_PANEL_SELECT_TYPES_TOOLTIP Blendet das 'Wähle Typen' Fenster ein oder aus.\nWenn diese Schaltfläche deaktiviert ist must du zuerst ein Depot festlegen.

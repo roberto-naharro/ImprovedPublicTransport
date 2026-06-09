@@ -109,6 +109,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             CreateAddRemoveRow();
             CreateOverviewDeleteRow();
             CreateSelectTypesRow();
+            CreateCopyPasteRow();
             // Stats table (Stats.cs) + side vehicle lists (Vehicles.cs).
             CreateLineStatsPanel();
             CreateLineVehiclePanel();
@@ -120,7 +121,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 _mainSubPanel.AttachUIComponent(_budgetButton.gameObject);
 
             _publicTransportWorldInfoPanel.component.width = 650f;
-            _publicTransportWorldInfoPanel.component.height = 708f;
+            _publicTransportWorldInfoPanel.component.height = 745f;
             _initialized = true;
         }
 
@@ -141,7 +142,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             UIPanel c = _mainSubPanel.AddUIComponent<UIPanel>();
             c.name = "IptContainer";
             c.width = 280f;
-            c.height = 205f; // sized to the stacked rows incl. the BudgetButtonSpacer (drives the stats Y)
+            c.height = 242f; // sized to the stacked rows incl. the BudgetButtonSpacer (drives the stats Y)
             c.autoLayoutDirection = LayoutDirection.Vertical;
             c.autoLayoutStart = LayoutStart.TopLeft;
             c.autoLayoutPadding = new RectOffset(0, 0, 0, 5);
@@ -215,6 +216,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 _budgetControl.isChecked = budgetOn;
                 if (_addRemoveRow != null)
                     _addRemoveRow.isVisible = !budgetOn;
+                if (_pasteButton != null)
+                    _pasteButton.isEnabled = CopyPaste.Instance.HasData;
                 if (_vehicleCountModifier != null)
                     _vehicleCountModifier.isVisible = budgetOn;
                 if (_vehicleCountModifierLabel != null)

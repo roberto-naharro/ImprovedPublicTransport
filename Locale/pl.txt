@@ -18,6 +18,10 @@ LINE_PANEL_DEPOT Zajezdnia:
 LINE_PANEL_DEPOT_AUTO Auto (najbliższa zajezdnia)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Przesuń kamerę do wybranej zajezdni.
 LINE_PANEL_TICKET_RESET_TOOLTIP Przywraca cenę biletu tej linii do wartości domyślnej dla jej typu transportu.
+LINE_PANEL_COPY Kopiuj
+LINE_PANEL_PASTE Wklej
+LINE_PANEL_COPY_TOOLTIP Kopiuje ustawienia tej linii: liczbę i tryb pojazdów, kolor, typy pojazdów, cenę biletu i zajezdnię.
+LINE_PANEL_PASTE_TOOLTIP Zastosuj skopiowane ustawienia do tej linii.
 LINE_PANEL_NO_DEPOT_FOUND Nie znaleziono zajezdni.
 LINE_PANEL_SELECT_TYPES Wybierz typ
 LINE_PANEL_SELECT_TYPES_TOOLTIP Przełącza panel 'Wybierz typ'.\nJeśli ten przycisk jest wyłączony musisz najpierw wybrać zajezdnię.

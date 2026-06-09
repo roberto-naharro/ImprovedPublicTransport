@@ -18,6 +18,10 @@ LINE_PANEL_DEPOT Depot:
 LINE_PANEL_DEPOT_AUTO Auto (nearest depot)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Move the camera to the selected depot.
 LINE_PANEL_TICKET_RESET_TOOLTIP Reset this line's ticket price to the default for its transport type.
+LINE_PANEL_COPY Copy
+LINE_PANEL_PASTE Paste
+LINE_PANEL_COPY_TOOLTIP Copy this line's settings: vehicle count and mode, colour, vehicle types, ticket price and depot.
+LINE_PANEL_PASTE_TOOLTIP Apply the copied line settings to this line.
 LINE_PANEL_NO_DEPOT_FOUND No depot found.
 LINE_PANEL_SELECT_TYPES Select Types
 LINE_PANEL_SELECT_TYPES_TOOLTIP Toggles the 'Select Types' panel.\nIf this button is disabled you have to select a depot first.

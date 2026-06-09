@@ -17,6 +17,10 @@ LINE_PANEL_DEPOT Депо:
 LINE_PANEL_DEPOT_AUTO Авто (ближайшее депо)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Переместить камеру к выбранному депо.
 LINE_PANEL_TICKET_RESET_TOOLTIP Сбрасывает плату за проезд этой линии к значению по умолчанию для её типа транспорта.
+LINE_PANEL_COPY Копировать
+LINE_PANEL_PASTE Вставить
+LINE_PANEL_COPY_TOOLTIP Копирует настройки этой линии: число и режим транспорта, цвет, типы транспорта, плату за проезд и депо.
+LINE_PANEL_PASTE_TOOLTIP Применить скопированные настройки к этой линии.
 LINE_PANEL_SELECT_TYPES Выбор модели ТС
 LINE_PANEL_SELECT_TYPES_TOOLTIP Переключает панель выбора моделей транспорта.\nЕсли эта кнопка недоступна, сначала выберите депо.
 LINE_PANEL_LINE_STOPS Остановки на линии

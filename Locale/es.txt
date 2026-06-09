@@ -17,6 +17,10 @@ LINE_PANEL_DEPOT Depósito:
 LINE_PANEL_DEPOT_AUTO Auto (cochera más cercana)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Mueve la cámara a la cochera seleccionada.
 LINE_PANEL_TICKET_RESET_TOOLTIP Restablece la tarifa de esta línea al valor predeterminado de su tipo de transporte.
+LINE_PANEL_COPY Copiar
+LINE_PANEL_PASTE Pegar
+LINE_PANEL_COPY_TOOLTIP Copia los ajustes de esta línea: número y modo de vehículos, color, tipos de vehículo, tarifa y cochera.
+LINE_PANEL_PASTE_TOOLTIP Aplica los ajustes copiados a esta línea.
 LINE_PANEL_SELECT_TYPES Elegir modelos
 LINE_PANEL_SELECT_TYPES_TOOLTIP Abre un panel para elegir entre los diferentes modelos de vehículo que haya disponibles.\nSi no está activado deberás seleccionar primero un depósito.
 LINE_PANEL_LINE_STOPS Paradas de la línea

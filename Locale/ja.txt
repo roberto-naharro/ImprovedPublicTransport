@@ -18,6 +18,10 @@ LINE_PANEL_DEPOT 車庫:
 LINE_PANEL_DEPOT_AUTO 自動（最寄りの車庫）
 LINE_PANEL_DEPOT_MARKER_TOOLTIP 選択した車庫にカメラを移動します。
 LINE_PANEL_TICKET_RESET_TOOLTIP この路線の運賃を、その交通種別の既定値に戻します。
+LINE_PANEL_COPY コピー
+LINE_PANEL_PASTE 貼り付け
+LINE_PANEL_COPY_TOOLTIP この路線の設定（車両数とモード、色、車両タイプ、運賃、車庫）をコピーします。
+LINE_PANEL_PASTE_TOOLTIP コピーした路線設定をこの路線に適用します。
 LINE_PANEL_NO_DEPOT_FOUND 車庫が見つかりません！
 LINE_PANEL_SELECT_TYPES 車両を選択
 LINE_PANEL_SELECT_TYPES_TOOLTIP 車両を選択のパネルを切り替えます。\nボタンが無効の場合は、最初に車庫を選択＆指定して下さい。

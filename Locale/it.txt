@@ -16,6 +16,10 @@ LINE_PANEL_DEPOT Deposito:
 LINE_PANEL_DEPOT_AUTO Auto (deposito più vicino)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Sposta la telecamera sul deposito selezionato.
 LINE_PANEL_TICKET_RESET_TOOLTIP Reimposta la tariffa di questa linea al valore predefinito del suo tipo di trasporto.
+LINE_PANEL_COPY Copia
+LINE_PANEL_PASTE Incolla
+LINE_PANEL_COPY_TOOLTIP Copia le impostazioni di questa linea: numero e modalità dei veicoli, colore, tipi di veicolo, tariffa e deposito.
+LINE_PANEL_PASTE_TOOLTIP Applica le impostazioni copiate a questa linea.
 LINE_PANEL_SELECT_TYPES Seleziona il tipo
 LINE_PANEL_SELECT_TYPES_TOOLTIP Attiva 'Seleziona il tipo'.\nSe il tasto è disattivato, devi selezionare il deposito prima.
 LINE_PANEL_LINE_STOPS Fermate della linea

@@ -159,6 +159,7 @@
     <Compile Include="UI\PanelExtenders\PanelExtenderLine.Vehicles.cs" />
     <Compile Include="UI\PanelExtenders\PanelExtenderVehicle.cs" />
     <Compile Include="UI\AlgernonCommons\UIListRow.cs" />
+    <Compile Include="UI\CopyPaste.cs" />
     <Compile Include="UI\LineVehicleRow.cs" />
     <Compile Include="UI\LineVehiclePanel.cs" />
     <Compile Include="UI\VehicleItem.cs" />

@@ -34,6 +34,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
     //       4. Add + Remove vehicle ......... 32   CreateAddRemoveRow
     //       5. Overview + Delete line ....... 32   CreateOverviewDeleteRow
     //       6. Select vehicle types ......... 36   CreateSelectTypesRow
+    //       7. Copy + Paste line settings ... 32   CreateCopyPasteRow
     //
     //  C) Stats table "LineStats" @ (10, just below the container — see PositionStatsPanel):
     //       header / Passengers / Balance / Maintenance cost / Cost per line   (Stats.cs)
@@ -72,6 +73,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private UISlider _ticketPriceSlider;        // the slider inside that section (we widen its range to 0..max)
         private UILabel _ticketPriceLabel;          // vanilla value readout; we refresh it on open (vanilla only updates it on slider change)
         private UIButton _ticketRestoreButton;      // resets the line's ticket price to the transport type default
+        private UIButton _pasteButton;              // disabled until a line has been copied to the clipboard
 
         // --- our container row controls ---
         private UILabel _spawnTimer;          // row 1

@@ -17,6 +17,10 @@ LINE_PANEL_DEPOT 차고지 :
 LINE_PANEL_DEPOT_AUTO 자동 (가장 가까운 차고지)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP 선택한 차고지로 카메라를 이동합니다.
 LINE_PANEL_TICKET_RESET_TOOLTIP 이 노선의 요금을 해당 교통 유형의 기본값으로 되돌립니다.
+LINE_PANEL_COPY 복사
+LINE_PANEL_PASTE 붙여넣기
+LINE_PANEL_COPY_TOOLTIP 이 노선의 설정(차량 수와 모드, 색상, 차량 유형, 요금, 차고지)을 복사합니다.
+LINE_PANEL_PASTE_TOOLTIP 복사한 노선 설정을 이 노선에 적용합니다.
 LINE_PANEL_SELECT_TYPES 종류 선택
 LINE_PANEL_SELECT_TYPES_TOOLTIP 종류 선택창을 열거나 닫습니다.\n이 기능으로 비활성화한 차량은 이 노선에 등장하지 않습니다.
 LINE_PANEL_LINE_STOPS 정류장 목록

@@ -250,6 +250,14 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                     _colorTextField.text = ColorUtility.ToHtmlStringRGB(_colorField.selectedColor);
                     PrefabPanel.instance?.Hide();
                     PopulateDepotDropDown(lineId);
+                    // Vanilla only syncs its ticket-price slider for some transport types, so on other
+                    // lines the slider keeps the previously-viewed line's value. Set it ourselves from
+                    // this line's actual per-line price (initialised to the transport type's default
+                    // when the line was created, then whatever the player set). Only on line change so
+                    // it never fights an in-progress drag.
+                    if (_ticketPriceSlider != null)
+                        _ticketPriceSlider.value =
+                            Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].m_ticketPrice;
                 }
             }
             else

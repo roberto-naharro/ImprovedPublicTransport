@@ -72,8 +72,12 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             {
                 Utils.Log("TicketSlider: min=" + _ticketPriceSlider.minValue + " max=" + _ticketPriceSlider.maxValue +
                           " step=" + _ticketPriceSlider.stepSize + " value=" + _ticketPriceSlider.value);
-                _ticketPriceSlider.minValue = 0f;          // allow free (0)
-                _ticketPriceSlider.maxValue *= 4f;         // widen the top end (refine from the logged mapping)
+                _ticketPriceSlider.minValue = 0f;          // allow free (0)                
+                _ticketPriceSlider.maxValue *= 2f;         // widen the top end (refine from the logged mapping)
+                // Keep the vanilla top end (₡50 = 5000 internal for every type — the range is fixed in
+                // the UI prefab, only the per-type default differs). Step by 10 internal units so the
+                // displayed price moves in 0.10 increments instead of whole currency units.
+                _ticketPriceSlider.stepSize = 10f;
             }
             CreateTicketRestoreButton();
             // The slider's title label has no field; it's the leftover UILabel child of the block
@@ -356,15 +360,15 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             RefreshTicketPriceLabel();
         }
 
-        // Mirrors PublicTransportWorldInfoPanel.OnTicketPriceChanged's label format exactly:
-        // value/100 with the game's no-cents money format.
+        // The price moves in 0.10 steps, so show cents: value/100 as a decimal with the game's
+        // with-cents money format (vanilla's own OnTicketPriceChanged uses the no-cents format and
+        // integer division, which would hide the decimals — this per-frame refresh overrides it).
         private void RefreshTicketPriceLabel()
         {
             if (_ticketPriceLabel == null || _ticketPriceSlider == null)
                 return;
-            int v = Mathf.RoundToInt(_ticketPriceSlider.value) / 100;
-            _ticketPriceLabel.text = v.ToString(global::Settings.moneyFormatNoCents,
-                LocaleManager.cultureInfo);
+            double v = _ticketPriceSlider.value / 100.0;
+            _ticketPriceLabel.text = v.ToString(global::Settings.moneyFormat, LocaleManager.cultureInfo);
         }
 
         // ===================================================================================

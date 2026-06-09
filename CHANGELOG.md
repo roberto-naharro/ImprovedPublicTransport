@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.12.0...v1.13.0) (2026-06-09)
+
+
+### Features
+
+* enhance ticket price display logic to accommodate district fare policies ([242840e](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/242840ead452d5c5c844aa555302b2b80b5764e8))
+* implement fare waiver logic for Free Public Transport policy in ticket price slider ([b9a2303](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/b9a2303eaa9317063a14ac1b9ddfe074ebd5940f))
+
 ## [1.12.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.11.0...v1.12.0) (2026-06-09)
 
 

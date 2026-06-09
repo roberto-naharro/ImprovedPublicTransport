@@ -1,29 +1,28 @@
 [h1]IPT Essentials[/h1]
 
-Take back control of your transit network, without replacing the mods that already do their job well.
+Community revival of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=928128676]Improved Public Transport 2[/url] by [url=https://github.com/bloodypenguin]BloodyPenguin[/url], updated for Cities: Skylines 1.21.x. Own line management well; let specialist mods handle everything else.
 
-[b]IPT Essentials[/b] is a community revival of the original [url=https://steamcommunity.com/sharedfiles/filedetails/?id=928128676]Improved Public Transport 2[/url] by [url=https://github.com/bloodypenguin]BloodyPenguin[/url], updated for Cities: Skylines 1.21.x and rebuilt around a simple principle: own line management well, and let specialist mods handle everything else.
-
-[b]► Source code & issues:[/b]
-[url=https://github.com/roberto-naharro/ImprovedPublicTransport]github.com/roberto-naharro/ImprovedPublicTransport[/url]
+[b]► Source code & issues:[/b] [url=https://github.com/roberto-naharro/ImprovedPublicTransport]github.com/roberto-naharro/ImprovedPublicTransport[/url]
 
 [h1]What it does[/h1]
 
 [list]
-[*][b]Manual vehicle count[/b]. Set exactly how many vehicles run on a line, bypassing the budget calculation. Toggle between manual and budget-driven mode per line at any time.
-[*][b]Per-line vehicle type selection[/b]. Click [i]Select Vehicle Types[/i] in the line info panel to pick which vehicle models serve that line. Shows thumbnail previews, Steam Workshop badges, and a 3D preview renderer. Mixed-fleet lines are saved and survive reload.
-[*][b]Depot selection per line[/b]. Pin a line to a specific depot so its vehicles always spawn from the depot you choose (with a [i]go to depot[/i] button to find it on the map). Leave it on [i]Auto[/i] for vanilla nearest-depot behaviour. Falls back to Auto automatically if the depot is removed.
-[*][b]Per-line ticket price[/b]. Set a custom fare per line, from free up to the transport type cap, in 0.10 steps, with a [i]Reset[/i] button for the type default. An optional happiness consequence (on by default) means overcharging your regular riders slowly lowers their happiness (and cheaper or free fares raise it), so fares carry a real trade-off. Turn it off in the options for a pure income lever. Writes only the per-line fare, never the shared type value, so it is fully reversible.
-[*][b]Copy and paste line settings[/b]. Duplicate a line's vehicle count and mode, colour, vehicle types, ticket price, and depot onto another line in two clicks.
-[*][b]Per-stop passenger stats[/b]. Each transit stop shows Passengers In / Out for the current week, last week, and a rolling average. Rename stops and browse suggested names from nearby buildings.
-[*][b]Per-stop unbunching toggle[/b]. Enable or disable vehicle spacing dwell at individual stops. Let vehicles space out at main stations while skipping the wait at intermediate stops to avoid blocking road traffic. Stop circles in the line panel are tinted [b]red[/b] when unbunching is on and [b]green[/b] when off, so you can see the layout of your line at a glance. An [i]Apply to all stops[/i] button propagates the setting across the whole line. Works standalone and integrates natively with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262054175]Express Bus Services[/url]. No bridge mod needed. [b]Do not install ExpressBusServices-IPT2[/b] alongside this mod; it conflicts with IPTE's direct EBS integration.
-[*][b]Per-vehicle stats[/b]. Click any active transit vehicle to see its passengers, earnings, and distance traveled (current week / last week / average), plus the last-stop boarding and alighting count.
-[*][b]Line earnings and costs[/b]. The line info panel shows a stats table: total passengers, gross earnings, vehicle maintenance cost, and a [i]cost per line[/i] row that divides the total transport-type infrastructure expenses equally across all active lines of the same type. All columns split across current week, last week, and rolling average. Use it to judge whether a line is paying its way.
-[*][b]Vehicles in this line[/b]. The line info panel shows a live list of all vehicles serving the line, labeled by asset name and index (or player-given name if renamed). Right-click any entry to jump to that vehicle. Select individual vehicles and click Remove to send exactly those vehicles back to the depot.
-[*][b]Vehicles queued[/b]. A second panel lists vehicles that have left the depot but not yet reached their first stop. Entries move to the active list automatically once the vehicle begins serving stops.
-[*][b]Station stop list[/b]. Clicking a transit station building shows all associated stops, each clickable to open its stop panel.
+[*][b]Manual vehicle count[/b]. Set exactly how many vehicles run on a line, bypassing the budget calculation. Toggle manual/budget mode per line at any time.
+[*][b]Per-line vehicle type selection[/b]. Pick which vehicle models serve each line. Shows thumbnail previews, Workshop badges, and a 3D preview. Mixed-fleet lines survive reload.
+[*][b]Depot selection per line[/b]. Pin a line to a specific depot. Falls back to Auto if the depot is removed.
+[*][b]Per-line ticket price[/b]. Set a custom fare (free to type cap, 0.10 steps) with a Reset button. Optional happiness consequence for overcharging (on by default). Writes only the per-line fare. Fully reversible.
+[*][b]Copy and paste line settings[/b]. Duplicate vehicle count, colour, vehicle types, ticket price, and depot onto another line in two clicks.
+[*][b]Per-stop passenger stats[/b]. Passengers In / Out for current week, last week, and rolling average. Rename stops and browse suggested names from nearby buildings.
+[*][b]Per-stop unbunching toggle[/b]. Enable or disable vehicle spacing dwell per stop. Stop circles are tinted [b]red[/b] (on) or [b]green[/b] (off) in the line panel. [i]Apply to all stops[/i] button included. Integrates natively with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262054175]Express Bus Services[/url], no bridge mod needed. [b]Do not install ExpressBusServices-IPT2[/b]; it conflicts.
+[*][b]Per-vehicle stats[/b]. Passengers, earnings, distance (current/last week/average), plus last-stop boarding and alighting count.
+[*][b]Line earnings and costs[/b]. Stats table: total passengers, gross earnings, vehicle maintenance cost, and cost per line (infrastructure split across active lines of the same type). Current week / last week / rolling average.
+[*][b]Vehicles in this line[/b]. Live list of all vehicles on a line. Right-click to jump to a vehicle; select and Remove to send chosen vehicles back to the depot.
+[*][b]Vehicles queued[/b]. Lists vehicles that have left the depot but not yet reached their first stop.
+[*][b]Station stop list[/b]. Clicking a transit station shows all associated stops, each clickable to open its stop panel.
 [*][b]Line deletion tool[/b]. Bulk-delete all lines of a given transport type from the mod options panel.
 [/list]
+
+[b]Incompatible with[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3007903394]Transport Lines Manager[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3690061052]Improved Public Transport 3[/url] (rival full line managers). Enable only one.
 
 [h1]Design philosophy: composability[/h1]
 
@@ -31,23 +30,17 @@ The Cities: Skylines mod ecosystem already has excellent, dedicated tools for ve
 
 We focus on line management: precise vehicle count control, per-line vehicle type selection, depot pinning, per-line ticket price, copy and paste, and granular passenger statistics. For everything else, there is already a better, purpose-built solution. Using them together gives you a cleaner, more stable, and more powerful setup than any single mod can offer.
 
-It pairs great with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1548831935]Advanced Vehicle Options[/url] (vehicle stats and colours), [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262054175]Express Bus Services[/url] (advanced unbunching), and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3704654752]Commuter Destination (Unofficial Bugfix)[/url] (passenger routing fix). It is [b]incompatible[/b] with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3007903394]Transport Lines Manager[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3690061052]Improved Public Transport 3[/url] (rival full line managers that replace the line panel and spawning). Enable only one of those.
-
 [h1]Companion mods[/h1]
 
-These mods cover features that the original IPT2 included. Each one does its job better as a standalone tool. IPT Essentials is designed to work seamlessly with all of them.
-
 [list]
-[*][b]Vehicle stats and colours[/b]. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1548831935]Advanced Vehicle Options[/url] by CityGecko: capacity, maintenance, speed, acceleration, and colour per vehicle asset. IPTE never writes those fields, so there is no conflict.
-[*][b]Enhanced unbunching timing[/b]. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262054175]Express Bus Services[/url] by Vectorial1024: EBS applies rubberbanding at stops where IPTE has unbunching enabled, and respects instant-depart/skip behavior at stops where it's disabled. Works natively with no configuration. Note: [b]do not install ExpressBusServices-IPT2[/b], that bridge mod is incompatible with IPTE's direct integration.
-[*][b]Stuck citizen fix[/b]. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2774427140]Public Transport Unstucker[/url] by Vectorial1024: fixes rogue passengers that prevent vehicles from departing stops. Unrelated to vehicle spacing, compatible and complementary.
-[*][b]Commuter destination routing fix[/b]. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3704654752]Commuter Destination (Unofficial Bugfix)[/url]: fixes vanilla commuter and passenger destination routing on transit. Orthogonal bugfix that pairs cleanly with IPTE.
-[*][b]Advanced stop selection[/b]. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862973068]Advanced Stop Selection Revisited[/url] by MacSergey: dedicated stop-platform selection logic maintained independently.
-[*][b]Elevated stop placement[/b]. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862992091]Elevated Stops Enabler[/url] by MacSergey: unlocks stop placement on elevated road segments.
-[*][b]Alternate vehicle-type control[/b]. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2882769913]VehicleSelector[/url] by algernon-A: building-level control of which models a depot spawns. Optional now that IPTE selects vehicle types per line, but still compatible.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1548831935]Advanced Vehicle Options[/url] (CityGecko): per-vehicle capacity, speed, colour. IPTE never writes those fields.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262054175]Express Bus Services[/url] (Vectorial1024): enhanced unbunching. Works natively with IPTE. [b]Do not install ExpressBusServices-IPT2[/b]: it conflicts.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2774427140]Public Transport Unstucker[/url] (Vectorial1024): fixes rogue passengers blocking vehicle departure.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3704654752]Commuter Destination (Unofficial Bugfix)[/url]: fixes vanilla commuter routing.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862973068]Advanced Stop Selection Revisited[/url] (MacSergey): stop-platform selection.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2862992091]Elevated Stops Enabler[/url] (MacSergey): stop placement on elevated segments.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2882769913]VehicleSelector[/url] (algernon-A): building-level depot spawn control. Optional alongside IPTE.
 [/list]
-
-Compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262054175]Express Bus Services[/url] by Vectorial1024, no bridge mod or extra configuration needed. [b]Do not install ExpressBusServices-IPT2[/b]. IPTE integrates with EBS directly and EBS_IPT2 will conflict.
 
 [h1]Requirements[/h1]
 
@@ -57,15 +50,13 @@ Compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2262
 
 [h1]Migrating from IPT2[/h1]
 
-Your manual vehicle counts and line settings are loaded automatically. Save data is fully backward-compatible with IPT2.
-
-[b]ExpressBusServices-IPT2 must be unsubscribed.[/b] IPT Essentials integrates with Express Bus Services directly. EBS_IPT2 patches the same code paths and will conflict, causing unpredictable vehicle behavior. Unsubscribe EBS_IPT2 before using IPT Essentials with EBS.
+Save data is fully backward-compatible. Manual vehicle counts and line settings load automatically. [b]Unsubscribe ExpressBusServices-IPT2[/b] before using; it patches the same code paths and will conflict.
 
 [h1]Credits[/h1]
 
-[b]BloodyPenguin[/b]. Original mod concept, architecture, and all game logic. IPT Essentials would not exist without their work.
-[b]CityGecko[/b]. Advanced Vehicle Options, the recommended companion for per-vehicle stats and colours.
-[b]algernon-A[/b]. VehicleSelector and the UI patterns the vehicle-type panel is based on.
-[b]Vectorial1024[/b]. Express Bus Services and Public Transport Unstucker, both designed to work alongside IPT Essentials.
+[b]BloodyPenguin[/b]. Original mod concept, architecture, and all game logic.
+[b]CityGecko[/b]. Advanced Vehicle Options.
+[b]algernon-A[/b]. VehicleSelector and vehicle-type panel UI patterns.
+[b]Vectorial1024[/b]. Express Bus Services and Public Transport Unstucker.
 [b]MacSergey[/b]. Elevated Stops Enabler and Advanced Stop Selection Revisited.
-[b]roberto-naharro[/b]. Compatibility update, feature pruning, and maintenance of this fork.
+[b]roberto-naharro[/b]. Compatibility update, feature pruning, and maintenance.

@@ -109,6 +109,9 @@ namespace ImprovedPublicTransport2
                     LoadPassengersPatch.Apply();
                     UnloadPassengersPatch.Apply();
                     HarmonyPatches.HumanAIPatches.EnterVehiclePatch.Apply();
+                    HarmonyPatches.EconomyManagerPatches.GetTaxRatePatch.Apply();
+                    HarmonyPatches.ResidentAIPatches.UpdateWellbeingPatch.Apply();
+                    HarmonyPatches.ResidentialBuildingAIPatches.SimulationStepActivePatch.Apply();
                     ReleaseNodePatch.Apply();
                     ReleaseWaterSourcePatch.Apply();
                     ClassMatchesPatch.Apply();
@@ -198,6 +201,9 @@ namespace ImprovedPublicTransport2
             LoadPassengersPatch.Undo();
             UnloadPassengersPatch.Undo();
             HarmonyPatches.HumanAIPatches.EnterVehiclePatch.Undo();
+            HarmonyPatches.EconomyManagerPatches.GetTaxRatePatch.Undo();
+            HarmonyPatches.ResidentAIPatches.UpdateWellbeingPatch.Undo();
+            HarmonyPatches.ResidentialBuildingAIPatches.SimulationStepActivePatch.Undo();
             ReleaseNodePatch.Undo();
             ReleaseWaterSourcePatch.Undo();
             ClassMatchesPatch.Undo();

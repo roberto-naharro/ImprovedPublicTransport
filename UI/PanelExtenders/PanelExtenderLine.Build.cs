@@ -64,6 +64,18 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             // with it; we only grab them to toggle their visibility per budget mode.
             _vehicleCountModifier = Utils.GetPrivate<UISlider>(_publicTransportWorldInfoPanel, "m_vehicleCountModifier");
             _vehicleCountModifierLabel = Utils.GetPrivate<UILabel>(_publicTransportWorldInfoPanel, "m_vehicleCountModifierLabel");
+            // Vanilla per-line ticket-price section (slider + value label) — we relocate it below the block.
+            _ticketPriceSection = Utils.GetPrivate<UIPanel>(_publicTransportWorldInfoPanel, "m_ticketPriceSection");
+            _ticketPriceSlider = Utils.GetPrivate<UISlider>(_publicTransportWorldInfoPanel, "m_ticketPriceSlider");
+            _ticketPriceLabel = Utils.GetPrivate<UILabel>(_publicTransportWorldInfoPanel, "m_ticketPriceLabel");
+            if (_ticketPriceSlider != null)
+            {
+                Utils.Log("TicketSlider: min=" + _ticketPriceSlider.minValue + " max=" + _ticketPriceSlider.maxValue +
+                          " step=" + _ticketPriceSlider.stepSize + " value=" + _ticketPriceSlider.value);
+                _ticketPriceSlider.minValue = 0f;          // allow free (0)
+                _ticketPriceSlider.maxValue *= 4f;         // widen the top end (refine from the logged mapping)
+            }
+            CreateTicketRestoreButton();
             // The slider's title label has no field; it's the leftover UILabel child of the block
             // (everything except the amount, the % readout and our stop-count label).
             if (_vehicleAmountParent != null)
@@ -101,8 +113,14 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             CreateLineStatsPanel();
             CreateLineVehiclePanel();
 
+            // The vanilla Budget money button sits in a different subtree than our button container,
+            // so it renders underneath it and never gets clicks. Reparent it as a sibling of the
+            // container (under _mainSubPanel) so BringToFront in PositionVanillaElements works.
+            if (_budgetButton != null)
+                _mainSubPanel.AttachUIComponent(_budgetButton.gameObject);
+
             _publicTransportWorldInfoPanel.component.width = 650f;
-            _publicTransportWorldInfoPanel.component.height = 692f;
+            _publicTransportWorldInfoPanel.component.height = 708f;
             _initialized = true;
         }
 
@@ -252,9 +270,10 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             }
             else
             {
-                // Vanilla "Budget" button: in the empty right half of the Budget-control row (it used
-                // to anchor to the hidden VehicleLabel and float onto the Select Types button).
-                PlaceAt(_budgetButton, _budgetControl, _budgetControl.width * 0.5f, 0f);
+                // Vanilla "Budget" money button: just right of the (now label-width) Budget-control
+                // checkbox, brought to the front so it actually receives clicks.
+                PlaceRightOf(_budgetButton, _budgetControl, 8f);
+                _budgetButton.BringToFront();
                 _vehicleLabel.isVisible = false;
             }
 
@@ -265,16 +284,76 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             // holds the slider, its % readout and the vehicle amount) as ONE unit to just below the IPTE
             // button container, so it stays coherent and clears the buttons. Its children ride along.
             if (_vehicleAmountParent != null)
+            {
                 _vehicleAmountParent.relativePosition = new Vector3(
                     _vehicleAmountParentHome.x,
                     _iptContainer.relativePosition.y + _iptContainer.height + 8f,
                     _vehicleAmountParentHome.z);
+                _vehicleAmountParent.BringToFront(); // so the vehicle-count slider receives clicks
+            }
 
             // Line length sits in a different vanilla parent, so anchor it to the moved block; the stop
             // count + vehicle amount are children of the block and just need their in-block positions.
             PlaceAt(_lineLengthLabel, _vehicleAmountParent, 0f, 45f);
             PlaceRightOf(_stopCountLabel, _lineLengthLabel, 16f);
             PlaceAt(_vehicleAmount, _vehicleAmountParent, 0f, 62f);
+
+            // Vanilla per-line ticket-price section (slider + value), just below the vehicle block.
+            if (_ticketPriceSection != null)
+            {
+                _ticketPriceSection.isVisible = true;
+                PlaceBelow(_ticketPriceSection, _vehicleAmountParent, 8f);
+                _ticketPriceSection.BringToFront(); // so the ticket-price slider receives clicks
+                // Vanilla only formats the value label inside its slider's eventValueChanged, which does
+                // not fire when the panel re-opens on the same value — so the readout can show a stale,
+                // unformatted number. Refresh it ourselves from the slider's current value.
+                RefreshTicketPriceLabel();
+                // Restore button: resets this line's ticket price to the transport type's default.
+                if (_ticketRestoreButton != null)
+                    PlaceRightOf(_ticketRestoreButton, _ticketPriceLabel, 6f);
+            }
+        }
+
+        // Small "Reset" button living in the ticket-price section, to the right of the value readout.
+        // Restores this line's ticket price to its transport type's default.
+        private void CreateTicketRestoreButton()
+        {
+            if (_ticketPriceSection == null)
+                return;
+            _ticketRestoreButton = Util.UIUtils.CreateButton(_ticketPriceSection);
+            _ticketRestoreButton.name = "TicketRestore";
+            _ticketRestoreButton.textScale = 0.7f;
+            _ticketRestoreButton.height = 22f;
+            _ticketRestoreButton.width = 60f;
+            _ticketRestoreButton.text = Localization.Get("SETTINGS_RESET");
+            _ticketRestoreButton.tooltip = Localization.Get("LINE_PANEL_TICKET_RESET_TOOLTIP");
+            _ticketRestoreButton.eventClick += OnTicketRestoreClicked;
+        }
+
+        private void OnTicketRestoreClicked(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            component.Unfocus();
+            ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
+            if (lineId == 0 || _ticketPriceSlider == null)
+                return;
+            TransportInfo info = Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].Info;
+            ushort def = info != null ? (ushort) Mathf.Clamp(info.m_ticketPrice, 0, ushort.MaxValue) : (ushort) 0;
+            // Drives the vanilla slider, whose eventValueChanged writes TransportLine.m_ticketPrice and
+            // reformats the value label. Clear any IPTE/TPC customisation so the type default sticks.
+            TicketPriceUtil.ResetLineTicketPrice(lineId);
+            _ticketPriceSlider.value = def;
+            RefreshTicketPriceLabel();
+        }
+
+        // Mirrors PublicTransportWorldInfoPanel.OnTicketPriceChanged's label format exactly:
+        // value/100 with the game's no-cents money format.
+        private void RefreshTicketPriceLabel()
+        {
+            if (_ticketPriceLabel == null || _ticketPriceSlider == null)
+                return;
+            int v = Mathf.RoundToInt(_ticketPriceSlider.value) / 100;
+            _ticketPriceLabel.text = v.ToString(global::Settings.moneyFormatNoCents,
+                LocaleManager.cultureInfo);
         }
 
         // ===================================================================================

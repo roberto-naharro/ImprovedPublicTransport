@@ -17,6 +17,7 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Enables or disables budget control for this li
 LINE_PANEL_DEPOT Depot:
 LINE_PANEL_DEPOT_AUTO Auto (nearest depot)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Move the camera to the selected depot.
+LINE_PANEL_TICKET_RESET_TOOLTIP Reset this line's ticket price to the default for its transport type.
 LINE_PANEL_NO_DEPOT_FOUND No depot found.
 LINE_PANEL_SELECT_TYPES Select Types
 LINE_PANEL_SELECT_TYPES_TOOLTIP Toggles the 'Select Types' panel.\nIf this button is disabled you have to select a depot first.
@@ -103,3 +104,5 @@ LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach de
 LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
 LINE_PANEL_BALANCE Balance:
 LINE_PANEL_BALANCE_TOOLTIP Fare income minus vehicle maintenance and the depot share.\nGreen = profit, red = loss.
+SETTINGS_TICKET_PRICE_HAPPINESS Ticket price affects happiness
+SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP When on, higher fares slowly lower the happiness of people who ride this line (and lower or free fares raise it), treated like a tax change on their home.\nThe effect is indirect and builds up over time.\nTurn off for a pure income lever (and to skip the per-building accounting).

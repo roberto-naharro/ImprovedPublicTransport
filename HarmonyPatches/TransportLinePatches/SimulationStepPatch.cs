@@ -87,7 +87,14 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
 
         public static void Postfix(ushort __state)
         {
-            if (!CachedTransportLineData._init || !((SimulationManager.instance.m_currentFrameIndex & 4095U) >= 3840U) ||
+            if (!CachedTransportLineData._init)
+                return;
+
+            // Re-assert any custom per-line ticket price every step so TPC / vanilla re-applying a
+            // type price (on load / options change) cannot stomp it. Cheap; no-op for normal lines.
+            TicketPriceUtil.Enforce(__state);
+
+            if (!((SimulationManager.instance.m_currentFrameIndex & 4095U) >= 3840U) ||
                 !TransportManager.instance.m_lines.m_buffer[__state].Complete)
             {
                 return;

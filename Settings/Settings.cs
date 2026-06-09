@@ -22,6 +22,10 @@ namespace ImprovedPublicTransport2.Settings
         [Checkbox("SETTINGS_AUTOSHOW_LINE_INFO", SETTINGS_COMMON)]
         public bool ShowLineInfo { get; set; } = true;
 
+        [Description("SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP")]
+        [Checkbox("SETTINGS_TICKET_PRICE_HAPPINESS", SETTINGS_COMMON)]
+        public bool TicketPriceHappinessEffect { get; set; } = true;
+
         [BudgetDescription]
         [Checkbox(SETTINGS_BUDGET, SETTINGS_BUDGET, nameof(SettingsActions), nameof(SettingsActions.OnBudgetCheckChanged))]  //TODO: add new locale?
         public bool BudgetControl { get; set; } = true;

@@ -33,7 +33,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         {
             UIPanel row = AddContainerRow(16f);
             UICheckBox cb = row.AddUIComponent<UICheckBox>();
-            cb.size = row.size;
+            // Only as wide as the checkbox + label, so it doesn't sit on top of (and swallow clicks
+            // meant for) the vanilla Budget money button placed to its right.
+            cb.size = new Vector2(160f, row.size.y);
             cb.clipChildren = true;
             cb.tooltip = Localization.Get("LINE_PANEL_BUDGET_CONTROL_TOOLTIP") + Environment.NewLine +
                          Localization.Get("EXPLANATION_BUDGET_CONTROL");

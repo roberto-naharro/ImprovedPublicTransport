@@ -68,6 +68,10 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private UILabel _vehicleCountModifierLabel; // the slider's "%" readout ("VehicleCountPercent"), same parent
         private UILabel _vehicleCountTitle;         // the slider's title label (prefab child, no field), hidden in manual mode
         private Vector3 _vehicleAmountParentHome;   // PanelVehicleCount's home X/Z; we re-place the whole block below the buttons
+        private UIPanel _ticketPriceSection;        // vanilla ticket-price slider section, relocated below the vehicle block
+        private UISlider _ticketPriceSlider;        // the slider inside that section (we widen its range to 0..max)
+        private UILabel _ticketPriceLabel;          // vanilla value readout; we refresh it on open (vanilla only updates it on slider change)
+        private UIButton _ticketRestoreButton;      // resets the line's ticket price to the transport type default
 
         // --- our container row controls ---
         private UILabel _spawnTimer;          // row 1

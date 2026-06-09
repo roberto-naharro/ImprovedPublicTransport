@@ -94,7 +94,10 @@
     <Compile Include="Data\VehicleData.cs" />
     <Compile Include="HarmonyPatches\DepotAIPatches\ClassMatchesPatch.cs" />
     <Compile Include="HarmonyPatches\DepotAIPatches\StartTransferPatch.cs" />
+    <Compile Include="HarmonyPatches\EconomyManagerPatches\GetTaxRatePatch.cs" />
     <Compile Include="HarmonyPatches\HumanAIPatches\EnterVehiclePatch.cs" />
+    <Compile Include="HarmonyPatches\ResidentAIPatches\UpdateWellbeingPatch.cs" />
+    <Compile Include="HarmonyPatches\ResidentialBuildingAIPatches\SimulationStepActivePatch.cs" />
     <Compile Include="HarmonyPatches\NetManagerPatches\ReleaseNodePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\GetLineVehiclePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\CanLeaveStopPatch.cs" />
@@ -150,6 +153,10 @@
     <Compile Include="UI\DontCryJustDieCommons\DropDownRow.cs" />
     <Compile Include="UI\PanelExtenders\PanelExtenderCityService.cs" />
     <Compile Include="UI\PanelExtenders\PanelExtenderLine.cs" />
+    <Compile Include="UI\PanelExtenders\PanelExtenderLine.Build.cs" />
+    <Compile Include="UI\PanelExtenders\PanelExtenderLine.Rows.cs" />
+    <Compile Include="UI\PanelExtenders\PanelExtenderLine.Stats.cs" />
+    <Compile Include="UI\PanelExtenders\PanelExtenderLine.Vehicles.cs" />
     <Compile Include="UI\PanelExtenders\PanelExtenderVehicle.cs" />
     <Compile Include="UI\AlgernonCommons\UIListRow.cs" />
     <Compile Include="UI\LineVehicleRow.cs" />
@@ -167,6 +174,8 @@
     <Compile Include="UI\StopListBoxRow.cs" />
     <Compile Include="Util\DepotCostUtil.cs" />
     <Compile Include="Util\DepotUtil.cs" />
+    <Compile Include="Util\TicketPriceUtil.cs" />
+    <Compile Include="Util\TicketHappinessUtil.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\PatchUtil.cs" />
     <Compile Include="Util\TransportLineUtil.cs" />

@@ -17,6 +17,7 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Aktiviert oder deaktiviert die Budget-Kontroll
 LINE_PANEL_DEPOT Depot:
 LINE_PANEL_DEPOT_AUTO Auto (nächstes Depot)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Kamera zum gewählten Depot bewegen.
+LINE_PANEL_TICKET_RESET_TOOLTIP Setzt den Fahrpreis dieser Linie auf den Standardwert ihres Verkehrstyps zurück.
 LINE_PANEL_NO_DEPOT_FOUND Kein Depot gefunden.
 LINE_PANEL_SELECT_TYPES Wähle Typen
 LINE_PANEL_SELECT_TYPES_TOOLTIP Blendet das 'Wähle Typen' Fenster ein oder aus.\nWenn diese Schaltfläche deaktiviert ist must du zuerst ein Depot festlegen.
@@ -103,3 +104,5 @@ LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach de
 LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
 LINE_PANEL_BALANCE Bilanz:
 LINE_PANEL_BALANCE_TOOLTIP Fare income minus vehicle maintenance and the depot share.\nGreen = profit, red = loss.
+SETTINGS_TICKET_PRICE_HAPPINESS Ticketpreis beeinflusst Zufriedenheit
+SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP Wenn aktiviert, senken höhere Fahrpreise langsam die Zufriedenheit der Fahrgäste dieser Linie (niedrigere oder kostenlose Preise erhöhen sie), wie eine Steueränderung an ihrem Wohnort.\nDer Effekt ist indirekt und baut sich mit der Zeit auf.

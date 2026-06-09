@@ -11,7 +11,7 @@ namespace ImprovedPublicTransport2.Data
     public static class CachedTransportLineData
     {
         private static readonly string _dataID = "ImprovedPublicTransport";
-        private static readonly string _dataVersion = "v007";
+        private static readonly string _dataVersion = "v008";
 
         public static bool _init;
         public static LineData[] _lineData;
@@ -75,7 +75,7 @@ namespace ImprovedPublicTransport2.Data
                     data[lineID].BudgetControl = BitConverter.ToBoolean(data1, index1);
                     ++index1;
 
-                    if (str == "v007" || str == "v006")
+                    if (str == "v008" || str == "v007" || str == "v006")
                     {
                         // v006+: prefab count + N strings
                         var prefabCount = BitConverter.ToInt32(data1, index1);
@@ -88,11 +88,20 @@ namespace ImprovedPublicTransport2.Data
                             data[lineID].Prefabs = prefabs;
                         }
 
-                        if (str == "v007")
+                        if (str == "v008" || str == "v007")
                         {
-                            // v007: chosen spawn depot (ushort, 0 = auto)
+                            // v007+: chosen spawn depot (ushort, 0 = auto)
                             data[lineID].Depot = BitConverter.ToUInt16(data1, index1);
                             index1 += 2;
+                        }
+
+                        if (str == "v008")
+                        {
+                            // v008: custom per-line ticket price (ushort) + customised flag (bool)
+                            data[lineID].TicketPrice = BitConverter.ToUInt16(data1, index1);
+                            index1 += 2;
+                            data[lineID].TicketPriceCustomised = BitConverter.ToBoolean(data1, index1);
+                            ++index1;
                         }
                     }
                     else if (str != "v005")
@@ -166,6 +175,12 @@ namespace ImprovedPublicTransport2.Data
                     // v007: chosen spawn depot (ushort, 0 = auto)
                     SerializableDataExtension.AddToData(
                         BitConverter.GetBytes(_lineData[lineID].Depot), data);
+
+                    // v008: custom per-line ticket price (ushort) + customised flag (bool)
+                    SerializableDataExtension.AddToData(
+                        BitConverter.GetBytes(_lineData[lineID].TicketPrice), data);
+                    SerializableDataExtension.AddToData(
+                        BitConverter.GetBytes(_lineData[lineID].TicketPriceCustomised), data);
                 }
                 SerializableDataExtension.instance.SerializableData.SaveData(_dataID, data.ToArray());
             }
@@ -236,6 +251,26 @@ namespace ImprovedPublicTransport2.Data
         public static void SetDepot(ushort lineID, ushort depot)
         {
             _lineData[lineID].Depot = depot;
+        }
+
+        public static ushort GetTicketPrice(ushort lineID)
+        {
+            return _lineData[lineID].TicketPrice;
+        }
+
+        public static void SetTicketPrice(ushort lineID, ushort price)
+        {
+            _lineData[lineID].TicketPrice = price;
+        }
+
+        public static bool IsTicketPriceCustomised(ushort lineID)
+        {
+            return _lineData[lineID].TicketPriceCustomised;
+        }
+
+        public static void SetTicketPriceCustomised(ushort lineID, bool customised)
+        {
+            _lineData[lineID].TicketPriceCustomised = customised;
         }
 
         public static HashSet<string> GetPrefabs(ushort lineID)

@@ -176,15 +176,16 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             label.textColor = gameUnits >= 0 ? Color.green : Color.red;
         }
 
-        // Keeps the stats table just below whichever is lower: the container or the vehicle-count block.
+        // Keeps the stats table just below whichever is lower: the button container, the vehicle-count
+        // block, or (when shown) the ticket-price section beneath it.
         private void PositionStatsPanel()
         {
             if (_lineStatsPanel == null) return;
             float iptBottom = _iptContainer.relativePosition.y + _iptContainer.height;
-            float vehicleAmountBottom = _vehicleAmountParent.relativePosition.y
-                + _vehicleAmount.relativePosition.y + _vehicleAmount.height;
-            // +40 = an 8px base gap plus a full button height of breathing room below the container.
-            float statsY = Mathf.Max(iptBottom, vehicleAmountBottom) + 8f;
+            float blockBottom = _ticketPriceSection != null && _ticketPriceSection.isVisible
+                ? _ticketPriceSection.relativePosition.y + _ticketPriceSection.height
+                : _vehicleAmountParent.relativePosition.y + _vehicleAmount.relativePosition.y + _vehicleAmount.height;
+            float statsY = Mathf.Max(iptBottom, blockBottom) - 40f;
             if (!Mathf.Approximately(_lineStatsPanel.relativePosition.y, statsY))
                 _lineStatsPanel.relativePosition = new Vector3(10f, statsY);
         }

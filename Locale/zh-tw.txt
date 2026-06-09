@@ -15,6 +15,7 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP 啟或禁用 以預算 控制該線路.
 LINE_PANEL_DEPOT 車庫 :
 LINE_PANEL_DEPOT_AUTO 自動（最近的車場）
 LINE_PANEL_DEPOT_MARKER_TOOLTIP 將鏡頭移動到所選車場。
+LINE_PANEL_TICKET_RESET_TOOLTIP 將此路線的票價重設為其交通類型的預設值。
 LINE_PANEL_SELECT_TYPES 車輛類型
 LINE_PANEL_SELECT_TYPES_TOOLTIP 開啟“車輛類型”面板.\n如果該按鈕未啟動，請先選擇一個車庫.
 LINE_PANEL_LINE_STOPS 途經車站
@@ -96,3 +97,5 @@ LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach de
 LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
 LINE_PANEL_BALANCE 收支:
 LINE_PANEL_BALANCE_TOOLTIP Fare income minus vehicle maintenance and the depot share.\nGreen = profit, red = loss.
+SETTINGS_TICKET_PRICE_HAPPINESS 票價影響幸福度
+SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP 開啟時，較高的票價會緩慢降低乘坐此路線的人的幸福度（更低或免費則提高），如同對其住所的稅收變化。\n效果是間接的，會隨時間累積。

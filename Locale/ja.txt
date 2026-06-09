@@ -17,6 +17,7 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP 現在の路線で予算管理を有効化 or 
 LINE_PANEL_DEPOT 車庫:
 LINE_PANEL_DEPOT_AUTO 自動（最寄りの車庫）
 LINE_PANEL_DEPOT_MARKER_TOOLTIP 選択した車庫にカメラを移動します。
+LINE_PANEL_TICKET_RESET_TOOLTIP この路線の運賃を、その交通種別の既定値に戻します。
 LINE_PANEL_NO_DEPOT_FOUND 車庫が見つかりません！
 LINE_PANEL_SELECT_TYPES 車両を選択
 LINE_PANEL_SELECT_TYPES_TOOLTIP 車両を選択のパネルを切り替えます。\nボタンが無効の場合は、最初に車庫を選択＆指定して下さい。
@@ -103,3 +104,5 @@ LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach de
 LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
 LINE_PANEL_BALANCE 収支:
 LINE_PANEL_BALANCE_TOOLTIP Fare income minus vehicle maintenance and the depot share.\nGreen = profit, red = loss.
+SETTINGS_TICKET_PRICE_HAPPINESS 運賃が幸福度に影響する
+SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP オンの場合、運賃が高いとこの路線の利用者の幸福度が徐々に下がり、安い・無料だと上がります。\n住居への税変更のように扱われ、効果は間接的で時間とともに蓄積します。

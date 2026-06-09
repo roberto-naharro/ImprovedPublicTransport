@@ -14,5 +14,17 @@ namespace ImprovedPublicTransport2.Data
     /// When non-zero and valid for the line type, StartTransferPatch redirects spawns to it.
     /// </summary>
     public ushort Depot { get; set; }
+
+    /// <summary>
+    /// Custom per-line ticket price (vanilla TransportLine.m_ticketPrice units). Only honoured
+    /// when <see cref="TicketPriceCustomised"/> is true; otherwise the line keeps the type/TPC value.
+    /// </summary>
+    public ushort TicketPrice { get; set; }
+
+    /// <summary>
+    /// True when the player set a per-line ticket price. IPTE then re-asserts it each SimulationStep
+    /// (so Ticket Price Customizer / vanilla can't stomp it); false lines are never touched.
+    /// </summary>
+    public bool TicketPriceCustomised { get; set; }
   }
 }

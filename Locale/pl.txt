@@ -17,6 +17,7 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Włącza lub wyłącza regulację budżetową 
 LINE_PANEL_DEPOT Zajezdnia:
 LINE_PANEL_DEPOT_AUTO Auto (najbliższa zajezdnia)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Przesuń kamerę do wybranej zajezdni.
+LINE_PANEL_TICKET_RESET_TOOLTIP Przywraca cenę biletu tej linii do wartości domyślnej dla jej typu transportu.
 LINE_PANEL_NO_DEPOT_FOUND Nie znaleziono zajezdni.
 LINE_PANEL_SELECT_TYPES Wybierz typ
 LINE_PANEL_SELECT_TYPES_TOOLTIP Przełącza panel 'Wybierz typ'.\nJeśli ten przycisk jest wyłączony musisz najpierw wybrać zajezdnię.
@@ -103,3 +104,5 @@ LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach de
 LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
 LINE_PANEL_BALANCE Bilans:
 LINE_PANEL_BALANCE_TOOLTIP Fare income minus vehicle maintenance and the depot share.\nGreen = profit, red = loss.
+SETTINGS_TICKET_PRICE_HAPPINESS Cena biletu wpływa na zadowolenie
+SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP Gdy włączone, wyższe ceny biletów powoli obniżają zadowolenie osób korzystających z tej linii (niższe lub darmowe je podnoszą), jak zmiana podatku w ich domu.\nEfekt jest pośredni i kumuluje się z czasem.

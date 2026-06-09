@@ -16,6 +16,7 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Activa/desactiva el control por presupuesto en
 LINE_PANEL_DEPOT Depósito:
 LINE_PANEL_DEPOT_AUTO Auto (cochera más cercana)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Mueve la cámara a la cochera seleccionada.
+LINE_PANEL_TICKET_RESET_TOOLTIP Restablece la tarifa de esta línea al valor predeterminado de su tipo de transporte.
 LINE_PANEL_SELECT_TYPES Elegir modelos
 LINE_PANEL_SELECT_TYPES_TOOLTIP Abre un panel para elegir entre los diferentes modelos de vehículo que haya disponibles.\nSi no está activado deberás seleccionar primero un depósito.
 LINE_PANEL_LINE_STOPS Paradas de la línea
@@ -101,3 +102,5 @@ LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach de
 LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
 LINE_PANEL_BALANCE Balance:
 LINE_PANEL_BALANCE_TOOLTIP Ingresos por billetes menos el mantenimiento de los vehículos y la parte del depósito.\nVerde = beneficio, rojo = pérdida.
+SETTINGS_TICKET_PRICE_HAPPINESS El precio del billete afecta a la felicidad
+SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP Si está activado, tarifas más altas reducen poco a poco la felicidad de quienes usan esta línea (y tarifas más bajas o gratuitas la aumentan), como un cambio de impuestos en su hogar.\nEl efecto es indirecto y se acumula con el tiempo.\nDesactívalo para usarlo solo como ingreso.

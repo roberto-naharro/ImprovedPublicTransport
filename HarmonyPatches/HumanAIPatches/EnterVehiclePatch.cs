@@ -58,6 +58,19 @@ namespace ImprovedPublicTransport2.HarmonyPatches.HumanAIPatches
 
             int ticketPrice = leadData.Info.m_vehicleAI.GetTicketPrice(lead, ref leadData);
             CachedVehicleData.m_cachedVehicleData[lead].AddBoarding(ticketPrice);
+
+            // Ticket-price happiness: charge the rider's home building the fare premium over the line
+            // type's default (negative when cheaper/free). Mirrors a tax change on that building.
+            if (TicketHappinessUtil.Enabled)
+            {
+                TransportInfo lineInfo = Singleton<TransportManager>.instance
+                    .m_lines.m_buffer[leadData.m_transportLine].Info;
+                int premium = ticketPrice - (lineInfo != null ? lineInfo.m_ticketPrice : 0);
+                if (premium != 0)
+                    TicketHappinessUtil.RecordBoarding(
+                        Singleton<CitizenManager>.instance.m_citizens.m_buffer[citizen].m_homeBuilding,
+                        premium);
+            }
         }
     }
 }

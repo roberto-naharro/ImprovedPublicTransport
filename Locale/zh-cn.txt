@@ -16,6 +16,7 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP 启用或禁用该线路的预算控制.
 LINE_PANEL_DEPOT 车库 :
 LINE_PANEL_DEPOT_AUTO 自动（最近的车场）
 LINE_PANEL_DEPOT_MARKER_TOOLTIP 将镜头移动到所选车场。
+LINE_PANEL_TICKET_RESET_TOOLTIP 将此线路的票价重置为其交通类型的默认值。
 LINE_PANEL_SELECT_TYPES 载具类型
 LINE_PANEL_SELECT_TYPES_TOOLTIP 开启“载具类型”面板.\n如果该按钮未激活，请先选择一个载具库.
 LINE_PANEL_LINE_STOPS 路线站点
@@ -101,3 +102,5 @@ LINE_PANEL_COST_PER_LINE_TOOLTIP This line's share of the depot upkeep.\nEach de
 LINE_PANEL_COST_PER_LINE_TOOLTIP_DETAIL This line's share of the depot upkeep.\nDepots used: {0}. Shared between up to {1} line(s).\nEach depot's weekly maintenance is split among the lines that draw vehicles from it.
 LINE_PANEL_BALANCE 收支:
 LINE_PANEL_BALANCE_TOOLTIP Fare income minus vehicle maintenance and the depot share.\nGreen = profit, red = loss.
+SETTINGS_TICKET_PRICE_HAPPINESS 票价影响幸福度
+SETTINGS_TICKET_PRICE_HAPPINESS_TOOLTIP 开启时，较高的票价会缓慢降低乘坐此线路的人的幸福度（更低或免费则提高），如同对其住所的税收变化。\n效果是间接的，会随时间累积。

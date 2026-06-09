@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.12.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.11.0...v1.12.0) (2026-06-09)
+
+
+### Features
+
+* add copy and paste functionality for line settings in the UI ([9348153](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/9348153f311d312259229a856cedc69122d2642a))
+* Implement custom per-line ticket pricing and associated happiness effects ([476a237](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/476a2379929529554e5dd5dd76759b689a83cc33))
+* restore and update depot selection feature to line panel and localization updates ([5936250](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/5936250c644b8516e33d951a30956dc4c8a89cee))
+
+
+### Bug Fixes
+
+* reduce width of color text field for better UI alignment ([e14b90e](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/e14b90e060f06449cf833a7deef50b7b793487d4))
+* synchronize ticket price slider with per-line pricing on line change ([61a78d2](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/61a78d208c906c5b9dae51d939173e1cd74ba275))
+* update ticket price slider to allow finer increments and display cents ([04e7334](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/04e73348936b0a59a57497b165cb3ef52b6cde98))
+
 ## [1.11.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.10.0...v1.11.0) (2026-06-02)
 
 

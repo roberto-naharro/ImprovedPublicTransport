@@ -184,12 +184,12 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             f.builtinKeyNavigation = true;
             f.submitOnFocusLost = true;
             f.eventTextSubmitted += OnColorTextSubmitted;
-            f.width = 120f;
+            f.width = 60f;
             f.height = 23f;
             f.maxLength = 6;
             f.verticalAlignment = UIVerticalAlignment.Middle;
             f.padding = new RectOffset(4, 0, 8, 0);
-            f.size = new Vector2(120f, 23f);
+            f.size = new Vector2(60f, 23f);
             _colorTextField = f;
             // Its on-screen position is set every frame in PositionVanillaElements (right of the
             // colour swatch), which is robust to the vanilla layout reflowing.

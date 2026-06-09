@@ -14,6 +14,8 @@ LINE_PANEL_SPAWNTIMER Следующее транспортное средств
 LINE_PANEL_BUDGET_CONTROL Управляется бюджетом
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Включить или выключить управление через бюджет для этой линии.
 LINE_PANEL_DEPOT Депо:
+LINE_PANEL_DEPOT_AUTO Авто (ближайшее депо)
+LINE_PANEL_DEPOT_MARKER_TOOLTIP Переместить камеру к выбранному депо.
 LINE_PANEL_SELECT_TYPES Выбор модели ТС
 LINE_PANEL_SELECT_TYPES_TOOLTIP Переключает панель выбора моделей транспорта.\nЕсли эта кнопка недоступна, сначала выберите депо.
 LINE_PANEL_LINE_STOPS Остановки на линии
@@ -25,10 +27,6 @@ LINE_PANEL_ADD_VEHICLE_TOOLTIP Добавлят транспорт на лини
 LINE_PANEL_REMOVE_VEHICLE Удалить транспорт
 SETTINGS Настройки
 SETTINGS_UI Настройки UI 
-SETTINGS_VEHICLE_EDITOR_POSITION Расположение Редактора Транспорта
-SETTINGS_VEHICLE_EDITOR_POSITION_BOTTOM Внизу
-SETTINGS_VEHICLE_EDITOR_POSITION_RIGHT Справа
-SETTINGS_VEHICLE_EDITOR_HIDE Спрятать Редактор Транспорта
 SETTINGS_DELETE Удалить
 SETTINGS_RESET Сбросить
 SETTINGS_UPDATE Обновить
@@ -40,8 +38,6 @@ SETTINGS_COMPATIBILITY_MODE_TOOLTIP Включите это, если у вас 
 SETTINGS_SPAWN_TIME_INTERVAL Интервал выхода на линию:
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Время в секундах между появлением нового транспортного средства.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Установить все таймеры на 0.
-SETTINGS_UNBUNCHING_AGGRESSION Степень распределения:
-SETTINGS_UNBUNCHING_AGGRESSION_TOOLTIP Насколько строго транспорт следует интервалам?\nВозможные значения: 0-52, где 0 отключает распределение.\nВысокие значения могут значительно повлиять на трафик вплоть до исчезновения транспортного средства из потока.
 SETTINGS_VEHICLE_COUNT Транспорт на новой линии:
 SETTINGS_VEHICLE_COUNT_TOOLTIP Количество транспорта, которое появится на новой линии, если выключен бюджетный контроль.
 SETTINGS_AUTOSHOW_LINE_INFO Автоматически показывать инфо
@@ -73,19 +69,8 @@ STOP_PANEL_DELETE_STOP Удалить остановку
 STOP_PANEL_DELETE_STOP_TOOLTIP Эта кнопка доступна, когда зажата кнопка Alt.\nИспользуйте на свой страх и риск!!!
 STOP_PANEL_NEXT Следующая остановка
 STOP_PANEL_NEXT_TOOLTIP Показать следующую остановку.\nЗажмите Shift, чтобы приблизить камеру.
-VEHICLE_EDITOR_TITLE Редактор Транспорта
-VEHICLE_EDITOR_SUB_TITLE {0} 
-VEHICLE_EDITOR_CAPACITY Вместимость
-VEHICLE_EDITOR_CAPACITY_TAXI Заказов за смену
-VEHICLE_EDITOR_CAPACITY_TAXI_TOOLTIP Количество пассажиров за смену.
 VEHICLE_EDITOR_MAINTENANCE Стоимость обслуживания
 VEHICLE_EDITOR_TICKET_PRICE Цена билета
-VEHICLE_EDITOR_PRICE_PER_KILOMETER Цена за Километр
-VEHICLE_EDITOR_MAX_SPEED Максимальная скорость
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS Локомотив на обоих концах
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS_TOOLTIP Включает и выключает отображение локомотива в конце состава.
-VEHICLE_EDITOR_APPLY Принять
-VEHICLE_EDITOR_DEFAULT Стандарт
 VEHICLE_LIST_BOX_ROW_TOOLTIP1 Правый клик, чтобы следовать за транспортным средством.\nЗажмите шифт, чтобы приблизить камеру.
 VEHICLE_LIST_BOX_ROW_TOOLTIP2 Shift + клик, чтобы добавить это ТС в очередь.
 VEHICLE_PANEL_EDIT_TYPE Редактировать транспортное средство

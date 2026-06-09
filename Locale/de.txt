@@ -15,6 +15,8 @@ LINE_PANEL_DEPOT_WARNING <color #FF0000>Das ausgewählte Depot hat keine Fahrzeu
 LINE_PANEL_BUDGET_CONTROL Budget-Kontrolle
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Aktiviert oder deaktiviert die Budget-Kontrolle für diese Linie.
 LINE_PANEL_DEPOT Depot:
+LINE_PANEL_DEPOT_AUTO Auto (nächstes Depot)
+LINE_PANEL_DEPOT_MARKER_TOOLTIP Kamera zum gewählten Depot bewegen.
 LINE_PANEL_NO_DEPOT_FOUND Kein Depot gefunden.
 LINE_PANEL_SELECT_TYPES Wähle Typen
 LINE_PANEL_SELECT_TYPES_TOOLTIP Blendet das 'Wähle Typen' Fenster ein oder aus.\nWenn diese Schaltfläche deaktiviert ist must du zuerst ein Depot festlegen.
@@ -27,10 +29,6 @@ LINE_PANEL_ADD_VEHICLE_TOOLTIP Fügt der Linie ein neues Fahrzeug hinzu.\nWenn d
 LINE_PANEL_REMOVE_VEHICLE Fahrzeug entfernen
 SETTINGS Einstellungen
 SETTINGS_UI UI Einstellungen
-SETTINGS_VEHICLE_EDITOR_POSITION Fahrzeugeditor Position
-SETTINGS_VEHICLE_EDITOR_POSITION_BOTTOM Unten
-SETTINGS_VEHICLE_EDITOR_POSITION_RIGHT Rechts
-SETTINGS_VEHICLE_EDITOR_HIDE Verstecke Fahrzeugeditor
 SETTINGS_DELETE Löschen
 SETTINGS_RESET Zurücksetzen
 SETTINGS_UPDATE Aktualisieren
@@ -42,8 +40,6 @@ SETTINGS_COMPATIBILITY_MODE_TOOLTIP Aktiviere diese Einstellung wenn du Probleme
 SETTINGS_SPAWN_TIME_INTERVAL Fahrzeugintervall:
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Zeit in Sekunden bis ein neues Fahrzeug los geschickt wird.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Setze alle Zeitmesser zurück.
-SETTINGS_UNBUNCHING_AGGRESSION Abstandskontr.-Aggressivität:
-SETTINGS_UNBUNCHING_AGGRESSION_TOOLTIP Wie stark soll die Abstandskontrolle sein?\nMögliche Werte: 0-52. 0 deaktivert die Abstandskontrolle.\nHöhere Werte haben einen starken Einfluß auf den Verkehr und verursachen wahrscheinlich das Fahrzeuge verschwinden.
 SETTINGS_VEHICLE_COUNT Fahrzeuge auf neuen Linien:
 SETTINGS_VEHICLE_COUNT_TOOLTIP Die Anzahl an Fahrzeugen die automatisch einer Linie hinzugefügt werden sollen wenn Budget-Kontrolle aus ist.
 SETTINGS_AUTOSHOW_LINE_INFO Zeige automatisch Linienfenster
@@ -75,19 +71,8 @@ STOP_PANEL_DELETE_STOP Lösche Haltestelle
 STOP_PANEL_DELETE_STOP_TOOLTIP Dieser Button ist aktiviert wenn du Alt drückst.\nBenutze ihn auf eigene Gefahr!!!
 STOP_PANEL_NEXT Nächste Haltestelle
 STOP_PANEL_NEXT_TOOLTIP Springe zur nächsten Haltestelle.\nWenn du beim Klicken eine Shift-Taste gedrückt hältst wird auch reingezoomt.
-VEHICLE_EDITOR_TITLE Fahrzeugeditor
-VEHICLE_EDITOR_SUB_TITLE {0} Fahrzeuge
-VEHICLE_EDITOR_CAPACITY Passagierkapazität 
-VEHICLE_EDITOR_CAPACITY_TAXI Reisekapazität
-VEHICLE_EDITOR_CAPACITY_TAXI_TOOLTIP Anzahl der Passagiere pro Arbeitsschicht.
 VEHICLE_EDITOR_MAINTENANCE Wartungskosten
 VEHICLE_EDITOR_TICKET_PRICE Fahrpreis
-VEHICLE_EDITOR_PRICE_PER_KILOMETER Preis pro Kilometer
-VEHICLE_EDITOR_MAX_SPEED Geschwindigkeit
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS Zugmaschine an beiden Enden
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS_TOOLTIP Aktiviert oder deaktiviert die Zugmaschine an beiden Zugenden.
-VEHICLE_EDITOR_APPLY Übernehmen
-VEHICLE_EDITOR_DEFAULT Standard
 VEHICLE_LIST_BOX_ROW_TOOLTIP1 Rechtsklick um diesem Fahrzeug zu folgen.\nWenn du beim Klicken eine Shift-Taste gedrückt hältst wird auch reingezoomt.
 VEHICLE_LIST_BOX_ROW_TOOLTIP2 Shift-Klick um dieses Fahrzeug einzureihen.
 VEHICLE_PANEL_EDIT_TYPE Bearbeite Fahrzeugtyp

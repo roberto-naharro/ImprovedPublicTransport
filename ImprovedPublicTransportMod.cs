@@ -29,6 +29,7 @@ namespace ImprovedPublicTransport2
 
         public static bool InGame;
         public static bool EBSLoaded { get; private set; }
+        public static bool TLMLoaded { get; private set; }
         public static GameObject IptGameObject;
         private GameObject _worldInfoPanel;
         private const string Version = "7.0.2";
@@ -65,6 +66,18 @@ namespace ImprovedPublicTransport2
             EBSLoaded = Type.GetType("ExpressBusServices.ExpressBusServices, ExpressBusServices") != null;
             if (EBSLoaded)
                 Utils.Log($"{ShortModName}: Express Bus Services detected — will patch EBS DepartureChecker for per-stop unbunching integration.");
+
+            // Transport Lines Manager is a rival full-suite line manager: it replaces the whole
+            // public-transport line panel and takes over vehicle spawning, the same job IPTE does.
+            // The two have always been mutually incompatible (like IPT3). Warn loudly and disable
+            // IPTE's depot redirect to avoid an outright crash, but other conflicts will remain.
+            TLMLoaded = Type.GetType(
+                "TransportLinesManager.Overrides.TLMDepotAIOverrides, TransportLinesManager") != null;
+            if (TLMLoaded)
+                Utils.LogError($"{ShortModName}: Transport Lines Manager (TLM) detected. IPTE and TLM both " +
+                    "manage public transport lines and are INCOMPATIBLE — please enable only ONE of them. " +
+                    "IPTE has disabled its depot selector to reduce conflicts, but the line panel and vehicle " +
+                    "spawning will still fight. Remove TLM or IPTE to avoid broken behaviour.");
             try
             {
                 Utils.Log($"{ShortModName}: Begin init version: {Version}");
@@ -99,6 +112,7 @@ namespace ImprovedPublicTransport2
                     ReleaseNodePatch.Apply();
                     ReleaseWaterSourcePatch.Apply();
                     ClassMatchesPatch.Apply();
+                    StartTransferPatch.Apply();
 
                     HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Apply();
                     HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Apply();
@@ -187,6 +201,7 @@ namespace ImprovedPublicTransport2
             ReleaseNodePatch.Undo();
             ReleaseWaterSourcePatch.Undo();
             ClassMatchesPatch.Undo();
+            StartTransferPatch.Undo();
 
             HarmonyPatches.PublicTransportStopButtonPatches.OnMouseDownPatch.Undo();
             HarmonyPatches.PublicTransportVehicleButtonPatches.OnMouseDownPatch.Undo();

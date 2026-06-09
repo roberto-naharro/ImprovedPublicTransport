@@ -14,6 +14,8 @@ LINE_PANEL_SPAWNTIMER El siguiente vehículo podrá ser generado en {0}s
 LINE_PANEL_BUDGET_CONTROL Control por presupuesto
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Activa/desactiva el control por presupuesto en esta línea
 LINE_PANEL_DEPOT Depósito:
+LINE_PANEL_DEPOT_AUTO Auto (cochera más cercana)
+LINE_PANEL_DEPOT_MARKER_TOOLTIP Mueve la cámara a la cochera seleccionada.
 LINE_PANEL_SELECT_TYPES Elegir modelos
 LINE_PANEL_SELECT_TYPES_TOOLTIP Abre un panel para elegir entre los diferentes modelos de vehículo que haya disponibles.\nSi no está activado deberás seleccionar primero un depósito.
 LINE_PANEL_LINE_STOPS Paradas de la línea
@@ -25,10 +27,6 @@ LINE_PANEL_ADD_VEHICLE_TOOLTIP Añade un nuevo vehículo a la línea.\nSi este b
 LINE_PANEL_REMOVE_VEHICLE Eliminar un vehículo
 SETTINGS Ajustes
 SETTINGS_UI Ajustes de la IU
-SETTINGS_VEHICLE_EDITOR_POSITION Modificar la posición del Editor de vehículos
-SETTINGS_VEHICLE_EDITOR_POSITION_BOTTOM Abajo
-SETTINGS_VEHICLE_EDITOR_POSITION_RIGHT Derecha
-SETTINGS_VEHICLE_EDITOR_HIDE Ocultar el Editor de vehículos
 SETTINGS_DELETE Eliminar
 SETTINGS_RESET Reiniciar
 SETTINGS_UPDATE Actualizar
@@ -40,8 +38,6 @@ SETTINGS_COMPATIBILITY_MODE_TOOLTIP Actívalo si tienes problemas con el control
 SETTINGS_SPAWN_TIME_INTERVAL Intervalo de tiempo:
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP El tiempo en segundos que tarda el depósito en volver a generar un vehículo 
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Reiniciar
-SETTINGS_UNBUNCHING_AGGRESSION Fuerza de la desagrupación:
-SETTINGS_UNBUNCHING_AGGRESSION_TOOLTIP ¿Con cuánta agresividad debería actuar la desagrupación?\nValores posibles: 0-52 (el valor 0 desactiva la desagrupación).\nValores superiores tienen un fuerte impacto en el tráfico y podrían hacer desaparecer los vehículos.
 SETTINGS_VEHICLE_COUNT Vehículos en las nuevas líneas:
 SETTINGS_VEHICLE_COUNT_TOOLTIP El número de vehículos que será automáticamente incorporado a las nuevas líneas si el control por presupuesto está desactivado
 SETTINGS_AUTOSHOW_LINE_INFO Ver líneas automáticamente
@@ -73,19 +69,8 @@ STOP_PANEL_DELETE_STOP ELiminar esta parada
 STOP_PANEL_DELETE_STOP_TOOLTIP Este botón se activa apretando la tecla Alt.\n¡Úsalo a tu propio riesgo!
 STOP_PANEL_NEXT Parada siguiente
 STOP_PANEL_NEXT_TOOLTIP Saltar a la parada siguiente.\nShift + clic para ver detalles.
-VEHICLE_EDITOR_TITLE Editor de vehículos
-VEHICLE_EDITOR_SUB_TITLE {0}
-VEHICLE_EDITOR_CAPACITY Capacidad máxima
-VEHICLE_EDITOR_CAPACITY_TAXI Capacidad de viajes
-VEHICLE_EDITOR_CAPACITY_TAXI_TOOLTIP Número de pasajeros por turno
 VEHICLE_EDITOR_MAINTENANCE Mantenimiento
 VEHICLE_EDITOR_TICKET_PRICE Precio del billete
-VEHICLE_EDITOR_PRICE_PER_KILOMETER Precio por km
-VEHICLE_EDITOR_MAX_SPEED Velocidad máxima
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS Motor en ambos extremos
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS_TOOLTIP Activa/desactiva el motor en ambos extremos
-VEHICLE_EDITOR_APPLY Aplicar
-VEHICLE_EDITOR_DEFAULT Por defecto
 VEHICLE_LIST_BOX_ROW_TOOLTIP1 Clic derecho para ver este vehículo.\nShift + clic para ver detalles.
 VEHICLE_LIST_BOX_ROW_TOOLTIP2 Shift + clic para poner este vehículo en cola
 VEHICLE_PANEL_EDIT_TYPE Editar modelo

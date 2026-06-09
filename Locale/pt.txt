@@ -13,6 +13,8 @@ LINE_PANEL_SPAWNTIMER Próximo veículo em {0} segundos.
 LINE_PANEL_BUDGET_CONTROL Controle via orçamento
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Liga ou desliga controle via orçamento para essa linha.
 LINE_PANEL_DEPOT Garagem:
+LINE_PANEL_DEPOT_AUTO Auto (depósito mais próximo)
+LINE_PANEL_DEPOT_MARKER_TOOLTIP Mover a câmara para o depósito selecionado.
 LINE_PANEL_SELECT_TYPES Selecionar tipos
 LINE_PANEL_SELECT_TYPES_TOOLTIP Ativa o painel 'Selecionar tipos'\nSe esse botão está desabilitado, você precisa selecionar uma garagem primeiro.
 LINE_PANEL_LINE_STOPS Paradas da linha
@@ -24,10 +26,6 @@ LINE_PANEL_ADD_VEHICLE_TOOLTIP Adiciona um novo veículo à linha.\nSe este bot�
 LINE_PANEL_REMOVE_VEHICLE Remover veículo
 SETTINGS Configurações
 SETTINGS_UI Configuração de IU
-SETTINGS_VEHICLE_EDITOR_POSITION Posição do Editor de Veículos
-SETTINGS_VEHICLE_EDITOR_POSITION_BOTTOM Em baixo
-SETTINGS_VEHICLE_EDITOR_POSITION_RIGHT Direita
-SETTINGS_VEHICLE_EDITOR_HIDE Esconder Editor de Veículos
 SETTINGS_DELETE Excluir
 SETTINGS_RESET Reiniciar
 SETTINGS_UPDATE Atualizar
@@ -39,8 +37,6 @@ SETTINGS_COMPATIBILITY_MODE_TOOLTIP Ative se você estiver tendo problemas com o
 SETTINGS_SPAWN_TIME_INTERVAL Tempo de adição:
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Intervalo de tempo entre a adição de novos veículos (em segundos).
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Restaura todos os tempos de adição para 0.
-SETTINGS_UNBUNCHING_AGGRESSION Agressividade de distribuição:
-SETTINGS_UNBUNCHING_AGGRESSION_TOOLTIP O quão agressivo a distribuição deve agir?\nValores: 0-52 onde 0 desabilitará a distribuição.\nValores altos afetarão fortemente o trânsito e provavelmente causará despawn de veículos.
 SETTINGS_VEHICLE_COUNT Veiculos em novas linhas:
 SETTINGS_VEHICLE_COUNT_TOOLTIP Número de veículos adicionados a uma nova linha quado o controle via orçamento estiver desativado.
 SETTINGS_AUTOSHOW_LINE_INFO Mostrar informações automaticamente
@@ -72,19 +68,8 @@ STOP_PANEL_DELETE_STOP Excluir parada
 STOP_PANEL_DELETE_STOP_TOOLTIP Esse botão é habilitado ao segurar a tecla Alt.\nUse ao seu próprio risco!!!
 STOP_PANEL_NEXT Próxima Parada
 STOP_PANEL_NEXT_TOOLTIP Ir para a próxima parada.\nSegurar Shift ao clicar também dará zoom.
-VEHICLE_EDITOR_TITLE Editor de Veículos
-VEHICLE_EDITOR_SUB_TITLE {0} veículos
-VEHICLE_EDITOR_CAPACITY Capacidade de passageiros
-VEHICLE_EDITOR_CAPACITY_TAXI Capacidade por viagem
-VEHICLE_EDITOR_CAPACITY_TAXI_TOOLTIP Número de passageiros por turno de trabalho.
 VEHICLE_EDITOR_MAINTENANCE Custo de manutenção
 VEHICLE_EDITOR_TICKET_PRICE Valor da passagem
-VEHICLE_EDITOR_PRICE_PER_KILOMETER Preço por Quilômetro
-VEHICLE_EDITOR_MAX_SPEED Velocidade máxima
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS Motor do trem nas duas pontas
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS_TOOLTIP Liga ou desliga motor nas duas pontas do trem.
-VEHICLE_EDITOR_APPLY Aplicar
-VEHICLE_EDITOR_DEFAULT Padrão
 VEHICLE_LIST_BOX_ROW_TOOLTIP1 Butão direito do mouse para seguir esse veículo.\nSegurar Shift ao clicar também dará zoom.
 VEHICLE_LIST_BOX_ROW_TOOLTIP2 Shift + clique adicionará o veículo a fila.
 VEHICLE_PANEL_LAST_STOP_EXCHANGE Trocas na parada anterior: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>

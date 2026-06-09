@@ -11,7 +11,7 @@ namespace ImprovedPublicTransport2.Data
     public static class CachedTransportLineData
     {
         private static readonly string _dataID = "ImprovedPublicTransport";
-        private static readonly string _dataVersion = "v006";
+        private static readonly string _dataVersion = "v007";
 
         public static bool _init;
         public static LineData[] _lineData;
@@ -75,9 +75,9 @@ namespace ImprovedPublicTransport2.Data
                     data[lineID].BudgetControl = BitConverter.ToBoolean(data1, index1);
                     ++index1;
 
-                    if (str == "v006")
+                    if (str == "v007" || str == "v006")
                     {
-                        // v006: prefab count + N strings
+                        // v006+: prefab count + N strings
                         var prefabCount = BitConverter.ToInt32(data1, index1);
                         index1 += 4;
                         if (prefabCount > 0)
@@ -86,6 +86,13 @@ namespace ImprovedPublicTransport2.Data
                             for (var i = 0; i < prefabCount; ++i)
                                 prefabs.Add(SerializableDataExtension.ReadString(data1, ref index1));
                             data[lineID].Prefabs = prefabs;
+                        }
+
+                        if (str == "v007")
+                        {
+                            // v007: chosen spawn depot (ushort, 0 = auto)
+                            data[lineID].Depot = BitConverter.ToUInt16(data1, index1);
+                            index1 += 2;
                         }
                     }
                     else if (str != "v005")
@@ -155,6 +162,10 @@ namespace ImprovedPublicTransport2.Data
                         foreach (string name in prefabs)
                             SerializableDataExtension.WriteString(name, data);
                     }
+
+                    // v007: chosen spawn depot (ushort, 0 = auto)
+                    SerializableDataExtension.AddToData(
+                        BitConverter.GetBytes(_lineData[lineID].Depot), data);
                 }
                 SerializableDataExtension.instance.SerializableData.SaveData(_dataID, data.ToArray());
             }
@@ -215,6 +226,16 @@ namespace ImprovedPublicTransport2.Data
         public static void SetBudgetControlState(ushort lineID, bool state)
         {
             _lineData[lineID].BudgetControl = state;
+        }
+
+        public static ushort GetDepot(ushort lineID)
+        {
+            return _lineData[lineID].Depot;
+        }
+
+        public static void SetDepot(ushort lineID, ushort depot)
+        {
+            _lineData[lineID].Depot = depot;
         }
 
         public static HashSet<string> GetPrefabs(ushort lineID)

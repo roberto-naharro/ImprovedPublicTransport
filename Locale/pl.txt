@@ -15,6 +15,8 @@ LINE_PANEL_DEPOT_WARNING <color #FF0000>Wybrana zajezdnia nie ma już pojazdów.
 LINE_PANEL_BUDGET_CONTROL Regulacja budżetowa
 LINE_PANEL_BUDGET_CONTROL_TOOLTIP Włącza lub wyłącza regulację budżetową dla tej linii.
 LINE_PANEL_DEPOT Zajezdnia:
+LINE_PANEL_DEPOT_AUTO Auto (najbliższa zajezdnia)
+LINE_PANEL_DEPOT_MARKER_TOOLTIP Przesuń kamerę do wybranej zajezdni.
 LINE_PANEL_NO_DEPOT_FOUND Nie znaleziono zajezdni.
 LINE_PANEL_SELECT_TYPES Wybierz typ
 LINE_PANEL_SELECT_TYPES_TOOLTIP Przełącza panel 'Wybierz typ'.\nJeśli ten przycisk jest wyłączony musisz najpierw wybrać zajezdnię.
@@ -27,10 +29,6 @@ LINE_PANEL_ADD_VEHICLE_TOOLTIP Dodaje nowy pojazd do tej linii.\nJeśli ten przy
 LINE_PANEL_REMOVE_VEHICLE Usuń pojazd
 SETTINGS Ustawienia
 SETTINGS_UI Ustawienia interfejsu
-SETTINGS_VEHICLE_EDITOR_POSITION Pozycja Edytora Pojazdów
-SETTINGS_VEHICLE_EDITOR_POSITION_BOTTOM Dół
-SETTINGS_VEHICLE_EDITOR_POSITION_RIGHT Prawa
-SETTINGS_VEHICLE_EDITOR_HIDE Ukryj Edytor Pojazdów
 SETTINGS_DELETE Usuń
 SETTINGS_RESET Zresetuj
 SETTINGS_UPDATE Aktualizuj
@@ -42,8 +40,6 @@ SETTINGS_COMPATIBILITY_MODE_TOOLTIP Włącz to, jeśli masz problemy z regulacj�
 SETTINGS_SPAWN_TIME_INTERVAL Odstępy czasowe wyjazdów:
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Czas w sekundach pomiędzy wyjazdami nowych pojazdów z zajezdni.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Resetuje wszystkie liczniki z powrotem do 0.
-SETTINGS_UNBUNCHING_AGGRESSION Agresja unbunchingu:
-SETTINGS_UNBUNCHING_AGGRESSION_TOOLTIP Jak silnie powinien działać unbunching pojazdów?\nMożliwe wartości: 0-52, gdzie 0 wyłączy unbunching pojazdów.\nWiększe wartości będą miały duży wpływ na ruch drogowy i prawdopodobnie spowodują znikanie pojazdów.
 SETTINGS_VEHICLE_COUNT Pojazdy na nowych liniach:
 SETTINGS_VEHICLE_COUNT_TOOLTIP Ilość pojazdów, które będą automatycznie dodawane do nowych linii, gdy regulacja budżetowa jest wyłączona.
 SETTINGS_AUTOSHOW_LINE_INFO Automatyczne pokazywanie panelu
@@ -75,19 +71,8 @@ STOP_PANEL_DELETE_STOP Usuń przystanek
 STOP_PANEL_DELETE_STOP_TOOLTIP Ten przycisk jest dostępny, gdy wciskasz klawisz Alt.\nUżywaj go na własne ryzyko!!!
 STOP_PANEL_NEXT Następny przystanek
 STOP_PANEL_NEXT_TOOLTIP Przeskakuje do następnego przystanku.\nPrzytrzymanie klawisza Shift podczas klikania dodatkowo przybliży widok.
-VEHICLE_EDITOR_TITLE Edytor pojazdów
-VEHICLE_EDITOR_SUB_TITLE Typ: {0}
-VEHICLE_EDITOR_CAPACITY Ilość pasażerów
-VEHICLE_EDITOR_CAPACITY_TAXI Ilość podróży
-VEHICLE_EDITOR_CAPACITY_TAXI_TOOLTIP Ilość pasażerów podczas jednej zmiany.
 VEHICLE_EDITOR_MAINTENANCE Koszt utrzymania
 VEHICLE_EDITOR_TICKET_PRICE Cena biletu
-VEHICLE_EDITOR_PRICE_PER_KILOMETER Stawka za kilometr
-VEHICLE_EDITOR_MAX_SPEED Max prędkość
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS Lokomotywa na obu końcach
-VEHICLE_EDITOR_ENGINE_ON_BOTH_ENDS_TOOLTIP Włącza lub wyłącza lokomotywę na obu końcach pociągu.
-VEHICLE_EDITOR_APPLY Zastosuj
-VEHICLE_EDITOR_DEFAULT Domyślne
 VEHICLE_LIST_BOX_ROW_TOOLTIP1 Kliknij prawym przyciskiem myszy, aby śledzić ten pojazd.\nPrzytrzymanie klawisza Shift podczas klikania dodatkowo przybliży widok.
 VEHICLE_LIST_BOX_ROW_TOOLTIP2 Shift + kliknięcie dodaje wybrany pojazd do kolejki.
 VEHICLE_PANEL_EDIT_TYPE Zmodyfikuj typ pojazdów

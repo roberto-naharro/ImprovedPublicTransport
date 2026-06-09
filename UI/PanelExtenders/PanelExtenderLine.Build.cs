@@ -363,12 +363,49 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         // The price moves in 0.10 steps, so show cents: value/100 as a decimal with the game's
         // with-cents money format (vanilla's own OnTicketPriceChanged uses the no-cents format and
         // integer division, which would hide the decimals — this per-frame refresh overrides it).
+        // When the Free Public Transport policy waives the line's fare, show ₡0 and disable the
+        // slider + reset button (display only — the stored per-line price is left untouched, so it
+        // returns when the policy is lifted).
         private void RefreshTicketPriceLabel()
         {
             if (_ticketPriceLabel == null || _ticketPriceSlider == null)
                 return;
-            double v = _ticketPriceSlider.value / 100.0;
+            ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
+            bool waived = lineId != 0 && IsLineFareWaived(lineId);
+            double v = waived ? 0.0 : _ticketPriceSlider.value / 100.0;
             _ticketPriceLabel.text = v.ToString(global::Settings.moneyFormat, LocaleManager.cultureInfo);
+            _ticketPriceSlider.isEnabled = !waived;
+            if (_ticketRestoreButton != null)
+                _ticketRestoreButton.isEnabled = !waived;
+        }
+
+        // True when vanilla would charge this line nothing because the Free Public Transport policy
+        // covers it. Mirrors vanilla GetTicketPrice precedence: tour lines always charge (exempt from
+        // the policy), otherwise the line is waived if any of its stops sits in a district whose
+        // (effective, citywide-inclusive) service policies have FreeTransport set.
+        private bool IsLineFareWaived(ushort lineId)
+        {
+            TransportLine[] lines = Singleton<TransportManager>.instance.m_lines.m_buffer;
+            TransportInfo info = lines[lineId].Info;
+            if (info == null)
+                return false;
+            if (info.m_class != null && info.m_class.m_subService == ItemClass.SubService.PublicTransportTours)
+                return false; // tours always charge, even under Free Public Transport
+            DistrictManager dm = Singleton<DistrictManager>.instance;
+            NetManager nm = Singleton<NetManager>.instance;
+            ushort stop = lines[lineId].m_stops;
+            int limit = 0;
+            while (stop != 0)
+            {
+                byte d = dm.GetDistrict(nm.m_nodes.m_buffer[stop].m_position);
+                if ((dm.m_districts.m_buffer[d].m_servicePolicies & DistrictPolicies.Services.FreeTransport)
+                    != DistrictPolicies.Services.None)
+                    return true;
+                stop = TransportLine.GetNextStop(stop);
+                if (++limit >= 32768)
+                    break;
+            }
+            return false;
         }
 
         // ===================================================================================

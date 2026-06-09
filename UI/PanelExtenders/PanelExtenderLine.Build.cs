@@ -363,49 +363,66 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         // The price moves in 0.10 steps, so show cents: value/100 as a decimal with the game's
         // with-cents money format (vanilla's own OnTicketPriceChanged uses the no-cents format and
         // integer division, which would hide the decimals — this per-frame refresh overrides it).
-        // When the Free Public Transport policy waives the line's fare, show ₡0 and disable the
-        // slider + reset button (display only — the stored per-line price is left untouched, so it
-        // returns when the policy is lifted).
+        // Effect a district fare policy has on the line, for display only.
+        private enum LineFareState { Normal, Waived, HighPrices }
+
+        // Shows the price vanilla actually charges, so the slider value (the base price) and the
+        // readout match reality under district fare policies. Display only — the stored per-line price
+        // is never changed, so it returns intact when a policy is lifted:
+        //   • Free Public Transport → ₡0, slider + reset disabled.
+        //   • High Ticket Prices    → base × 5/4 (+25%), slider stays editable so the player can lower
+        //     the base to compensate.
         private void RefreshTicketPriceLabel()
         {
             if (_ticketPriceLabel == null || _ticketPriceSlider == null)
                 return;
             ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
-            bool waived = lineId != 0 && IsLineFareWaived(lineId);
-            double v = waived ? 0.0 : _ticketPriceSlider.value / 100.0;
-            _ticketPriceLabel.text = v.ToString(global::Settings.moneyFormat, LocaleManager.cultureInfo);
-            _ticketPriceSlider.isEnabled = !waived;
+            LineFareState state = lineId != 0 ? GetLineFareState(lineId) : LineFareState.Normal;
+            bool waived = state == LineFareState.Waived;
+
+            int basePrice = Mathf.RoundToInt(_ticketPriceSlider.value);
+            int charged = waived ? 0
+                : state == LineFareState.HighPrices ? basePrice * 5 / 4   // vanilla integer math
+                : basePrice;
+            _ticketPriceLabel.text = (charged / 100.0).ToString(global::Settings.moneyFormat,
+                LocaleManager.cultureInfo);
+
+            _ticketPriceSlider.isEnabled = !waived; // High Prices stays editable; only free locks it
             if (_ticketRestoreButton != null)
                 _ticketRestoreButton.isEnabled = !waived;
         }
 
-        // True when vanilla would charge this line nothing because the Free Public Transport policy
-        // covers it. Mirrors vanilla GetTicketPrice precedence: tour lines always charge (exempt from
-        // the policy), otherwise the line is waived if any of its stops sits in a district whose
-        // (effective, citywide-inclusive) service policies have FreeTransport set.
-        private bool IsLineFareWaived(ushort lineId)
+        // Which district fare policy vanilla would apply to this line's charged fare. Mirrors
+        // GetTicketPrice precedence: tour lines are exempt from both policies (they read the base price
+        // before the policy checks); otherwise scan the stops and, per vanilla, Free Public Transport
+        // wins over High Ticket Prices. A policy counts if any stop sits in a district whose effective
+        // (citywide-inclusive) service policies have the flag set.
+        private LineFareState GetLineFareState(ushort lineId)
         {
             TransportLine[] lines = Singleton<TransportManager>.instance.m_lines.m_buffer;
             TransportInfo info = lines[lineId].Info;
             if (info == null)
-                return false;
+                return LineFareState.Normal;
             if (info.m_class != null && info.m_class.m_subService == ItemClass.SubService.PublicTransportTours)
-                return false; // tours always charge, even under Free Public Transport
+                return LineFareState.Normal; // tours always charge their base fare, exempt from both policies
             DistrictManager dm = Singleton<DistrictManager>.instance;
             NetManager nm = Singleton<NetManager>.instance;
+            bool high = false;
             ushort stop = lines[lineId].m_stops;
             int limit = 0;
             while (stop != 0)
             {
                 byte d = dm.GetDistrict(nm.m_nodes.m_buffer[stop].m_position);
-                if ((dm.m_districts.m_buffer[d].m_servicePolicies & DistrictPolicies.Services.FreeTransport)
-                    != DistrictPolicies.Services.None)
-                    return true;
+                DistrictPolicies.Services pol = dm.m_districts.m_buffer[d].m_servicePolicies;
+                if ((pol & DistrictPolicies.Services.FreeTransport) != DistrictPolicies.Services.None)
+                    return LineFareState.Waived; // free wins outright
+                if ((pol & DistrictPolicies.Services.HighTicketPrices) != DistrictPolicies.Services.None)
+                    high = true;
                 stop = TransportLine.GetNextStop(stop);
                 if (++limit >= 32768)
                     break;
             }
-            return false;
+            return high ? LineFareState.HighPrices : LineFareState.Normal;
         }
 
         // ===================================================================================

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.13.0...v1.14.0) (2026-06-10)
+
+
+### Features
+
+* integrate School Buses mod support for school lines, adjusting fare and depot handling ([69f0854](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/69f08541e5b3297023cbcbadbe1abbd09b0a5704))
+
 ## [1.13.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.12.0...v1.13.0) (2026-06-09)
 
 

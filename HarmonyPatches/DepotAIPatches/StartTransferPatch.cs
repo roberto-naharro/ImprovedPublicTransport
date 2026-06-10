@@ -60,6 +60,12 @@ namespace ImprovedPublicTransport2.HarmonyPatches.DepotAIPatches
             if (info?.m_class == null || info.m_class.m_service == ItemClass.Service.Disaster)
                 return true; // not a proper transit line -> vanilla
 
+            // School Buses (school-as-depot) supplies this line's bus from its school building and
+            // blocks depot spawns for it in its own StartTransfer prefix — any redirect here would be
+            // a no-op (and log misleadingly). Stand down and let School Buses handle the offer.
+            if (SchoolBusesUtil.IsSchoolOwnedLine(lineID))
+                return true;
+
             ushort depot = CachedTransportLineData.GetDepot(lineID);
             if (depot == 0)
                 return true; // auto -> vanilla nearest-depot behaviour

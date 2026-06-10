@@ -15,6 +15,8 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Liga ou desliga controle via orçamento para e
 LINE_PANEL_DEPOT Garagem:
 LINE_PANEL_DEPOT_AUTO Auto (depósito mais próximo)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Mover a câmara para o depósito selecionado.
+LINE_PANEL_DEPOT_SCHOOL Escola
+LINE_PANEL_DEPOT_SCHOOL_TOOLTIP O autocarro desta linha escolar é fornecido pela sua escola (mod School Buses).
 LINE_PANEL_TICKET_RESET_TOOLTIP Repõe a tarifa desta linha no valor predefinido do seu tipo de transporte.
 LINE_PANEL_COPY Copiar
 LINE_PANEL_PASTE Colar

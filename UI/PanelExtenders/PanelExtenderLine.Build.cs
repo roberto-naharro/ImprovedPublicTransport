@@ -210,8 +210,16 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 _vehicleAmount.text = LocaleFormatter.FormatGeneric("TRANSPORT_LINE_VEHICLECOUNT",
                     lineVehicleCount + " / " + targetVehicleCount);
                 _stopCountLabel.text = string.Format(Localization.Get("LINE_PANEL_STOPS"), stopCount);
-                PopulateLineStats(lineId);
-                PositionStatsPanel();
+                // School lines are a free school service (School Buses): no fares, no maintenance —
+                // the cost/earnings table would be all zeros, so hide it instead of populating it.
+                bool schoolLine = SchoolBusesUtil.IsSchoolLine(lineId);
+                if (_lineStatsPanel != null)
+                    _lineStatsPanel.isVisible = !schoolLine;
+                if (!schoolLine)
+                {
+                    PopulateLineStats(lineId);
+                    PositionStatsPanel();
+                }
 
                 // Two ways to size the fleet, shown one at a time:
                 //   budget control ON  -> budget-driven, adjusted by the vanilla vehicle-count slider
@@ -399,6 +407,11 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         // (citywide-inclusive) service policies have the flag set.
         private LineFareState GetLineFareState(ushort lineId)
         {
+            // School Buses owns school lines' fares (free school service, m_ticketPrice = 0):
+            // reuse the Waived state so the readout shows ₡0 and the slider + reset are disabled.
+            if (SchoolBusesUtil.IsSchoolLine(lineId))
+                return LineFareState.Waived;
+
             TransportLine[] lines = Singleton<TransportManager>.instance.m_lines.m_buffer;
             TransportInfo info = lines[lineId].Info;
             if (info == null)

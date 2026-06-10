@@ -81,6 +81,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private UIPanel _addRemoveRow;        // row 4 (shown only in manual mode)
         private UIPanel _depotRow;            // row 3
         private DropDown _depotDropDown;      // row 3
+        private UIButton _depotMarkerButton;  // row 3, "go to depot"; hidden for school-owned lines
+        private UILabel _depotSchoolLabel;    // row 3, static "School" shown instead of the dropdown
+                                              // when School Buses supplies the line from its school
         private UILabel _stopCountLabel;      // in the vehicle-count block
         private UITextField _colorTextField;  // under the vanilla colour field
 

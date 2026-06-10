@@ -17,6 +17,8 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Enables or disables budget control for this li
 LINE_PANEL_DEPOT Depot:
 LINE_PANEL_DEPOT_AUTO Auto (nearest depot)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Move the camera to the selected depot.
+LINE_PANEL_DEPOT_SCHOOL School
+LINE_PANEL_DEPOT_SCHOOL_TOOLTIP This school line's bus is supplied by its school (School Buses mod).
 LINE_PANEL_TICKET_RESET_TOOLTIP Reset this line's ticket price to the default for its transport type.
 LINE_PANEL_COPY Copy
 LINE_PANEL_PASTE Paste

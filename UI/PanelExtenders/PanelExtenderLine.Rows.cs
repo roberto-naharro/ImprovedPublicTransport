@@ -108,6 +108,22 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             marker.pressedBgSprite = "LocationMarkerPressed";
             marker.tooltip = Localization.Get("LINE_PANEL_DEPOT_MARKER_TOOLTIP");
             marker.eventClick += OnDepotMarkerClicked;
+            _depotMarkerButton = marker;
+
+            // Static "School" shown in place of the dropdown when School Buses supplies the line's
+            // bus from its school building (school-as-depot): no city depot ever serves such a line,
+            // so the selector would be a dead control.
+            UILabel school = row.AddUIComponent<UILabel>();
+            school.name = "DepotSchoolLabel";
+            school.text = Localization.Get("LINE_PANEL_DEPOT_SCHOOL");
+            school.tooltip = Localization.Get("LINE_PANEL_DEPOT_SCHOOL_TOOLTIP");
+            ApplyLabelStyle(school);
+            school.autoSize = false;
+            school.height = 27f;
+            school.width = 160f;
+            school.verticalAlignment = UIVerticalAlignment.Middle;
+            school.isVisible = false;
+            _depotSchoolLabel = school;
 
             if (StartTransferPatch.IsTLMPresent)
                 _depotRow.isVisible = false;
@@ -121,6 +137,20 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             if (StartTransferPatch.IsTLMPresent)
             {
                 _depotRow.isVisible = false;
+                return;
+            }
+
+            // School-as-depot (School Buses): the bus is supplied by the school building, never a
+            // city depot, so swap the dead selector for a static "School" label.
+            bool schoolOwned = SchoolBusesUtil.IsSchoolOwnedLine(lineId);
+            _depotDropDown.isVisible = !schoolOwned;
+            if (_depotMarkerButton != null)
+                _depotMarkerButton.isVisible = !schoolOwned;
+            if (_depotSchoolLabel != null)
+                _depotSchoolLabel.isVisible = schoolOwned;
+            if (schoolOwned)
+            {
+                _depotRow.isVisible = true;
                 return;
             }
 
@@ -344,8 +374,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             StartCoroutine(Singleton<TransportManager>.instance.SetLineColor(lineId, CopyPaste.Instance.CopiedColor));
             // The target is the currently-open line, whose ticket slider only re-syncs on line change.
             // Drive it now so the display matches and vanilla's handler writes m_ticketPrice (otherwise
-            // the stale slider value would overwrite the pasted price on the next frame).
-            if (_ticketPriceSlider != null)
+            // the stale slider value would overwrite the pasted price on the next frame). School lines
+            // keep their fare with School Buses (free school service) — don't paste a price onto them.
+            if (_ticketPriceSlider != null && !SchoolBusesUtil.IsSchoolLine(lineId))
             {
                 _ticketPriceSlider.value = CopyPaste.Instance.CopiedTicketPrice;
                 RefreshTicketPriceLabel();

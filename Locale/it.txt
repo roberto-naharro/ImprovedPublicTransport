@@ -15,6 +15,8 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Attiva o disattiva il controllo del budget per
 LINE_PANEL_DEPOT Deposito:
 LINE_PANEL_DEPOT_AUTO Auto (deposito più vicino)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Sposta la telecamera sul deposito selezionato.
+LINE_PANEL_DEPOT_SCHOOL Scuola
+LINE_PANEL_DEPOT_SCHOOL_TOOLTIP L'autobus di questa linea scolastica è fornito dalla sua scuola (mod School Buses).
 LINE_PANEL_TICKET_RESET_TOOLTIP Reimposta la tariffa di questa linea al valore predefinito del suo tipo di trasporto.
 LINE_PANEL_COPY Copia
 LINE_PANEL_PASTE Incolla

@@ -98,6 +98,7 @@
     <Compile Include="HarmonyPatches\HumanAIPatches\EnterVehiclePatch.cs" />
     <Compile Include="HarmonyPatches\ResidentAIPatches\UpdateWellbeingPatch.cs" />
     <Compile Include="HarmonyPatches\ResidentialBuildingAIPatches\SimulationStepActivePatch.cs" />
+    <Compile Include="Util\SchoolBusesUtil.cs" />
     <Compile Include="HarmonyPatches\NetManagerPatches\ReleaseNodePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\GetLineVehiclePatch.cs" />
     <Compile Include="HarmonyPatches\TransportLinePatches\CanLeaveStopPatch.cs" />

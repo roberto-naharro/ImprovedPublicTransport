@@ -90,9 +90,14 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
             if (!CachedTransportLineData._init)
                 return;
 
+            // School Buses runs school lines as a free school service (m_ticketPrice = 0, no
+            // maintenance). Don't fight it: no fare enforcement and no maintenance re-charge below.
+            bool schoolLine = SchoolBusesUtil.IsSchoolLine(__state);
+
             // Re-assert any custom per-line ticket price every step so TPC / vanilla re-applying a
             // type price (on load / options change) cannot stomp it. Cheap; no-op for normal lines.
-            TicketPriceUtil.Enforce(__state);
+            if (!schoolLine)
+                TicketPriceUtil.Enforce(__state);
 
             if (!((SimulationManager.instance.m_currentFrameIndex & 4095U) >= 3840U) ||
                 !TransportManager.instance.m_lines.m_buffer[__state].Complete)
@@ -119,8 +124,12 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
                 // Charge the full vanilla maintenance: per-vehicle plus per-passenger-capacity.
                 // IPT previously billed only the per-vehicle term, dropping the per-capacity
                 // cost that dominates for buses/trams and significantly undercharging lines.
+                // School lines are charged ₡0 (free school service, see schoolLine above) but
+                // still roll their weekly stats over.
                 var capacity = info.m_vehicleAI.GetPassengerCapacity(true);
-                var vehicleCost = maintenanceCostPerVehicle + (int) (capacity * maintenanceCostPerPassenger);
+                var vehicleCost = schoolLine
+                    ? 0
+                    : maintenanceCostPerVehicle + (int) (capacity * maintenanceCostPerPassenger);
                 amount += vehicleCost;
                 CachedVehicleData.m_cachedVehicleData[num3].StartNewWeek(vehicleCost);
             });

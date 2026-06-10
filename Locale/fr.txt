@@ -16,6 +16,8 @@ LINE_PANEL_BUDGET_CONTROL_TOOLTIP Le budget défini le nombre de véhicules en s
 LINE_PANEL_DEPOT Dépôt:
 LINE_PANEL_DEPOT_AUTO Auto (dépôt le plus proche)
 LINE_PANEL_DEPOT_MARKER_TOOLTIP Déplacer la caméra vers le dépôt sélectionné.
+LINE_PANEL_DEPOT_SCHOOL École
+LINE_PANEL_DEPOT_SCHOOL_TOOLTIP Le bus de cette ligne scolaire est fourni par son école (mod School Buses).
 LINE_PANEL_TICKET_RESET_TOOLTIP Réinitialise le tarif de cette ligne à la valeur par défaut de son type de transport.
 LINE_PANEL_COPY Copier
 LINE_PANEL_PASTE Coller

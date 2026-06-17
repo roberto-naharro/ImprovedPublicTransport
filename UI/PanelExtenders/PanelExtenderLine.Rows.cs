@@ -320,6 +320,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private void CreateSelectTypesRow()
         {
             UIPanel row = AddContainerRow(36f);
+            _selectTypesRow = row;
             UIButton button = AddRowButton(row, row.width - 6f, 30f);
             button.name = "SelectVehicleTypes";
             button.textPadding = new RectOffset(10, 10, 4, 0);
@@ -342,6 +343,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private void CreateCopyPasteRow()
         {
             UIPanel row = AddContainerRow(32f);
+            _copyPasteRow = row;
             float buttonWidth = (row.width - 6f) / 2f;
 
             UIButton copy = AddRowButton(row, buttonWidth, 32f);

@@ -78,8 +78,14 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         // --- our container row controls ---
         private UILabel _spawnTimer;          // row 1
         private UICheckBox _budgetControl;    // row 2
+        private UIPanel _budgetButtonSpacer;  // gap row after the budget checkbox
         private UIPanel _addRemoveRow;        // row 4 (shown only in manual mode)
+        private UIPanel _selectTypesRow;      // row 6
+        private UIPanel _copyPasteRow;        // row 7
         private UIPanel _depotRow;            // row 3
+        // True for walking-tour (Pedestrian) lines: no vehicles/fares, so all fleet + fare controls
+        // are hidden to match what vanilla shows for that line type. Set each frame in UpdateBindings.
+        private bool _isWalkingTour;
         private DropDown _depotDropDown;      // row 3
         private UIButton _depotMarkerButton;  // row 3, "go to depot"; hidden for school-owned lines
         private UILabel _depotSchoolLabel;    // row 3, static "School" shown instead of the dropdown

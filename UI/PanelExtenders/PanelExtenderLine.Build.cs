@@ -108,7 +108,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             CreateBudgetControlPanel();
             // Half-button gap so the vanilla Budget button (placed beside the checkbox, taller than
             // its row) doesn't overflow down onto the depot row.
-            AddContainerRow(16f, "BudgetButtonSpacer");
+            _budgetButtonSpacer = AddContainerRow(16f, "BudgetButtonSpacer");
             CreateDepotPanel();
             CreateAddRemoveRow();
             CreateOverviewDeleteRow();
@@ -210,32 +210,59 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 _vehicleAmount.text = LocaleFormatter.FormatGeneric("TRANSPORT_LINE_VEHICLECOUNT",
                     lineVehicleCount + " / " + targetVehicleCount);
                 _stopCountLabel.text = string.Format(Localization.Get("LINE_PANEL_STOPS"), stopCount);
+                // Walking tours (Pedestrian) have no vehicles or fares. Mirror what vanilla shows for
+                // the type: hide every fleet + fare control IPTE adds, keeping only name, colour, stops,
+                // line length and overview/delete. Shrink the container so the stop/length block sits
+                // right below the one remaining row instead of leaving a big gap.
+                bool walkingTour = IsWalkingTourLine(lineId);
+                _isWalkingTour = walkingTour;
+                if (_iptContainer != null)
+                    _iptContainer.height = walkingTour ? WalkingTourContainerHeight : NormalContainerHeight;
+                if (_spawnTimer?.parent != null)
+                    _spawnTimer.parent.isVisible = !walkingTour;
+                if (_budgetControl?.parent != null)
+                    _budgetControl.parent.isVisible = !walkingTour;
+                if (_budgetButtonSpacer != null)
+                    _budgetButtonSpacer.isVisible = !walkingTour;
+                if (_selectTypesRow != null)
+                    _selectTypesRow.isVisible = !walkingTour;
+                if (_copyPasteRow != null)
+                    _copyPasteRow.isVisible = !walkingTour;
+                if (_vehicleAmount != null)
+                    _vehicleAmount.isVisible = !walkingTour; // the "x / y" count is meaningless here
+                if (walkingTour)
+                {
+                    _lineVehiclePanel?.Hide();
+                    _pendingVehiclePanel?.Hide();
+                }
+
                 // School lines are a free school service (School Buses): no fares, no maintenance —
                 // the cost/earnings table would be all zeros, so hide it instead of populating it.
                 bool schoolLine = SchoolBusesUtil.IsSchoolLine(lineId);
+                bool showStats = !schoolLine && !walkingTour;
                 if (_lineStatsPanel != null)
-                    _lineStatsPanel.isVisible = !schoolLine;
-                if (!schoolLine)
+                    _lineStatsPanel.isVisible = showStats;
+                if (showStats)
                 {
                     PopulateLineStats(lineId);
                     PositionStatsPanel();
                 }
 
-                // Two ways to size the fleet, shown one at a time:
+                // Two ways to size the fleet, shown one at a time (both hidden for walking tours):
                 //   budget control ON  -> budget-driven, adjusted by the vanilla vehicle-count slider
                 //   budget control OFF -> manual, via the Add/Remove buttons
                 bool budgetOn = CachedTransportLineData.GetBudgetControlState(lineId);
                 _budgetControl.isChecked = budgetOn;
                 if (_addRemoveRow != null)
-                    _addRemoveRow.isVisible = !budgetOn;
+                    _addRemoveRow.isVisible = !budgetOn && !walkingTour;
                 if (_pasteButton != null)
                     _pasteButton.isEnabled = CopyPaste.Instance.HasData;
                 if (_vehicleCountModifier != null)
-                    _vehicleCountModifier.isVisible = budgetOn;
+                    _vehicleCountModifier.isVisible = budgetOn && !walkingTour;
                 if (_vehicleCountModifierLabel != null)
-                    _vehicleCountModifierLabel.isVisible = budgetOn;
+                    _vehicleCountModifierLabel.isVisible = budgetOn && !walkingTour;
                 if (_vehicleCountTitle != null)
-                    _vehicleCountTitle.isVisible = budgetOn;
+                    _vehicleCountTitle.isVisible = budgetOn && !walkingTour;
 
                 var currentlyDisabled = SimulationManager.instance.m_isNightTime
                     ? (Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].m_flags &
@@ -256,7 +283,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 }
 
                 int pendingCount = CountPendingVehicles(lineId);
-                if (lineId != _cachedLineID || lineVehicleCount != _cachedVehicleCount || pendingCount != _cachedPendingCount)
+                if (!walkingTour &&
+                    (lineId != _cachedLineID || lineVehicleCount != _cachedVehicleCount || pendingCount != _cachedPendingCount))
                     PopulateLineVehiclePanel(lineId, lineVehicleCount);
                 _cachedPendingCount = pendingCount;
 
@@ -287,6 +315,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         // Re-snaps the vanilla elements each frame (the game keeps resetting them).
         private void PositionVanillaElements()
         {
+            bool walkingTour = _isWalkingTour;
+
             if (_vehicleLabel == null)
             {
                 Debug.LogError($"{ShortModName}: Vehicle label not found!");
@@ -294,20 +324,31 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             else
             {
                 // Vanilla "Budget" money button: just right of the (now label-width) Budget-control
-                // checkbox, brought to the front so it actually receives clicks.
-                PlaceRightOf(_budgetButton, _budgetControl, 8f);
-                _budgetButton.BringToFront();
+                // checkbox, brought to the front so it actually receives clicks. Hidden for walking
+                // tours (no fleet to budget).
+                if (walkingTour)
+                {
+                    _budgetButton.isVisible = false;
+                }
+                else
+                {
+                    _budgetButton.isVisible = true;
+                    PlaceRightOf(_budgetButton, _budgetControl, 8f);
+                    _budgetButton.BringToFront();
+                }
                 _vehicleLabel.isVisible = false;
             }
 
             // Hex colour field: just right of the vanilla colour swatch.
             PlaceRightOf(_colorTextField, _colorField, 8f);
 
-            // Move the whole vanilla vehicle-count block (PanelVehicleCount = _vehicleAmountParent, which
-            // holds the slider, its % readout and the vehicle amount) as ONE unit to just below the IPTE
-            // button container, so it stays coherent and clears the buttons. Its children ride along.
+            // Move the whole vanilla vehicle-count block (PanelVehicleCount = _vehicleAmountParent) as ONE
+            // unit to just below the IPTE button container. It hosts the stop count + line length anchor,
+            // so we keep it visible even on walking tours (vanilla hides it there) and instead hide its
+            // vehicle-specific children (slider / % / amount) in UpdateBindings.
             if (_vehicleAmountParent != null)
             {
+                _vehicleAmountParent.isVisible = true;
                 _vehicleAmountParent.relativePosition = new Vector3(
                     _vehicleAmountParentHome.x,
                     _iptContainer.relativePosition.y + _iptContainer.height + 8f,
@@ -319,21 +360,30 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             // count + vehicle amount are children of the block and just need their in-block positions.
             PlaceAt(_lineLengthLabel, _vehicleAmountParent, 0f, 45f);
             PlaceRightOf(_stopCountLabel, _lineLengthLabel, 16f);
-            PlaceAt(_vehicleAmount, _vehicleAmountParent, 0f, 62f);
+            if (!walkingTour)
+                PlaceAt(_vehicleAmount, _vehicleAmountParent, 0f, 62f);
 
             // Vanilla per-line ticket-price section (slider + value), just below the vehicle block.
+            // Hidden for walking tours (free, no fare), matching vanilla.
             if (_ticketPriceSection != null)
             {
-                _ticketPriceSection.isVisible = true;
-                PlaceBelow(_ticketPriceSection, _vehicleAmountParent, 8f);
-                _ticketPriceSection.BringToFront(); // so the ticket-price slider receives clicks
-                // Vanilla only formats the value label inside its slider's eventValueChanged, which does
-                // not fire when the panel re-opens on the same value — so the readout can show a stale,
-                // unformatted number. Refresh it ourselves from the slider's current value.
-                RefreshTicketPriceLabel();
-                // Restore button: resets this line's ticket price to the transport type's default.
-                if (_ticketRestoreButton != null)
-                    PlaceRightOf(_ticketRestoreButton, _ticketPriceLabel, 6f);
+                if (walkingTour)
+                {
+                    _ticketPriceSection.isVisible = false;
+                }
+                else
+                {
+                    _ticketPriceSection.isVisible = true;
+                    PlaceBelow(_ticketPriceSection, _vehicleAmountParent, 8f);
+                    _ticketPriceSection.BringToFront(); // so the ticket-price slider receives clicks
+                    // Vanilla only formats the value label inside its slider's eventValueChanged, which
+                    // does not fire when the panel re-opens on the same value — so the readout can show a
+                    // stale, unformatted number. Refresh it ourselves from the slider's current value.
+                    RefreshTicketPriceLabel();
+                    // Restore button: resets this line's ticket price to the transport type's default.
+                    if (_ticketRestoreButton != null)
+                        PlaceRightOf(_ticketRestoreButton, _ticketPriceLabel, 6f);
+                }
             }
         }
 
@@ -436,6 +486,22 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                     break;
             }
             return high ? LineFareState.HighPrices : LineFareState.Normal;
+        }
+
+        // Container height when all rows can show (normal lines) vs walking tours (only the
+        // overview/delete row remains, so shrink it to sit the stop/length block right below).
+        private const float NormalContainerHeight = 242f;
+        private const float WalkingTourContainerHeight = 40f;
+
+        // Mirrors vanilla PublicTransportWorldInfoPanel.GetLineType: a "Pedestrian" line is a walking
+        // tour (no vehicles, no fare), where vanilla hides the vehicle-count panel and ticket section.
+        // We key off the same prefab name so IPTE shows exactly the controls vanilla would for the type.
+        private static bool IsWalkingTourLine(ushort lineId)
+        {
+            if (lineId == 0)
+                return false;
+            TransportInfo info = Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].Info;
+            return info != null && info.name == "Pedestrian";
         }
 
         // ===================================================================================

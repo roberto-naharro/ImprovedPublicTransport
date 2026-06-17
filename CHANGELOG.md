@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.14.0...v1.15.0) (2026-06-17)
+
+
+### Features
+
+* add support for walking tours and improve UI visibility for vehicle and fare controls ([a578e0c](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/a578e0cf34b2a598a5f67413b3058fbc458152c1))
+
 ## [1.14.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.13.0...v1.14.0) (2026-06-10)
 
 

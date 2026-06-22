@@ -90,7 +90,7 @@ namespace ImprovedPublicTransport2.UI
             this.isInteractive = true;
             this.anchor = UIAnchorStyle.None;
             this.pivot = UIPivotPoint.BottomLeft;
-            this.width = 380f;
+            this.width = 400f;
             this.backgroundSprite = "InfoBubbleVehicle";
             UIPanel uiPanel1 = this.AddUIComponent<UIPanel>();
             string str1 = "Caption";
@@ -157,9 +157,9 @@ namespace ImprovedPublicTransport2.UI
             UIPanel uiPanel2 = this.AddUIComponent<UIPanel>();
             string str2 = "Container";
             uiPanel2.name = str2;
-            double num2 = 365.0;
+            double num2 = 385.0;
             uiPanel2.width = (float) num2;
-            uiPanel2.height = 272f;
+            uiPanel2.height = 302f;
             int num4 = 1;
             uiPanel2.autoLayout = num4 != 0;
             int num5 = 1;
@@ -183,7 +183,7 @@ namespace ImprovedPublicTransport2.UI
             uiPanel3.autoLayoutPadding = rectOffset2;
             int num10 = 0;
             uiPanel3.autoLayoutStart = (LayoutStart) num10;
-            Vector2 vector2_1 = new Vector2(345f, 14f);
+            Vector2 vector2_1 = new Vector2(365f, 14f);
             uiPanel3.size = vector2_1;
             UILabel uiLabel1 = uiPanel3.AddUIComponent<UILabel>();
             uiLabel1.name = "PassengerCount";
@@ -206,7 +206,7 @@ namespace ImprovedPublicTransport2.UI
             uiPanel4.autoLayoutPadding = rectOffset3;
             int num14 = 0;
             uiPanel4.autoLayoutStart = (LayoutStart) num14;
-            Vector2 vector2_2 = new Vector2(345f, 14f);
+            Vector2 vector2_2 = new Vector2(365f, 14f);
             uiPanel4.size = vector2_2;
             UILabel uiLabel2 = uiPanel4.AddUIComponent<UILabel>();
             uiLabel2.name = "BoredCountdown";
@@ -231,7 +231,7 @@ namespace ImprovedPublicTransport2.UI
             uiPanel5.autoLayoutPadding = rectOffset4;
             int num18 = 0;
             uiPanel5.autoLayoutStart = (LayoutStart) num18;
-            Vector2 vector2_3 = new Vector2(349f, 75f);
+            Vector2 vector2_3 = new Vector2(369f, 75f);
             uiPanel5.size = vector2_3;
             UILabel uiLabel3;
             UILabel uiLabel4;
@@ -269,7 +269,7 @@ namespace ImprovedPublicTransport2.UI
             uiPanel7.name = str7;
             int num28 = 13;
             uiPanel7.anchor = (UIAnchorStyle) num28;
-            Vector2 vector2_5 = new Vector2(345f, 25f);
+            Vector2 vector2_5 = new Vector2(365f, 25f);
             uiPanel7.size = vector2_5;
             int num29 = 1;
             uiPanel7.autoLayout = num29 != 0;
@@ -307,7 +307,7 @@ namespace ImprovedPublicTransport2.UI
             unbunchingPanel.autoLayoutDirection = LayoutDirection.Horizontal;
             unbunchingPanel.autoLayoutPadding = new RectOffset(0, 5, 0, 0);
             unbunchingPanel.autoLayoutStart = LayoutStart.TopLeft;
-            unbunchingPanel.size = new Vector2(345f, 30f);
+            unbunchingPanel.size = new Vector2(365f, 30f);
             UIButton unbunchingToggle = UIUtils.CreateButton((UIComponent) unbunchingPanel);
             unbunchingToggle.name = "UnbunchingToggle";
             unbunchingToggle.textPadding = new RectOffset(10, 10, 4, 0);
@@ -339,7 +339,7 @@ namespace ImprovedPublicTransport2.UI
             uiPanel8.autoLayoutPadding = rectOffset7;
             int num36 = 0;
             uiPanel8.autoLayoutStart = (LayoutStart) num36;
-            Vector2 vector2_6 = new Vector2(345f, 32f);
+            Vector2 vector2_6 = new Vector2(365f, 32f);
             uiPanel8.size = vector2_6;
             UIButton button2 = UIUtils.CreateButton((UIComponent) uiPanel8);
             button2.name = "PreviousStop";
@@ -374,7 +374,7 @@ namespace ImprovedPublicTransport2.UI
             button4.wordWrap = true;
             button4.eventClick += new MouseEventHandler(this.OnNextStopClick);
             Log.Info("StopPanel: SetupPanel complete — container=272f outer=330f unbunching panel added");
-            this.height = 330f;
+            this.height = 360f;
         }
 
         public static UIPanel CreateStatisticRow(UIComponent parent, out UILabel label1, out UILabel label2,

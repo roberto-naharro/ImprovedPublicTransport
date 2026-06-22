@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.UI;
 using ImprovedPublicTransport2.Data;
 using ImprovedPublicTransport2.UI.AlgernonCommons;
 using ImprovedPublicTransport2.UI.PreviewRenderer;
+using ImprovedPublicTransport2.Util;
 using UnityEngine;
 
 namespace ImprovedPublicTransport2.UI
@@ -194,6 +196,7 @@ namespace ImprovedPublicTransport2.UI
             if (vehicle == null) return;
             CachedTransportLineData.AddPrefab(CurrentLine, vehicle.name);
             Refresh();
+            RespawnMismatchedVehicles(CurrentLine);
         }
 
         private void RemoveVehicle()
@@ -201,6 +204,7 @@ namespace ImprovedPublicTransport2.UI
             if (_selectedBuildingVehicle == null) return;
             CachedTransportLineData.RemovePrefab(CurrentLine, _selectedBuildingVehicle.name);
             Refresh();
+            RespawnMismatchedVehicles(CurrentLine);
         }
 
         private void AddAllVehicles()
@@ -213,12 +217,44 @@ namespace ImprovedPublicTransport2.UI
                     CachedTransportLineData.AddPrefab(CurrentLine, item.Info.name);
             }
             Refresh();
+            RespawnMismatchedVehicles(CurrentLine);
         }
 
         private void RemoveAllVehicles()
         {
             CachedTransportLineData.ClearPrefabs(CurrentLine);
             Refresh();
+            // No respawn: an empty selection means "no restriction", so the running vehicles are all
+            // valid again — nothing to replace.
+        }
+
+        // After the allowed-vehicle set changes, detach any active vehicle whose model is no longer in
+        // the set so the line respawns it as a selected model. Detaching keeps the target count, so the
+        // game (budget mode) or IPTE (manual mode) immediately refills with an allowed vehicle. Without
+        // this, existing vehicles keep their old model until the fleet happens to cycle — which is why
+        // players found that toggling "Fleet based on budget" (which churns the fleet) was a workaround.
+        // No-op when the selection is empty (no restriction).
+        private static void RespawnMismatchedVehicles(ushort lineID)
+        {
+            if (lineID == 0)
+                return;
+            HashSet<string> selected = CachedTransportLineData.GetPrefabs(lineID);
+            if (selected == null || selected.Count == 0)
+                return;
+            Singleton<SimulationManager>.instance.AddAction(() =>
+            {
+                VehicleManager vm = Singleton<VehicleManager>.instance;
+                ushort v = Singleton<TransportManager>.instance.m_lines.m_buffer[lineID].m_vehicles;
+                int guard = 0;
+                while (v != 0 && ++guard < 16384)
+                {
+                    ushort next = vm.m_vehicles.m_buffer[v].m_nextLineVehicle;
+                    VehicleInfo info = vm.m_vehicles.m_buffer[v].Info;
+                    if (info != null && !selected.Contains(info.name))
+                        TransportLineUtil.RemoveVehicle(lineID, v, false); // keep target -> respawns allowed model
+                    v = next;
+                }
+            });
         }
     }
 }

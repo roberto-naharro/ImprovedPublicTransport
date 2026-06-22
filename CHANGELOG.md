@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.15.0...v1.15.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* adjust UI dimensions and add vehicle respawn functionality in VehicleSelection ([6814216](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/68142162eed7f9362c65597905ac1ef09a94607e))
+
 ## [1.15.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.14.0...v1.15.0) (2026-06-17)
 
 

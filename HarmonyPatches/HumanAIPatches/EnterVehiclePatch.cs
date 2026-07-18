@@ -59,6 +59,14 @@ namespace ImprovedPublicTransport2.HarmonyPatches.HumanAIPatches
             int ticketPrice = leadData.Info.m_vehicleAI.GetTicketPrice(lead, ref leadData);
             CachedVehicleData.m_cachedVehicleData[lead].AddBoarding(ticketPrice);
 
+            // Accurate per-stop boarding count (LoadPassengers boards asynchronously, so its delta is
+            // unreliable — see LoadPassengersPatch). Attribute this boarding to the lead vehicle's
+            // current stop: the vehicle panel's last-stop exchange and the stop's weekly PassengersIn.
+            CachedVehicleData.m_cachedVehicleData[lead].AddStopBoarding();
+            ushort boardingStop = CachedVehicleData.m_cachedVehicleData[lead].CurrentStop;
+            if (boardingStop != 0 && CachedNodeData.m_cachedNodeData != null)
+                CachedNodeData.m_cachedNodeData[boardingStop].PassengersIn += 1;
+
             // Ticket-price happiness: charge the rider's home building the fare premium over the line
             // type's default (negative when cheaper/free). Mirrors a tax change on that building.
             if (TicketHappinessUtil.Enabled)

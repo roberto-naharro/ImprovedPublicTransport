@@ -51,8 +51,7 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
             __state = new State
             {
                 vehicleID = vehicleID,
-                currentStop = currentStop,
-                currentPassengers = VehicleUtil.GetTotalPassengerCount(vehicleID, CachedVehicleData.MaxVehicleCount)
+                currentStop = currentStop
             };
             return true;
         }
@@ -65,20 +64,17 @@ namespace ImprovedPublicTransport2.HarmonyPatches.XYZVehicleAIPatches
                 return;
             }
 
-            var currentPassengers =
-                VehicleUtil.GetTotalPassengerCount(__state.vehicleID, CachedVehicleData.MaxVehicleCount);
-            var passengersIn = Mathf.Max(0, currentPassengers - __state.currentPassengers);
-            CachedVehicleData.m_cachedVehicleData[__state.vehicleID]
-                .BoardPassengers(passengersIn, __state.currentStop);
-            CachedNodeData.m_cachedNodeData[__state.currentStop].PassengersIn += passengersIn;
-            Log.DebugLoad(__state.currentStop,
-                $"Load stop={__state.currentStop} vehicle={__state.vehicleID} boarded={passengersIn} total={currentPassengers}");
+            // LoadPassengers boards citizens asynchronously (they enter later via HumanAI.EnterVehicle),
+            // so a before/after passenger-count delta here reads ~0 and never reflects real boardings.
+            // Instead we just reset the per-stop boarded counter for this loading cycle; the actual
+            // count is accumulated one-by-one in EnterVehiclePatch (both the vehicle's LastStopNewPassengers
+            // and the stop's weekly PassengersIn). Alighting stays in UnloadPassengers (synchronous, accurate).
+            CachedVehicleData.m_cachedVehicleData[__state.vehicleID].BoardPassengers(0, __state.currentStop);
         }
 
         public struct State
         {
             public ushort vehicleID;
-            public ushort currentPassengers;
             public ushort currentStop;
         }
 

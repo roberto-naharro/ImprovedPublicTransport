@@ -107,12 +107,21 @@ namespace ImprovedPublicTransport2.Data
       }
     }
 
-    // Per-stop display update done in LoadPassengers (counts net boardings at this stop).
-    // Weekly ridership and fare income are tracked separately in AddBoarding.
+    // Resets the "boarded at this stop" counter at the start of a stop's loading cycle and records
+    // which stop we're at. LoadPassengers is the reset point; the actual boardings are then counted
+    // one-by-one in AddStopBoarding (from the HumanAI.EnterVehicle hook), because LoadPassengers
+    // boards citizens asynchronously so its before/after passenger delta is unreliable.
     public void BoardPassengers(int newPassengers, ushort stop)
     {
       this.LastStopNewPassengers = newPassengers;
       this.CurrentStop = stop;
+    }
+
+    // Called once per boarding citizen from the HumanAI.EnterVehicle hook: the accurate count of
+    // passengers that boarded at the current stop (feeds the vehicle panel's last-stop exchange).
+    public void AddStopBoarding()
+    {
+      this.LastStopNewPassengers += 1;
     }
 
     // Called once per boarding citizen from the HumanAI.EnterVehicle hook, mirroring how the

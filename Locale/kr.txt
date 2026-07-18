@@ -42,7 +42,9 @@ SETTINGS_BUDGET_CONTROL_TOOLTIP 차량 예산기능이 키거나 꺼진 상태�
 SETTINGS_BUDGET_BUTTON_TOOLTIP 차량 예산기능 상태를 모든 노선에 적용합니다.
 SETTINGS_COMPATIBILITY_MODE 호환성 모드
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP 차량 예산 기능에 문제가 있을경우 설정하십시오. 예를 들면 소환되는 차량이 너무 적을 경우입니다.
-SETTINGS_SPAWN_TIME_INTERVAL 소환 간격 : 
+SETTINGS_SPAWN_TIME_INTERVAL 소환 간격 :
+SETTINGS_INSTANT_SPAWN 즉시 차량 소환 (바닐라)
+SETTINGS_INSTANT_SPAWN_TOOLTIP 켜면 기본 게임처럼 차량이 즉시 소환됩니다. 끄면(기본값) 위 간격에 따라 소환이 분산되어 차량이 한꺼번에 차고지를 나와 노선에서 뭉치는 것을 방지합니다.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP 설정된 초 만큼 차이를 두며 차량이 소환됩니다.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP 타이머를 0으로 초기화합니다.
 SETTINGS_VEHICLE_COUNT 새 노선의 차량 수 :

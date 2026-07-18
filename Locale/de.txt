@@ -45,6 +45,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP Setzt die ausgewählte Budget-Kontrolle für alle
 SETTINGS_COMPATIBILITY_MODE Kompatibilitätsmodus
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP Aktiviere diese Einstellung wenn du Probleme mit der Budget-Kontrolle hast, z.B. wenn die Fahrzeuganzahl zu niedrig ist.
 SETTINGS_SPAWN_TIME_INTERVAL Fahrzeugintervall:
+SETTINGS_INSTANT_SPAWN Sofortiges Einsetzen der Fahrzeuge (Vanilla)
+SETTINGS_INSTANT_SPAWN_TOOLTIP Wenn aktiviert, werden Fahrzeuge sofort wie im Basisspiel eingesetzt. Wenn deaktiviert (Standard), wird das Einsetzen durch das obige Intervall gestaffelt, damit nicht alle Fahrzeuge gleichzeitig das Depot verlassen und sich auf der Linie stauen.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Zeit in Sekunden bis ein neues Fahrzeug los geschickt wird.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Setze alle Zeitmesser zurück.
 SETTINGS_VEHICLE_COUNT Fahrzeuge auf neuen Linien:

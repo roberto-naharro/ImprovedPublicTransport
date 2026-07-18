@@ -45,6 +45,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP Ustawia wybrany tryb regulacji budżetowej dla ws
 SETTINGS_COMPATIBILITY_MODE Tryb zgodności
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP Włącz to, jeśli masz problemy z regulacją budżetową, np. ilość pojazdów jest za mała.
 SETTINGS_SPAWN_TIME_INTERVAL Odstępy czasowe wyjazdów:
+SETTINGS_INSTANT_SPAWN Natychmiastowe pojawianie pojazdów (vanilla)
+SETTINGS_INSTANT_SPAWN_TOOLTIP Gdy włączone, pojazdy pojawiają się natychmiast jak w podstawowej grze. Gdy wyłączone (domyślnie), wyjazdy są rozłożone według powyższego odstępu, aby pojazdy nie wyjeżdżały z zajezdni naraz i nie zbijały się w grupy na linii.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Czas w sekundach pomiędzy wyjazdami nowych pojazdów z zajezdni.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Resetuje wszystkie liczniki z powrotem do 0.
 SETTINGS_VEHICLE_COUNT Pojazdy na nowych liniach:

@@ -45,6 +45,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP Sets the selected budget control mode to all line
 SETTINGS_COMPATIBILITY_MODE Compatibility mode
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP Enable this if you have problems with budget control, e.g. vehicle count is too low.
 SETTINGS_SPAWN_TIME_INTERVAL Spawn time interval:
+SETTINGS_INSTANT_SPAWN Instant vehicle spawning (vanilla)
+SETTINGS_INSTANT_SPAWN_TOOLTIP When on, vehicles spawn instantly like the base game. When off (default), spawning is paced by the interval above so vehicles don't all leave the depot at once and bunch up on the line.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Time in seconds between vehicles spawns.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Resets all timers back to 0.
 SETTINGS_VEHICLE_COUNT Vehicles on new lines:

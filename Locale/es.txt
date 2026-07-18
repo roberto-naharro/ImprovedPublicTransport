@@ -43,6 +43,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP Aplicar el modo de control seleccionado a todas l
 SETTINGS_COMPATIBILITY_MODE Modo de compatibilidad
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP Actívalo si tienes problemas con el control por presupuesto (por ejemplo, que apenas haya vehículos)
 SETTINGS_SPAWN_TIME_INTERVAL Intervalo de tiempo:
+SETTINGS_INSTANT_SPAWN Aparición instantánea de vehículos (vainilla)
+SETTINGS_INSTANT_SPAWN_TOOLTIP Si está activado, los vehículos aparecen al instante como en el juego base. Si está desactivado (predeterminado), la aparición se espacia según el intervalo de arriba para que no salgan todos de la cochera a la vez y se agrupen en la línea.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP El tiempo en segundos que tarda el depósito en volver a generar un vehículo 
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Reiniciar
 SETTINGS_VEHICLE_COUNT Vehículos en las nuevas líneas:

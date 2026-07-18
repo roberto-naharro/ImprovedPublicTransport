@@ -43,6 +43,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP Appliquer le contrôle budgétaire à l'ensemble 
 SETTINGS_COMPATIBILITY_MODE Mode compatibilité
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP Activer en cas de problème du contrôle budgétaire, par exemple s'il y a trop peu de véhicules.
 SETTINGS_SPAWN_TIME_INTERVAL Intervalle des départs:
+SETTINGS_INSTANT_SPAWN Apparition instantanée des véhicules (vanilla)
+SETTINGS_INSTANT_SPAWN_TOOLTIP Si activé, les véhicules apparaissent instantanément comme dans le jeu de base. Si désactivé (par défaut), les départs sont espacés selon l'intervalle ci-dessus pour éviter qu'ils quittent tous le dépôt en même temps et s'agglutinent sur la ligne.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Intervalle des départs aux dépôts en secondes.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Réinitialiser tous les minuteurs.
 SETTINGS_VEHICLE_COUNT Véhicules:

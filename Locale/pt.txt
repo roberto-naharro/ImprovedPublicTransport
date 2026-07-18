@@ -42,6 +42,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP Aplica o modo selecionado de controle para todas 
 SETTINGS_COMPATIBILITY_MODE Modo de compatibilidade
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP Ative se você estiver tendo problemas com o controle via orçamento, Ex: número de veículos muito baixo.
 SETTINGS_SPAWN_TIME_INTERVAL Tempo de adição:
+SETTINGS_INSTANT_SPAWN Surgimento instantâneo de veículos (vanilla)
+SETTINGS_INSTANT_SPAWN_TOOLTIP Quando ativado, os veículos surgem instantaneamente como no jogo base. Quando desativado (padrão), o surgimento é espaçado pelo intervalo acima para que não saiam todos do depósito ao mesmo tempo e se agrupem na linha.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Intervalo de tempo entre a adição de novos veículos (em segundos).
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Restaura todos os tempos de adição para 0.
 SETTINGS_VEHICLE_COUNT Veiculos em novas linhas:

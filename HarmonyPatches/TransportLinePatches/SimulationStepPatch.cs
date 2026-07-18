@@ -165,6 +165,10 @@ namespace ImprovedPublicTransport2.HarmonyPatches.TransportLinePatches
         // to 0 disables pacing. Also keeps NextSpawnTime current so the panel countdown is right.
         private static int ApplySpawnInterval(ushort lineID, int desiredCount)
         {
+            // Opt-in: spawn instantly like the base game (no anti-bunching pacing). Off by default.
+            if (OptionsWrapper<Settings.Settings>.Options.InstantVehicleSpawning)
+                return desiredCount;
+
             int interval = OptionsWrapper<Settings.Settings>.Options.SpawnTimeInterval;
             if (interval <= 0)
                 return desiredCount;

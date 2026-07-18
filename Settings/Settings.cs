@@ -45,6 +45,10 @@ namespace ImprovedPublicTransport2.Settings
         [Slider(SETTINGS_SPAWN_TIME_INTERVAL, 0.0f, 100.0f, 1.0f, SETTINGS_SPAWN_TIME_INTERVAL)]
         public int SpawnTimeInterval { get; set; } = 10;
 
+        [Description("SETTINGS_INSTANT_SPAWN_TOOLTIP")]
+        [Checkbox("SETTINGS_INSTANT_SPAWN", SETTINGS_SPAWN_TIME_INTERVAL)]
+        public bool InstantVehicleSpawning { get; set; } = false;
+
         [Description("SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP")]
         [Button("SETTINGS_RESET", SETTINGS_SPAWN_TIME_INTERVAL, nameof(SettingsActions), nameof(SettingsActions.OnUpdateButtonClick))]
         [XmlIgnore]

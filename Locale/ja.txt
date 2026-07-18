@@ -45,6 +45,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP 予算管理を全ての路線に設定します�
 SETTINGS_COMPATIBILITY_MODE 互換モード
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP 予算管理に問題がある場合は有効化して下さい。（例: 車両数が少ないなど）
 SETTINGS_SPAWN_TIME_INTERVAL 車両のスポーンタイマー:
+SETTINGS_INSTANT_SPAWN 車両を即時スポーン（バニラ）
+SETTINGS_INSTANT_SPAWN_TOOLTIP オンにすると、車両はベースゲームと同じように即座にスポーンします。オフ（既定）では、上の間隔に従ってスポーンが分散され、車両が一斉に車庫を出て路線上で団子状態になるのを防ぎます。
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP 車両がスポーンするまでの秒数
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP 全てのタイマーを0にリセット
 SETTINGS_VEHICLE_COUNT 新規路線へ追加する車両数:

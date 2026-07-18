@@ -43,6 +43,8 @@ SETTINGS_BUDGET_BUTTON_TOOLTIP Применить выбранную настр�
 SETTINGS_COMPATIBILITY_MODE Режим совместимости
 SETTINGS_COMPATIBILITY_MODE_TOOLTIP Включите это, если у вас есть проблемы с бюджетным контролем: например, если транспорта на линии слишком мало.
 SETTINGS_SPAWN_TIME_INTERVAL Интервал выхода на линию:
+SETTINGS_INSTANT_SPAWN Мгновенный выход транспорта (ваниль)
+SETTINGS_INSTANT_SPAWN_TOOLTIP Когда включено, транспорт появляется мгновенно, как в базовой игре. Когда выключено (по умолчанию), выход распределяется по интервалу выше, чтобы транспорт не выходил из депо весь сразу и не скапливался на линии.
 SETTINGS_SPAWN_TIME_INTERVAL_TOOLTIP Время в секундах между появлением нового транспортного средства.
 SETTINGS_SPAWN_TIME_INTERVAL_BUTTON_TOOLTIP Установить все таймеры на 0.
 SETTINGS_VEHICLE_COUNT Транспорт на новой линии:

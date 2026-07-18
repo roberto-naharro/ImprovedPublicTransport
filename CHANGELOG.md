@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.16.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.15.1...v1.16.0) (2026-07-18)
+
+
+### Features
+
+* add opt-in instant vehicle spawning setting ([438d5e5](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/438d5e52757233d63ffa77993edf23eaa9458beb))
+* allow mouse-wheel fine-tuning of the per-line ticket price ([cc8dc1b](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/cc8dc1b7c028f837f896a1249eacb32808007343))
+
+
+### Bug Fixes
+
+* correct last-stop boarded count that never updated ([24bca60](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/24bca608d2338c9e34b162a8efb894ed7ae3cf62))
+
 ## [1.15.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.15.0...v1.15.1) (2026-06-22)
 
 

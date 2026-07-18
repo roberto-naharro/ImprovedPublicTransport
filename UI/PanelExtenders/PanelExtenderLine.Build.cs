@@ -78,6 +78,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 // the UI prefab, only the per-type default differs). Step by 10 internal units so the
                 // displayed price moves in 0.10 increments instead of whole currency units.
                 _ticketPriceSlider.stepSize = 10f;
+                _ticketPriceSlider.scrollWheelAmount = 10f; // mouse-wheel fine-tuning: ₡0.10 per notch
             }
             CreateTicketRestoreButton();
             // The slider's title label has no field; it's the leftover UILabel child of the block

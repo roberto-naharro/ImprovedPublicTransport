@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.16.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.16.0...v1.16.1) (2026-09-19)
+
+
+### Bug Fixes
+
+* lighten alighting count colour in the vehicle panel ([da3b413](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/da3b4132324c803d4f91b990845f8a576f328420))
+* persist custom per-line ticket prices across save/load ([9faaf0c](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/9faaf0cfaad065ef46b76b1e8f4b68def730b3f3))
+* soften red for negative values in line, vehicle and stop panels ([cf675e4](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/cf675e4d0b0ed84626e9e44672f6a57e26a21f17))
+* stop stock vehicles spawning on lines with selected models ([e9151e7](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/e9151e708c303640216ecd83353db3036c80f006))
+
 ## [1.16.0](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.15.1...v1.16.0) (2026-07-18)
 
 

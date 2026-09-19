@@ -88,7 +88,7 @@ VEHICLE_PANEL_EDIT_TYPE Edit Vehicle Type
 VEHICLE_PANEL_EDIT_TYPE_TOOLTIP Edit this vehicle type with the Vehicle Editor.
 VEHICLE_PANEL_STATUS_NEXT_STOP Next stop:
 VEHICLE_PANEL_STATUS_UNBUNCHING Unbunching in progress
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Last stop passenger exchange: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Last stop passenger exchange: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Passengers:
 VEHICLE_PANEL_EARNINGS Earnings:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Result of ticket sells minus vehicle maintenance cost.

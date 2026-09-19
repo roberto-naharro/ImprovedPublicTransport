@@ -81,7 +81,7 @@ VEHICLE_EDITOR_MAINTENANCE Custo de manutenção
 VEHICLE_EDITOR_TICKET_PRICE Valor da passagem
 VEHICLE_LIST_BOX_ROW_TOOLTIP1 Butão direito do mouse para seguir esse veículo.\nSegurar Shift ao clicar também dará zoom.
 VEHICLE_LIST_BOX_ROW_TOOLTIP2 Shift + clique adicionará o veículo a fila.
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Trocas na parada anterior: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Trocas na parada anterior: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Passageiros:
 VEHICLE_PANEL_EARNINGS Lucro:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Resultado das passagens vendidas menos custo de manutenção.

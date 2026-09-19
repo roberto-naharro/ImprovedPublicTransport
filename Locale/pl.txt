@@ -88,7 +88,7 @@ VEHICLE_PANEL_EDIT_TYPE Zmodyfikuj typ pojazdów
 VEHICLE_PANEL_EDIT_TYPE_TOOLTIP Otwiera wybrany typ pojazdów w Edytorze Pojazdów.
 VEHICLE_PANEL_STATUS_NEXT_STOP Następny przystanek:
 VEHICLE_PANEL_STATUS_UNBUNCHING Unbunching w toku
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Ostatni przystanek: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Ostatni przystanek: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Pasażerowie:
 VEHICLE_PANEL_EARNINGS Zarobki:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Zarobki ze sprzedaży biletów po odjęciu kosztów utrzymania pojazdu.

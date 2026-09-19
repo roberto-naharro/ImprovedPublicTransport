@@ -86,7 +86,7 @@ VEHICLE_PANEL_EDIT_TYPE 차량 에디터 실행
 VEHICLE_PANEL_EDIT_TYPE_TOOLTIP 차량 에디터를 통해 이 차종을 설정 할 수 있습니다.
 VEHICLE_PANEL_STATUS_NEXT_STOP 다음 정거장 :
 VEHICLE_PANEL_STATUS_UNBUNCHING 차량 간격 유지상태
-VEHICLE_PANEL_LAST_STOP_EXCHANGE 최근 정거장 승객 승하차량 : <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE 최근 정거장 승객 승하차량 : <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS 승객 수 :
 VEHICLE_PANEL_EARNINGS 수입 :
 VEHICLE_PANEL_EARNINGS_TOOLTIP 요금 수입과 차량 유지비를 뺀 합계입니다.

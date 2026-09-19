@@ -81,7 +81,7 @@ VEHICLE_EDITOR_MAINTENANCE Costo di mantenimento
 VEHICLE_EDITOR_TICKET_PRICE Prezzo del bigletto
 VEHICLE_LIST_BOX_ROW_TOOLTIP1 Tasto destro per seguire questo veicolo.\nQuando clicchi tieni premuto il tasto Shift per ingrandire.
 VEHICLE_LIST_BOX_ROW_TOOLTIP2 Shift + click per accodare questo veicolo.
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Ultima fermata: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Ultima fermata: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Passeggeri:
 VEHICLE_PANEL_EARNINGS Guadagno:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Risultato della vendita dei biglietti meno il costo di manutenzione del veicolo.

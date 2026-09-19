@@ -88,7 +88,7 @@ VEHICLE_PANEL_EDIT_TYPE Bearbeite Fahrzeugtyp
 VEHICLE_PANEL_EDIT_TYPE_TOOLTIP Bearbeite diesen Fahrzeugtyp mit dem Fahrzeugeditor.
 VEHICLE_PANEL_STATUS_NEXT_STOP Nächster Halt:
 VEHICLE_PANEL_STATUS_UNBUNCHING Abstandskontrolle im Gange
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Passagieränderung an der letzten Haltestelle: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Passagieränderung an der letzten Haltestelle: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Passagiere:
 VEHICLE_PANEL_EARNINGS Einnahmen:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Ergebnis aus Fahrpreisen und Wartungskosten.

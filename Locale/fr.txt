@@ -86,7 +86,7 @@ VEHICLE_PANEL_EDIT_TYPE Ouvrir l'éditeur de véhicule
 VEHICLE_PANEL_EDIT_TYPE_TOOLTIP Modifier les véhicules.
 VEHICLE_PANEL_STATUS_NEXT_STOP Arrêt suivant:
 VEHICLE_PANEL_STATUS_UNBUNCHING Distance des véhicules en cours
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Mouvements au dernier arrêt: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Mouvements au dernier arrêt: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Passagers/Capacité:
 VEHICLE_PANEL_EARNINGS Rentabilité:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Différence entre les tickets achetés et les coûts de maintenance.

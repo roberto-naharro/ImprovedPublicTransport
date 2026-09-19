@@ -86,7 +86,7 @@ VEHICLE_PANEL_EDIT_TYPE Редактировать транспортное ср
 VEHICLE_PANEL_EDIT_TYPE_TOOLTIP Редактировать это транспортное средства в Редакторе Транспорта
 VEHICLE_PANEL_STATUS_NEXT_STOP Следующая остановка:
 VEHICLE_PANEL_STATUS_UNBUNCHING Распределение в процессе
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Пассажиропоток на предыдущей остановке: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Пассажиропоток на предыдущей остановке: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Пассажиры:
 VEHICLE_PANEL_EARNINGS Прибыль:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Разница между прибылью от продажи билетов и стоимостью обслуживания.

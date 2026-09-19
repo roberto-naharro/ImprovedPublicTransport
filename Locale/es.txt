@@ -86,7 +86,7 @@ VEHICLE_PANEL_EDIT_TYPE Editar modelo
 VEHICLE_PANEL_EDIT_TYPE_TOOLTIP Modifica este modelo de vehículo con el Editor de vehículos
 VEHICLE_PANEL_STATUS_NEXT_STOP Siguiente parada:
 VEHICLE_PANEL_STATUS_UNBUNCHING Desagrupación en proceso
-VEHICLE_PANEL_LAST_STOP_EXCHANGE Intercambio de pasajeros en la parada anterior: <color #FF0000>-{0}</color> | <color #00FF00>+{1}</color>
+VEHICLE_PANEL_LAST_STOP_EXCHANGE Intercambio de pasajeros en la parada anterior: <color #FF7070>-{0}</color> | <color #00FF00>+{1}</color>
 VEHICLE_PANEL_PASSENGERS Pasajeros:
 VEHICLE_PANEL_EARNINGS Balance:
 VEHICLE_PANEL_EARNINGS_TOOLTIP Diferencia de los ingresos obtenidos con la venta de billetes menos el coste de mantenimiento del vehículo

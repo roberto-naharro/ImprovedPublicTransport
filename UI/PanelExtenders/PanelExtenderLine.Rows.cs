@@ -380,7 +380,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             // keep their fare with School Buses (free school service) — don't paste a price onto them.
             if (_ticketPriceSlider != null && !SchoolBusesUtil.IsSchoolLine(lineId))
             {
-                _ticketPriceSlider.value = CopyPaste.Instance.CopiedTicketPrice;
+                SetTicketSliderSilently(CopyPaste.Instance.CopiedTicketPrice);
                 RefreshTicketPriceLabel();
             }
         }

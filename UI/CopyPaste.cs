@@ -83,7 +83,11 @@ namespace ImprovedPublicTransport2.UI
                 CachedTransportLineData.SetTargetVehicleCount(lineID, count);
                 CachedTransportLineData.SetDepot(lineID, targetDepot);
                 CachedTransportLineData.SetPrefabs(lineID, prefabs);
-                Singleton<TransportManager>.instance.m_lines.m_buffer[lineID].m_ticketPrice = ticket;
+                ushort typeDefault = info != null ? (ushort) Mathf.Clamp(info.m_ticketPrice, 0, ushort.MaxValue) : (ushort) 0;
+                if (ticket == typeDefault)
+                    TicketPriceUtil.ResetLineTicketPrice(lineID);
+                else
+                    TicketPriceUtil.SetLineTicketPrice(lineID, ticket);
                 Log.Info("CopyPaste: pasted to line " + lineID + " (depot=" + targetDepot + ")");
             });
         }

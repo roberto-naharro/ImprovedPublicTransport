@@ -73,6 +73,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private UISlider _ticketPriceSlider;        // the slider inside that section (we widen its range to 0..max)
         private UILabel _ticketPriceLabel;          // vanilla value readout; we refresh it on open (vanilla only updates it on slider change)
         private UIButton _ticketRestoreButton;      // resets the line's ticket price to the transport type default
+        // Set while we move the slider ourselves, so only player changes mark the line's price as custom.
+        private bool _syncingTicketSlider;
         private UIButton _pasteButton;              // disabled until a line has been copied to the clipboard
 
         // --- our container row controls ---
@@ -126,6 +128,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private void OnDestroy()
         {
             _initialized = false;
+            if (_ticketPriceSlider != null)
+                _ticketPriceSlider.eventValueChanged -= OnTicketSliderChanged;
             if (_colorTextField != null)
             {
                 _colorField.eventSelectedColorReleased -= OnColorChanged;

@@ -79,6 +79,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                 // displayed price moves in 0.10 increments instead of whole currency units.
                 _ticketPriceSlider.stepSize = 10f;
                 _ticketPriceSlider.scrollWheelAmount = 10f; // mouse-wheel fine-tuning: ₡0.10 per notch
+                _ticketPriceSlider.eventValueChanged += OnTicketSliderChanged;
             }
             CreateTicketRestoreButton();
             // The slider's title label has no field; it's the leftover UILabel child of the block
@@ -300,8 +301,8 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
                     // when the line was created, then whatever the player set). Only on line change so
                     // it never fights an in-progress drag.
                     if (_ticketPriceSlider != null)
-                        _ticketPriceSlider.value =
-                            Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].m_ticketPrice;
+                        SetTicketSliderSilently(
+                            Singleton<TransportManager>.instance.m_lines.m_buffer[lineId].m_ticketPrice);
                 }
             }
             else
@@ -415,8 +416,34 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             // Drives the vanilla slider, whose eventValueChanged writes TransportLine.m_ticketPrice and
             // reformats the value label. Clear any IPTE/TPC customisation so the type default sticks.
             TicketPriceUtil.ResetLineTicketPrice(lineId);
-            _ticketPriceSlider.value = def;
+            SetTicketSliderSilently(def);
             RefreshTicketPriceLabel();
+        }
+
+        // A player change marks the price as custom, so it is saved with the line and re-applied
+        // every step (otherwise another mod resetting type prices on load would wipe it).
+        private void OnTicketSliderChanged(UIComponent component, float value)
+        {
+            if (_syncingTicketSlider)
+                return;
+            ushort lineId = WorldInfoCurrentLineIDQuery.Query(out _);
+            if (lineId == 0 || SchoolBusesUtil.IsSchoolLine(lineId))
+                return;
+            TicketPriceUtil.SetLineTicketPrice(lineId, (ushort) Mathf.Clamp(Mathf.RoundToInt(value), 0, ushort.MaxValue));
+        }
+
+        // Still fires vanilla's handler (writes m_ticketPrice, updates the label) but not ours.
+        private void SetTicketSliderSilently(float value)
+        {
+            _syncingTicketSlider = true;
+            try
+            {
+                _ticketPriceSlider.value = value;
+            }
+            finally
+            {
+                _syncingTicketSlider = false;
+            }
         }
 
         // The price moves in 0.10 steps, so show cents: value/100 as a decimal with the game's

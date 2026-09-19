@@ -301,20 +301,5 @@ namespace ImprovedPublicTransport2.Data
         {
             _lineData[lineID].Prefabs = null;
         }
-
-        public static string GetRandomPrefab(ushort lineID)
-        {
-            HashSet<string> prefabs = _lineData[lineID].Prefabs;
-            if (prefabs == null || prefabs.Count == 0)
-                return null;
-            int pick = UnityEngine.Random.Range(0, prefabs.Count);
-            int i = 0;
-            foreach (string name in prefabs)
-            {
-                if (i == pick) return name;
-                ++i;
-            }
-            return null;
-        }
     }
 }

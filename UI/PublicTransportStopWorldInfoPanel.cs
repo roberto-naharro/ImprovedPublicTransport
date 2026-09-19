@@ -656,7 +656,7 @@ namespace ImprovedPublicTransport2.UI
                 return Color.green;
             if ((double) num >= 25.0)
                 return Color.yellow;
-            return Color.red;
+            return ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
         }
 
         private ushort[] FindBuildings(Vector3 position)

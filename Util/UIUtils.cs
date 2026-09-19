@@ -11,6 +11,9 @@ namespace ImprovedPublicTransport2.Util
 {
   public static class UIUtils
   {
+    // Softer than Color.red, which is hard to read on the grey panel background.
+    public static readonly Color32 NegativeTextColor = new Color32(255, 112, 112, 255);
+
     private static UIFont _font;
 
     public static UIFont Font

@@ -53,9 +53,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             ResizeStatsRow(r1, _lineCostCurrentWeek, _lineCostLastWeek, _lineCostAverage, statsPanel.width);
             r1.text = Localization.Get("VEHICLE_EDITOR_MAINTENANCE");
             r1.tooltip = Localization.Get("VEHICLE_EDITOR_MAINTENANCE");
-            _lineCostCurrentWeek.textColor = Color.red;
-            _lineCostLastWeek.textColor    = Color.red;
-            _lineCostAverage.textColor     = Color.red;
+            _lineCostCurrentWeek.textColor = ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
+            _lineCostLastWeek.textColor    = ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
+            _lineCostAverage.textColor     = ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
 
             _lineShareRow = PublicTransportStopWorldInfoPanel.CreateStatisticRow(statsPanel, out r1,
                 out _lineShareCurrentWeek, out _lineShareLastWeek, out _lineShareAverage, false);
@@ -63,9 +63,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             r1.text = Localization.Get("LINE_PANEL_COST_PER_LINE");
             r1.tooltip = Localization.Get("LINE_PANEL_COST_PER_LINE_TOOLTIP");
             _lineShareRowLabel = r1;
-            _lineShareCurrentWeek.textColor = Color.red;
-            _lineShareLastWeek.textColor    = Color.red;
-            _lineShareAverage.textColor     = Color.red;
+            _lineShareCurrentWeek.textColor = ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
+            _lineShareLastWeek.textColor    = ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
+            _lineShareAverage.textColor     = ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
             _lineStatsPanel = statsPanel;
         }
 
@@ -173,7 +173,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
         private static void SetBalanceCell(UILabel label, int gameUnits)
         {
             label.text = FormatMoney(gameUnits);
-            label.textColor = gameUnits >= 0 ? Color.green : Color.red;
+            label.textColor = gameUnits >= 0 ? (Color32) Color.green : ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
         }
 
         // Keeps the stats table just below whichever is lower: the button container, the vehicle-count

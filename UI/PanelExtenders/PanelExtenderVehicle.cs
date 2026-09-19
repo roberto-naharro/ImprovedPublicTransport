@@ -446,7 +446,7 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
     {
       if ((double) value >= 0.0)
         return Color.green;
-      return Color.red;
+      return ImprovedPublicTransport2.Util.UIUtils.NegativeTextColor;
     }
   }
 }

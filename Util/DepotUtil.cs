@@ -39,7 +39,8 @@ namespace ImprovedPublicTransport2.Util
 
         public static bool IsValidDepot(ushort depotID, TransportInfo transportInfo)
         {
-            if (transportInfo == null || depotID == 0)
+            if (transportInfo == null || depotID == 0 ||
+                transportInfo.m_vehicleReason == TransferManager.TransferReason.None)
             {
                 return false;
             }
@@ -55,13 +56,16 @@ namespace ImprovedPublicTransport2.Util
             ItemClass.Service service;
             ItemClass.SubService subService;
             ItemClass.Level level;
-            if (transportInfo.m_vehicleType == primaryInfo?.m_vehicleType)
+            // Match on the transfer reason, not the vehicle type: DepotAI.StartTransfer only spawns
+            // when the requested reason equals the depot's own, and bus, taxi, intercity and
+            // sightseeing bus infos all share VehicleType.Car (taxi depots used to pass for bus lines).
+            if (primaryInfo != null && primaryInfo.m_vehicleReason == transportInfo.m_vehicleReason)
             {
                 service = primaryInfo.GetService();
                 subService = primaryInfo.GetSubService();
                 level = primaryInfo.GetClassLevel();
             }
-            else if (transportInfo.m_vehicleType == secondaryInfo?.m_vehicleType && transportInfo.m_vehicleType != VehicleInfo.VehicleType.Car)
+            else if (secondaryInfo != null && secondaryInfo.m_vehicleReason == transportInfo.m_vehicleReason)
             {
                 service = secondaryInfo.GetService();
                 subService = secondaryInfo.GetSubService();

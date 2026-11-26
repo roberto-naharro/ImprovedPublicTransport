@@ -79,6 +79,14 @@ namespace ImprovedPublicTransport2.HarmonyPatches.DepotAIPatches
             // Redirect: spawn from the chosen depot instead. Re-invoking StartTransfer re-enters this
             // prefix; on re-entry depot == buildingID, so the original runs on the chosen depot's own AI.
             ref Building depotBuilding = ref BuildingManager.instance.m_buildings.m_buffer[depot];
+
+            // An inactive depot (no power, water or workers, or switched off) offers no vehicles, and
+            // vanilla sends any bus whose source is inactive straight back (BusAI.ShouldReturnToSource).
+            // Forcing the spawn there made the line spawn and recall vehicles in a loop, so let vanilla
+            // pick an active depot until the chosen one is running again.
+            if ((depotBuilding.m_flags & Building.Flags.Active) == Building.Flags.None)
+                return true;
+
             var depotAI = depotBuilding.Info?.m_buildingAI as DepotAI;
             if (depotAI == null)
                 return true; // safety: target isn't a depot AI -> vanilla

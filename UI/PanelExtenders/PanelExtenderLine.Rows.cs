@@ -175,7 +175,9 @@ namespace ImprovedPublicTransport2.UI.PanelExtenders
             _depotDropDown.AddItems(withAuto, IDToName);
 
             ushort current = CachedTransportLineData.GetDepot(lineId);
-            if (current == 0)
+            // A pinned depot that no longer serves the line (e.g. a taxi depot picked before depots were
+            // filtered by transfer reason) already spawns as Auto, so show Auto rather than "Default".
+            if (current == 0 || Array.IndexOf(depots, current) < 0)
                 _depotDropDown.SelectedIndex = 0; // Auto row (SelectedItem setter would no-op at 0)
             else
                 _depotDropDown.SelectedItem = current;

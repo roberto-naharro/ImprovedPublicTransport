@@ -98,7 +98,9 @@ The redirect is a prefix on `DepotAI.StartTransfer` that runs *before* the vehic
 re-points the spawn to the pinned depot, with no extra spawn throttle. Depotless transport types
 (metro, monorail, train) hide the selector. The pinned depot persists across save/load (schema
 `v007`). If a pinned depot is later demolished or can no longer serve the line, the line falls back
-to Auto automatically.
+to Auto automatically. While a pinned depot is inactive (no power, water or workers, or switched
+off), the line spawns from the nearest active depot instead and returns to the pinned one once it is
+running again.
 
 ### Per-line ticket price
 
@@ -258,7 +260,8 @@ descriptors. This makes the patch list deterministic and avoids scanning the ent
 | `ReleaseNodePatch` | `NetManager.ReleaseNode` | postfix | Clear `CachedNodeData` entry when a stop is deleted |
 | `ReleaseWaterSourcePatch` | `VehicleManager` | postfix | Clear `CachedVehicleData` entry when a vehicle is despawned; clears the join flag (`CachedVehicleData.MarkLeft`) |
 | `ClassMatchesPatch` | `DepotAI.ClassMatches` | prefix | Depot accepts both Level1 and Level2 bus assets |
-| `StartTransferPatch` | `DepotAI.StartTransfer` | prefix | Re-point a line's spawn to its pinned depot (before the vehicle selector). Stands down when TLM is present |
+| `StartTransferPatch` | `DepotAI.StartTransfer` | prefix | Re-point a line's spawn to its pinned depot (before the vehicle selector) while that depot is active. Stands down when TLM is present |
+| `CheckTransportLineVehiclesPatch` | `TransportManager.CheckTransportLineVehicles` | prefix | When a depot or station is built, skips the vanilla whole-fleet replacement for lines with selected vehicle models |
 | `EnterVehiclePatch` | `HumanAI.EnterVehicle` | postfix | Record each rider's fare premium (paid − type default) against their home building, for the happiness consequence |
 | `GetTaxRatePatch` | `EconomyManager.GetTaxRate` (leaf overload) | postfix | Add the fare-driven rate bump to the internal tax rate, but only inside a consequence window |
 | `UpdateWellbeingPatch` | `ResidentAI.UpdateWellbeing` | prefix + postfix | Open/close the consequence window so vanilla derives wellbeing from the bumped rate |

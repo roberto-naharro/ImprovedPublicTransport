@@ -131,6 +131,7 @@ namespace ImprovedPublicTransport2
                     LocaleModifier.Init();
                     GetLineVehiclePatch.Apply();
                     GetVehicleInfoPatch.Apply();
+                    HarmonyPatches.TransportManagerPatches.CheckTransportLineVehiclesPatch.Apply();
 
                     var prefabPanelObject = new GameObject("PrefabPanel");
                     prefabPanelObject.transform.parent = objectOfType.transform;
@@ -218,6 +219,7 @@ namespace ImprovedPublicTransport2
             CanLeaveStopPatch.UndoEBS();
             GetLineVehiclePatch.Undo();
             GetVehicleInfoPatch.Undo();
+            HarmonyPatches.TransportManagerPatches.CheckTransportLineVehiclesPatch.Undo();
             CachedTransportLineData.Deinit();
 
             CachedNodeData.Deinit();

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.3](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.16.2...v1.16.3) (2026-11-26)
+
+
+### Bug Fixes
+
+* hide taxi depots from bus lines and stop vehicle respawn loops ([ae466ef](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/ae466ef17c25ad105a7d5753599d2a247c582325)), closes [#36](https://github.com/roberto-naharro/ImprovedPublicTransport/issues/36)
+
 ## [1.16.2](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.16.1...v1.16.2) (2026-11-26)
 
 

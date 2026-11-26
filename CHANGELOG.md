@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.2](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.16.1...v1.16.2) (2026-11-26)
+
+
+### Bug Fixes
+
+* build against Cities: Skylines 1.21.2-f5 (Estates and Escapes) ([8e3aadf](https://github.com/roberto-naharro/ImprovedPublicTransport/commit/8e3aadfc49459dbfbcf4ee8c21b22adc78f6e557))
+
 ## [1.16.1](https://github.com/roberto-naharro/ImprovedPublicTransport/compare/v1.16.0...v1.16.1) (2026-09-19)
 
 

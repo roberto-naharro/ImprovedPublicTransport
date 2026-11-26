@@ -1,6 +1,6 @@
 [h1]IPT Essentials[/h1]
 
-Community revival of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=928128676]Improved Public Transport 2[/url] by [url=https://github.com/bloodypenguin]BloodyPenguin[/url], updated for Cities: Skylines 1.21.x. Own line management well; let specialist mods handle everything else.
+Community revival of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=928128676]Improved Public Transport 2[/url] by [url=https://github.com/bloodypenguin]BloodyPenguin[/url], updated for Cities: Skylines 1.21.2-f5 (the Estates and Escapes update). Own line management well; let specialist mods handle everything else.
 
 [b]► Source code & issues:[/b] [url=https://github.com/roberto-naharro/ImprovedPublicTransport]github.com/roberto-naharro/ImprovedPublicTransport[/url]
 

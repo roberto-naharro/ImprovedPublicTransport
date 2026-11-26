@@ -1,11 +1,11 @@
 # IPT Essentials
 
-A lean update of **Improved Public Transport 2** for Cities: Skylines 1.21.x, keeping only
+A lean update of **Improved Public Transport 2** for Cities: Skylines 1.21.2-f5, keeping only
 the features that are still genuinely missing from the base game and the modern mod ecosystem.
 
 **IPT Essentials** is a community-maintained fork of the original
 [Improved Public Transport 2](https://github.com/bloodypenguin/ImprovedPublicTransport)
-by [BloodyPenguin](https://github.com/bloodypenguin), updated to run on Cities: Skylines 1.21.x.
+by [BloodyPenguin](https://github.com/bloodypenguin), updated to run on Cities: Skylines 1.21.2-f5.
 
 [Report a bug](https://github.com/roberto-naharro/ImprovedPublicTransport/issues) ·
 [GitHub](https://github.com/roberto-naharro/ImprovedPublicTransport)
@@ -414,7 +414,7 @@ VehicleSelector remains compatible if you prefer its building-level workflow, bu
 
 ## Compatibility
 
-**Compatible with Cities: Skylines 1.21.x.**
+**Compatible with Cities: Skylines 1.21.2-f5 (the Estates and Escapes update).**
 
 Works alongside: TM:PE, Advanced Vehicle Options, Express Bus Services, VehicleSelector, Public
 Transport Unstucker, Advanced Stop Selection Revisited, Call Again, Transfer Manager CE, Carriage
